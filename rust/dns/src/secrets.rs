@@ -1,4 +1,4 @@
-use std::{fs::File, io::Read};
+use std::{fs::File, io::prelude::*};
 
 use serde::Deserialize;
 
