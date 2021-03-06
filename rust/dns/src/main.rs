@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 fn main() -> anyhow::Result<()> {
     let secrets = Secrets::load()?;
-    println!("{:?}", secrets);
+    println!("API token: {}", secrets.dns.api_token);
     Ok(())
 }
 
