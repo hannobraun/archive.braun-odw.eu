@@ -1,5 +1,5 @@
-# DNS
-/dns/secrets.toml
+# Secret configuration
+/secrets.toml
 
 # Cargo
 /target
