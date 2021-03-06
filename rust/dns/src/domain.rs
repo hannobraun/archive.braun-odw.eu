@@ -1,4 +1,4 @@
-use std::{fs::File, io::prelude::*};
+use std::{fs::File, io::prelude::*, path::Path};
 
 use serde::Deserialize;
 
@@ -8,9 +8,12 @@ pub struct Domain {
 }
 
 impl Domain {
-    pub fn load() -> anyhow::Result<Self> {
+    pub fn load(name: &str) -> anyhow::Result<Self> {
+        let name = format!("{}.toml", name);
+        let path = Path::new("dns").join(name);
+
         let mut domain = Vec::new();
-        File::open("dns/braun-odw.eu.toml")?.read_to_end(&mut domain)?;
+        File::open(path)?.read_to_end(&mut domain)?;
         let domain = toml::from_slice(&domain)?;
 
         Ok(domain)
