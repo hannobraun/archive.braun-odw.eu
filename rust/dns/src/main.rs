@@ -10,5 +10,8 @@ fn main() -> anyhow::Result<()> {
     println!("API token: {}", secrets.dns.api_token);
     println!("Domain ID: {}", domain.id);
 
+    // TASK: Validate zone file.
+    // TASK: Upload zone file.
+
     Ok(())
 }

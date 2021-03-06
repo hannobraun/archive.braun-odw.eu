@@ -5,6 +5,8 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct Domain {
     pub id: String,
+    // TASK: Add field for zone file, but don't deserialize it with Serde. Load
+    //       it manually.
 }
 
 impl Domain {
