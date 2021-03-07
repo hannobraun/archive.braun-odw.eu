@@ -1,6 +1,8 @@
-use std::{fs::File, io::prelude::*, path::Path};
+use std::path::Path;
 
 use serde::Deserialize;
+
+use crate::util;
 
 #[derive(Debug, Deserialize)]
 pub struct Domain {
@@ -14,10 +16,7 @@ impl Domain {
         let name = format!("{}.toml", name);
         let path = Path::new("dns").join(name);
 
-        let mut domain = Vec::new();
-        File::open(path)?.read_to_end(&mut domain)?;
-        let domain = toml::from_slice(&domain)?;
-
+        let domain = util::load_toml(path)?;
         Ok(domain)
     }
 }

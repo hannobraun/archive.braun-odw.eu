@@ -1,6 +1,6 @@
-use std::{fs::File, io::prelude::*};
-
 use serde::Deserialize;
+
+use crate::util::load_toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
@@ -9,10 +9,7 @@ pub struct Secrets {
 
 impl Secrets {
     pub fn load() -> anyhow::Result<Self> {
-        let mut secrets = Vec::new();
-        File::open("secrets.toml")?.read_to_end(&mut secrets)?;
-        let secrets = toml::from_slice(&secrets)?;
-
+        let secrets = load_toml("secrets.toml")?;
         Ok(secrets)
     }
 }

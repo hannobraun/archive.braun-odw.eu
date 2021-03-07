@@ -1,5 +1,6 @@
 mod domain;
 mod secrets;
+mod util;
 
 use self::{domain::Domain, secrets::Secrets};
 
