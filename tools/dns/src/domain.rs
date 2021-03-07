@@ -7,8 +7,13 @@ use crate::util;
 #[derive(Debug, Deserialize)]
 pub struct Domain {
     pub id: String,
-    // TASK: Add field for zone file, but don't deserialize it with Serde. Load
-    //       it manually.
+
+    /// The contents of the zone file
+    ///
+    /// This isn't deserialized from the TOML file using Serde, but instead
+    /// loaded manually in [`Domain::load`].
+    #[serde(skip)]
+    pub zone: String,
 }
 
 impl Domain {
@@ -17,6 +22,8 @@ impl Domain {
         let path = Path::new("dns").join(name);
 
         let domain = util::load_toml(path)?;
+        // TASK: Load zone file.
+
         Ok(domain)
     }
 }
