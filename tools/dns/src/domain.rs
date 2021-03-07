@@ -19,9 +19,7 @@ pub struct Domain {
 impl Domain {
     pub fn load(name: &str) -> anyhow::Result<Self> {
         let base = Path::new("dns");
-
-        let toml = format!("{}.toml", name);
-        let toml = base.join(toml);
+        let toml = base.join(format!("{}.toml", name));
 
         let domain = util::load_toml(toml)?;
         // TASK: Load zone file.
