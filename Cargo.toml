@@ -1,2 +1,2 @@
 [workspace]
-members = ["rust/dns"]
+members = ["tools/dns"]
