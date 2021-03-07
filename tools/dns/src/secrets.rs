@@ -9,7 +9,8 @@ pub struct Secrets {
 
 impl Secrets {
     pub fn load() -> anyhow::Result<Self> {
-        let secrets = load_toml("secrets.toml")?;
+        let path = "secrets.toml";
+        let secrets = load_toml(path)?;
         Ok(secrets)
     }
 }
