@@ -1,3 +1,4 @@
+use anyhow::Context as _;
 use serde::Deserialize;
 
 use crate::util::load_toml;
@@ -10,7 +11,9 @@ pub struct Secrets {
 impl Secrets {
     pub fn load() -> anyhow::Result<Self> {
         let path = "secrets.toml";
-        let secrets = load_toml(path)?;
+        let secrets = load_toml(path).with_context(|| {
+            format!("Failed to load secrets from `{}`", path)
+        })?;
         Ok(secrets)
     }
 }
