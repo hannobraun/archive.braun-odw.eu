@@ -14,10 +14,11 @@ fn main() -> anyhow::Result<()> {
     let response = client
         .post("https://dns.hetzner.com/api/v1/zones/file/validate")
         .header("Auth-API-Token", secrets.dns.api_token)
+        .header("Content-Type", "text/plain")
+        .body(domain.zone)
         .send()?;
     println!("{} {}", response.status(), response.text()?);
 
-    // TASK: Validate zone file.
     // TASK: Upload zone file.
 
     Ok(())
