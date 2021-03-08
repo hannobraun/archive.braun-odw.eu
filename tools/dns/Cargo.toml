@@ -6,8 +6,9 @@ edition = "2018"
 
 
 [dependencies]
-anyhow = "*"
-toml   = "*"
+anyhow  = "*"
+reqwest = "*"
+toml    = "*"
 
 [dependencies.serde]
 version  = "*"
