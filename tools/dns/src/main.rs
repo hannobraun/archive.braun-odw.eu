@@ -14,6 +14,7 @@ fn main() -> anyhow::Result<()> {
     let client = reqwest::blocking::Client::new();
     let response = client
         .post("https://dns.hetzner.com/api/v1/zones/file/validate")
+        .header("Auth-API-Token", secrets.dns.api_token)
         .send()?;
     println!("{} {}", response.status(), response.text()?);
 
