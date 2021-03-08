@@ -1,3 +1,6 @@
+use anyhow::bail;
+use reqwest::StatusCode;
+
 pub fn validate_zone(api_token: String, zone: String) -> anyhow::Result<()> {
     let client = reqwest::blocking::Client::new();
     let response = client
@@ -7,7 +10,13 @@ pub fn validate_zone(api_token: String, zone: String) -> anyhow::Result<()> {
         .body(zone)
         .send()?;
 
-    println!("{} {}", response.status(), response.text()?);
+    if response.status() != StatusCode::OK {
+        bail!(
+            "Zone not validated: {} {}",
+            response.status(),
+            response.text()?
+        );
+    }
 
     Ok(())
 }
