@@ -8,7 +8,6 @@ fn main() -> anyhow::Result<()> {
     let secrets = Secrets::load()?;
     let domain = Domain::load("braun-odw.eu")?;
 
-    println!("API token: {}", secrets.dns.api_token);
     println!("Domain ID: {}", domain.id);
 
     let client = reqwest::blocking::Client::new();
