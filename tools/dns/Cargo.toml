@@ -7,8 +7,11 @@ edition = "2018"
 
 [dependencies]
 anyhow  = "*"
-reqwest = "*"
 toml    = "*"
+
+[dependencies.reqwest]
+version  = "*"
+features = ["blocking"]
 
 [dependencies.serde]
 version  = "*"
