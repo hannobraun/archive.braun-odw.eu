@@ -5,7 +5,7 @@ use crate::util::load_toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
-    pub dns: Dns,
+    pub domains: Dns,
 }
 
 impl Secrets {
