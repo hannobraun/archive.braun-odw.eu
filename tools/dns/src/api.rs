@@ -4,6 +4,10 @@ use reqwest::StatusCode;
 pub struct Api;
 
 impl Api {
+    pub fn new() -> Self {
+        Self
+    }
+
     pub fn validate_zone(
         &self,
         api_token: String,
