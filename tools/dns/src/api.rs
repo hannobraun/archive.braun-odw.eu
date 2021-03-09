@@ -5,6 +5,7 @@ pub struct Api;
 
 impl Api {
     pub fn validate_zone(
+        &self,
         api_token: String,
         zone: String,
     ) -> anyhow::Result<()> {

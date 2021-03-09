@@ -11,7 +11,7 @@ fn main() -> anyhow::Result<()> {
 
     println!("Domain ID: {}", domain.id);
 
-    Api::validate_zone(secrets.dns.api_token, domain.zone)?;
+    Api.validate_zone(secrets.dns.api_token, domain.zone)?;
 
     // TASK: Upload zone file.
 
