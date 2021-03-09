@@ -1,11 +1,14 @@
 use anyhow::bail;
 use reqwest::StatusCode;
 
-pub struct Api;
+pub struct Api {
+    client: reqwest::blocking::Client,
+}
 
 impl Api {
     pub fn new() -> Self {
-        Self
+        let client = reqwest::blocking::Client::new();
+        Self { client }
     }
 
     pub fn validate_zone(
@@ -13,8 +16,8 @@ impl Api {
         api_token: String,
         zone: String,
     ) -> anyhow::Result<()> {
-        let client = reqwest::blocking::Client::new();
-        let response = client
+        let response = self
+            .client
             .post("https://dns.hetzner.com/api/v1/zones/file/validate")
             .header("Auth-API-Token", api_token)
             .header("Content-Type", "text/plain")
