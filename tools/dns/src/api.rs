@@ -31,4 +31,27 @@ impl Api {
 
         Ok(())
     }
+
+    pub fn upload_zone(&self, id: &str, zone: String) -> anyhow::Result<()> {
+        let path =
+            format!("https://dns.hetzner.com/api/v1/zones/{}/import", id);
+
+        let response = self
+            .client
+            .post(&path)
+            .header("Auth-API-Token", &self.api_token)
+            .header("Content-Type", "text/plain")
+            .body(zone)
+            .send()?;
+
+        if response.status() != StatusCode::OK {
+            bail!(
+                "Zone not uploaded: {} {}",
+                response.status(),
+                response.text()?
+            );
+        }
+
+        Ok(())
+    }
 }

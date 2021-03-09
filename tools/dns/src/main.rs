@@ -12,9 +12,8 @@ fn main() -> anyhow::Result<()> {
     println!("Domain ID: {}", domain.id);
 
     let api = Api::new(secrets.dns.api_token);
-    api.validate_zone(domain.zone)?;
-
-    // TASK: Upload zone file.
+    api.validate_zone(domain.zone.clone())?;
+    api.upload_zone(&domain.id, domain.zone)?;
 
     Ok(())
 }
