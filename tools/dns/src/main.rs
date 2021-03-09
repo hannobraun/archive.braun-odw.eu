@@ -3,7 +3,7 @@ mod domain;
 mod secrets;
 mod util;
 
-use self::{api::validate_zone, domain::Domain, secrets::Secrets};
+use self::{api::Api, domain::Domain, secrets::Secrets};
 
 fn main() -> anyhow::Result<()> {
     let secrets = Secrets::load()?;
@@ -11,7 +11,7 @@ fn main() -> anyhow::Result<()> {
 
     println!("Domain ID: {}", domain.id);
 
-    validate_zone(secrets.dns.api_token, domain.zone)?;
+    Api::validate_zone(secrets.dns.api_token, domain.zone)?;
 
     // TASK: Upload zone file.
 
