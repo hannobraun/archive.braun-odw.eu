@@ -5,7 +5,7 @@ use crate::util::load_toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
-    pub domains: Dns,
+    pub domains: Domains,
 }
 
 impl Secrets {
@@ -19,7 +19,7 @@ impl Secrets {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Dns {
+pub struct Domains {
     #[serde(rename = "api-token")]
     pub api_token: String,
 }
