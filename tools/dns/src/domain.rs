@@ -18,7 +18,7 @@ pub struct Domain {
 
 impl Domain {
     pub fn load(name: &str) -> anyhow::Result<Self> {
-        let base = Path::new("dns");
+        let base = Path::new("domains");
         let toml = base.join(format!("{}.toml", name));
         let zone = base.join(format!("{}.zone", name));
 
