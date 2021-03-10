@@ -1,0 +1,6 @@
+- NixOS
+  - Manual: https://nixos.org/manual/nixos/stable/
+  - Automatic upgrades: https://nixos.org/manual/nixos/stable/index.html#sec-upgrading-automatic
+- NixOps
+  - Repository: https://github.com/NixOS/nixops
+  - Manual: https://hydra.nixos.org/build/115931128/download/1/manual/manual.html
