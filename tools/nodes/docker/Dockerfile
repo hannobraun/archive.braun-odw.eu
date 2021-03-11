@@ -1,3 +1,3 @@
 FROM nixos/nix
 
-RUN echo "Hello, world!"
+ENTRYPOINT echo "Hello, world!"
