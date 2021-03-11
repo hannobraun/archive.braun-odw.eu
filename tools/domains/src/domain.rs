@@ -17,6 +17,7 @@ pub struct Domain {
 }
 
 impl Domain {
+    // TASK: Load all domains from a given directory instead.
     pub fn load(name: &str) -> anyhow::Result<Self> {
         let base = Path::new("domains");
         let toml = base.join(format!("{}.toml", name));
