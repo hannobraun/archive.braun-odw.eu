@@ -1,2 +1,5 @@
 [workspace]
-members = ["tools/domains"]
+members = [
+    "tools/domains",
+    "tools/nodes",
+]
