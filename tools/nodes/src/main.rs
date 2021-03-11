@@ -8,7 +8,7 @@ fn main() -> anyhow::Result<()> {
         .arg("nodes/")
         .status()?;
 
-    println!("{:?}", status);
+    println!("\n{}", status);
 
     Ok(())
 }
