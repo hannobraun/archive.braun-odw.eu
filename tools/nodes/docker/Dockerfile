@@ -1,3 +1,5 @@
 FROM nixos/nix
 
-ENTRYPOINT echo "Hello, world!"
+RUN nix-env -i nixops
+
+ENTRYPOINT which nixops
