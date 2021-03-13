@@ -5,4 +5,10 @@ FROM nixos/nix
 
 RUN nix-env -i nixops
 
-ENTRYPOINT which nixops
+ENV NIXOPS_STATE=deployments.nixops
+ENV NIXOPS_DEPLOYMENT=reineke
+
+COPY * nodes/
+RUN nixops create nodes/*.nix
+
+ENTRYPOINT nixops deploy
