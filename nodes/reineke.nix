@@ -1,3 +1,11 @@
+{
+  reineke =
+    { config, pkgs, ... }:
+    {
+      deployment.targetHost = "reineke.nodes.braun-odw.eu";
+    };
+}
+
 # TASK: Import basic configuration from server.
 # TASK: Deploy an SSH key, set up login into root using that key:
 #       - https://nixos.org/manual/nixos/stable/index.html#sec-ssh
