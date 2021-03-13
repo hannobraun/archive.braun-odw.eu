@@ -6,6 +6,7 @@ use crate::util::load_toml;
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
     pub domains: Domains,
+    // TASK: Add field for private SSH key.
 }
 
 impl Secrets {
