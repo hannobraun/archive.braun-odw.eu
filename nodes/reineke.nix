@@ -4,6 +4,7 @@
     {
       deployment = {
         targetHost = "reineke.nodes.braun-odw.eu";
+        # TASK: Set up private SSH key.
       };
     };
 }
