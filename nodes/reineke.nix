@@ -2,7 +2,9 @@
   reineke =
     { config, pkgs, ... }:
     {
-      deployment.targetHost = "reineke.nodes.braun-odw.eu";
+      deployment = {
+        targetHost = "reineke.nodes.braun-odw.eu";
+      };
     };
 }
 
