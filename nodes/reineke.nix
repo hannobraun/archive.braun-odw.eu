@@ -4,3 +4,5 @@
 #       - Search for "deployment.keys" in NixOps manual.
 # TASK: Set `users.mutableUsers` to `false`:
 #       https://nixos.org/manual/nixos/stable/index.html#sec-user-management
+# TASK: Set up automatic upgrades:
+#       https://nixos.org/manual/nixos/stable/index.html#sec-upgrading-automatic
