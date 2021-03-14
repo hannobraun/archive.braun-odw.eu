@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use anyhow::Context as _;
 use serde::Deserialize;
 
@@ -6,7 +8,7 @@ use crate::toml;
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
     pub domains: Domains,
-    // TASK: Add field for private SSH key.
+    pub nodes: HashMap<String, Node>,
 }
 
 impl Secrets {
@@ -23,4 +25,10 @@ impl Secrets {
 pub struct Domains {
     #[serde(rename = "api-token")]
     pub api_token: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Node {
+    #[serde(rename = "ssh-key")]
+    pub ssh_key: String,
 }

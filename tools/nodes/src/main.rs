@@ -1,6 +1,11 @@
 use std::process::Command;
 
+use util::secrets::Secrets;
+
 fn main() -> anyhow::Result<()> {
+    let secrets = Secrets::load()?;
+    println!("Private key: {}", secrets.nodes["reineke"].ssh_key);
+
     let name = "nodes-test";
 
     let status = Command::new("docker")
