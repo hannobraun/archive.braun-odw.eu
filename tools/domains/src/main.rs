@@ -1,8 +1,9 @@
 mod api;
 mod domain;
-mod secrets;
 
-use self::{api::Api, domain::Domain, secrets::Secrets};
+use util::secrets::Secrets;
+
+use self::{api::Api, domain::Domain};
 
 fn main() -> anyhow::Result<()> {
     let secrets = Secrets::load()?;
