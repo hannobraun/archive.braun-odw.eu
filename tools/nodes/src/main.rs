@@ -1,3 +1,5 @@
+mod secrets;
+
 use std::process::Command;
 
 fn main() -> anyhow::Result<()> {
