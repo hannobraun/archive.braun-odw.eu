@@ -7,7 +7,7 @@ publish = false
 
 
 [dependencies]
-anyhow  = "*"
+anyhow = "*"
 
 [dependencies.reqwest]
 version  = "*"
