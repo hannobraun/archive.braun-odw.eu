@@ -8,7 +8,6 @@ publish = false
 
 [dependencies]
 anyhow  = "*"
-toml    = "*"
 
 [dependencies.reqwest]
 version  = "*"
@@ -17,3 +16,6 @@ features = ["blocking"]
 [dependencies.serde]
 version  = "*"
 features = ["derive"]
+
+[dependencies.util]
+path = "../util"

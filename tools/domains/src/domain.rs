@@ -2,8 +2,6 @@ use std::{fs::File, io::prelude::*, path::Path};
 
 use serde::Deserialize;
 
-use crate::util;
-
 #[derive(Debug, Deserialize)]
 pub struct Domain {
     pub id: String,
@@ -23,7 +21,7 @@ impl Domain {
         let toml = base.join(format!("{}.toml", name));
         let zone = base.join(format!("{}.zone", name));
 
-        let mut domain: Self = util::load_toml(toml)?;
+        let mut domain: Self = util::toml::load_toml(toml)?;
         File::open(zone)?.read_to_string(&mut domain.zone)?;
 
         Ok(domain)

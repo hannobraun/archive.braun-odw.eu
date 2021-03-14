@@ -1,7 +1,6 @@
 mod api;
 mod domain;
 mod secrets;
-mod util;
 
 use self::{api::Api, domain::Domain, secrets::Secrets};
 
