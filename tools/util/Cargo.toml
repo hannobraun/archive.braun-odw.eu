@@ -6,5 +6,8 @@ edition = "2018"
 
 [dependencies]
 anyhow = "*"
-serde  = "*"
 toml   = "*"
+
+[dependencies.serde]
+version  = "*"
+features = ["derive"]
