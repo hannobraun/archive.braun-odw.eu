@@ -9,7 +9,7 @@ pub struct Secrets {
 impl Secrets {
     pub fn load() -> anyhow::Result<Self> {
         let path = "secrets.toml";
-        let secrets = util::toml::load_toml(path).with_context(|| {
+        let secrets = util::toml::load(path).with_context(|| {
             format!("Failed to load secrets from `{}`", path)
         })?;
         Ok(secrets)

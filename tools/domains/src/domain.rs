@@ -21,7 +21,7 @@ impl Domain {
         let toml = base.join(format!("{}.toml", name));
         let zone = base.join(format!("{}.zone", name));
 
-        let mut domain: Self = util::toml::load_toml(toml)?;
+        let mut domain: Self = util::toml::load(toml)?;
         File::open(zone)?.read_to_string(&mut domain.zone)?;
 
         Ok(domain)
