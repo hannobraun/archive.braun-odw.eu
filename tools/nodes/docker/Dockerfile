@@ -1,4 +1,4 @@
-# TASK: Define an ARG for the private ssh key, passt it via `--build-arg`:
+# TASK: Define an ARG for the private ssh key, pass it via `--build-arg`:
 #       https://docs.docker.com/engine/reference/builder/#arg
 
 FROM nixos/nix
