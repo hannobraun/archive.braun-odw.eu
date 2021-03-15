@@ -16,6 +16,7 @@ fn main() -> anyhow::Result<()> {
         .arg("tools/nodes/docker/Dockerfile")
         .arg("nodes/")
         .status()?;
+    // TASK: Abort, if command was unsuccessful.
 
     println!("\n{}\n\n", status);
 
