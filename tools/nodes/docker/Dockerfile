@@ -9,7 +9,7 @@ FROM nixos/nix
 ARG SSH_KEY
 ENV SSH_KEY=$SSH_KEY
 
-RUN nix-env -i nixops
+RUN nix-env --install nixops
 
 ENV NIXOPS_STATE=deployments.nixops
 ENV NIXOPS_DEPLOYMENT=reineke
