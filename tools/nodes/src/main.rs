@@ -9,9 +9,9 @@ fn main() -> anyhow::Result<()> {
 
     let status = Command::new("docker")
         .arg("build")
-        .arg("-t")
+        .arg("--tag")
         .arg(name)
-        .arg("-f")
+        .arg("--file")
         .arg("tools/nodes/docker/Dockerfile")
         .arg("--build-arg")
         .arg(format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key))
