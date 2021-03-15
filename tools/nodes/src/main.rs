@@ -4,7 +4,6 @@ use util::secrets::Secrets;
 
 fn main() -> anyhow::Result<()> {
     let secrets = Secrets::load()?;
-    println!("Private key: {}", secrets.nodes["reineke"].ssh_key);
 
     let name = "nodes-test";
 
@@ -14,6 +13,8 @@ fn main() -> anyhow::Result<()> {
         .arg(name)
         .arg("-f")
         .arg("tools/nodes/docker/Dockerfile")
+        .arg("--build-arg")
+        .arg(format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key))
         .arg("nodes/")
         .status()?;
     // TASK: Abort, if command was unsuccessful.
