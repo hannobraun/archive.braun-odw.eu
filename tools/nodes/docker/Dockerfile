@@ -1,5 +1,10 @@
 FROM nixos/nix
 
+RUN nix-env --install nixops
+
+ENV NIXOPS_STATE=deployments.nixops
+ENV NIXOPS_DEPLOYMENT=reineke
+
 # TASK: This isn't the recommended way to handle secrets like SSH keys. See:
 #       https://docs.docker.com/engine/reference/builder/#arg
 #
@@ -8,11 +13,6 @@ FROM nixos/nix
 #       it the proper way, of course.
 ARG SSH_KEY
 ENV SSH_KEY=$SSH_KEY
-
-RUN nix-env --install nixops
-
-ENV NIXOPS_STATE=deployments.nixops
-ENV NIXOPS_DEPLOYMENT=reineke
 
 COPY * nodes/
 RUN nixops create nodes/*.nix
