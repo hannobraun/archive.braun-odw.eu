@@ -1,6 +1,7 @@
 FROM nixos/nix
 
 RUN nix-env --install nixops
+RUN nix-env --install openssh
 
 ENV NIXOPS_STATE=deployments.nixops
 ENV NIXOPS_DEPLOYMENT=reineke
