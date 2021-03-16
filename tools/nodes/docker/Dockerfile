@@ -19,6 +19,6 @@ RUN chmod 0600 ~/.ssh/id_rsa
 RUN ssh-keyscan reineke.nodes.braun-odw.eu >> ~/.ssh/known_hosts
 
 COPY * nodes/
-RUN nixops create nodes/*.nix
+RUN nixops create nodes/reineke.nix
 
 ENTRYPOINT nixops deploy
