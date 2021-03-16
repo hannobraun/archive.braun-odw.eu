@@ -15,6 +15,7 @@ ENV NIXOPS_DEPLOYMENT=reineke
 ARG SSH_KEY
 RUN mkdir ~/.ssh
 RUN echo "${SSH_KEY}" > ~/.ssh/id_rsa
+RUN chmod 0600 ~/.ssh/id_rsa
 RUN ssh-keyscan reineke.nodes.braun-odw.eu >> ~/.ssh/known_hosts
 
 COPY * nodes/
