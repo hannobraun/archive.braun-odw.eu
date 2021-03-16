@@ -21,5 +21,4 @@ RUN ssh-keyscan reineke.nodes.braun-odw.eu >> ~/.ssh/known_hosts
 COPY * nodes/
 RUN nixops create nodes/*.nix
 
-ENTRYPOINT cat ~/.ssh/id_rsa
-# TASK: Add something like `ENTRYPOINT nixops deploy`.
+ENTRYPOINT nixops deploy
