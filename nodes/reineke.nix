@@ -6,6 +6,10 @@
         targetHost = "reineke.nodes.braun-odw.eu";
         # TASK: Set up private SSH key.
       };
+
+      imports = [
+        ./reineke-hardware.nix
+      ];
     };
 }
 
