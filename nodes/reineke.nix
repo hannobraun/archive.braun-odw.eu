@@ -10,10 +10,45 @@
       imports = [
         ./reineke-hardware.nix
       ];
+
+      boot.loader.grub = {
+        enable = true;
+        version = 2;
+        device = "/dev/sda";
+      };
+
+      time.timeZone = "UTC";
+
+      networking = {
+        hostName = "reineke";
+
+        interfaces.ens3 = {
+          useDHCP = true;
+
+          ipv6.addresses = [{
+            address = "2a01:4f8:1c1c:3385::2";
+            prefixLength = 64;
+          }];
+        };
+
+        defaultGateway6 = {
+          address = "fe80::1";
+          interface = "ens3";
+        };
+      };
+
+      services.openssh.enable = true;
+
+      # This value determines the NixOS release from which the default
+      # settings for stateful data, like file locations and database versions
+      # on your system were taken. It‘s perfectly fine and recommended to leave
+      # this value at the release version of the first install of this system.
+      # Before changing this value read the documentation for this option
+      # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+      system.stateVersion = "20.09"; # Did you read the comment?
     };
 }
 
-# TASK: Import basic configuration from server.
 # TASK: Set `users.mutableUsers` to `false`:
 #       https://nixos.org/manual/nixos/stable/index.html#sec-user-management
 # TASK: Set up automatic upgrades:
