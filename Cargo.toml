@@ -2,5 +2,6 @@
 members = [
     "tools/domains",
     "tools/nodes",
+    "tools/sites",
     "tools/util"
 ]
