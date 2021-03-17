@@ -1,6 +1,15 @@
+use std::net::SocketAddr;
+
+use warp::Filter as _;
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    println!("Hello, world!");
+    let hello = warp::path::end().map(|| format!("Hello, world!"));
+
+    // TASK: Also serve via IPv4.
+    let addr: SocketAddr = "[::1]:8000".parse()?;
+    warp::serve(hello).run(addr).await;
+
     Ok(())
 
     // TASK: Serve hanno.braun-odw.eu.
