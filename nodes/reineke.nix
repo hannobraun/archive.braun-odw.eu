@@ -4,7 +4,6 @@
     {
       deployment = {
         targetHost = "reineke.nodes.braun-odw.eu";
-        keys.root.text = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpUT/y8rl08ZxWUVIAj2LHh1dapmG8S6DqZLDaqKlBEhEj3w/DC3991+NA/3I8O9ITvwGeox3EC/WMNb0NYq1jgLACvIc+ig14b69U86HbVMcTJqyCkc0Bf/zgbEnH+HxzKsPGFBLjlISHIInwwquoxDCa3sR8LVuhCUc2YYiRcgIbXxUcwxlMrSrJuKmsfMDBdGACTK4AvgR7q7SXVjypCvU+joPmX9d8IKZRg59AQkWnZAdulNPF/xk53wSZlkNynh6JhWjU28x/1XUSkK+JHVKUoaQgRFmf9OdqmT7YCi9KfP6/ipAJcB41N1/zDwahIy6sGxtx+TjEPGKsGu2RJMKdjwXioMcQNgoHhuQhJZTiimnJJz5Y6DzUdgNsZkRHFmoinbZ71TFGGppLijMC173sOioMSToNuyHEJKu91bDDxJfaZE9DQCh4nGxEJYNxUwlO2YIMzFVHWyYQ5IpSi8CfWmnWIJTLltVQOzPnFMt5N1ZCIN/O0NYMHzPmjE8= root@reineke.nodes.braun-odw.eu";
       };
 
       imports = [
@@ -38,6 +37,19 @@
       };
 
       services.openssh.enable = true;
+
+      # The NixOS documentation states not to do this when using NixOps, because
+      # it overwrites the deployed by NixOps:
+      # https://nixos.org/manual/nixos/stable/options.html#opt-users.users._name_.openssh.authorizedKeys.keys
+      #
+      # However, I think this is exactly what we want here, as we don't want to
+      # deploy a key that NixOps generates per deployment (we're deploying from
+      # a Docker container right now, so having to persist this generated key
+      # would complicate things). Overwriting this generated key with this
+      # static one seems to do exactly what's needed.
+      users.users.root.openssh.authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpUT/y8rl08ZxWUVIAj2LHh1dapmG8S6DqZLDaqKlBEhEj3w/DC3991+NA/3I8O9ITvwGeox3EC/WMNb0NYq1jgLACvIc+ig14b69U86HbVMcTJqyCkc0Bf/zgbEnH+HxzKsPGFBLjlISHIInwwquoxDCa3sR8LVuhCUc2YYiRcgIbXxUcwxlMrSrJuKmsfMDBdGACTK4AvgR7q7SXVjypCvU+joPmX9d8IKZRg59AQkWnZAdulNPF/xk53wSZlkNynh6JhWjU28x/1XUSkK+JHVKUoaQgRFmf9OdqmT7YCi9KfP6/ipAJcB41N1/zDwahIy6sGxtx+TjEPGKsGu2RJMKdjwXioMcQNgoHhuQhJZTiimnJJz5Y6DzUdgNsZkRHFmoinbZ71TFGGppLijMC173sOioMSToNuyHEJKu91bDDxJfaZE9DQCh4nGxEJYNxUwlO2YIMzFVHWyYQ5IpSi8CfWmnWIJTLltVQOzPnFMt5N1ZCIN/O0NYMHzPmjE8= root@reineke.nodes.braun-odw.eu"
+      ];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
