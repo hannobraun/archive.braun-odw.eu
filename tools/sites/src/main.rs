@@ -1,4 +1,5 @@
-fn main() {
+#[tokio::main]
+async fn main() {
     println!("Hello, world!");
 
     // TASK: Serve hanno.braun-odw.eu.
