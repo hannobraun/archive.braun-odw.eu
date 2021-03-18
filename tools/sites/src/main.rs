@@ -6,9 +6,13 @@ use warp::Filter as _;
 async fn main() -> anyhow::Result<()> {
     let hello = warp::path::end().map(|| format!("Hello, world!"));
 
-    // TASK: Also serve via IPv4.
+    let ipv4: SocketAddr = "127.0.0.1:8000".parse()?;
+    let ipv4 = warp::serve(hello).run(ipv4);
+
     let ipv6: SocketAddr = "[::1]:8000".parse()?;
-    warp::serve(hello).run(ipv6).await;
+    let ipv6 = warp::serve(hello).run(ipv6);
+
+    tokio::join!(ipv4, ipv6);
 
     Ok(())
 
