@@ -6,8 +6,11 @@ use warp::{Filter, Rejection, Reply};
 async fn main() -> anyhow::Result<()> {
     let hello = warp::path::end().map(|| format!("Hello, world!"));
 
-    let ipv4 = serve(hello, "127.0.0.1".parse()?);
-    let ipv6 = serve(hello, "::1".parse()?);
+    let ipv4 = "127.0.0.1".parse()?;
+    let ipv6 = "::1".parse()?;
+
+    let ipv4 = serve(hello, ipv4);
+    let ipv6 = serve(hello, ipv6);
 
     tokio::join!(ipv4, ipv6);
 
