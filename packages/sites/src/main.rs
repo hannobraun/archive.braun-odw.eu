@@ -1,6 +1,3 @@
-// TASK: Package as Nix package and deploy to Reineke:
-//       https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo
-
 use std::net::{IpAddr, SocketAddr};
 
 use warp::{Filter, Rejection, Reply};
