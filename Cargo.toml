@@ -3,5 +3,6 @@ members = [
     "packages/sites",
     "tools/domains",
     "tools/nodes",
+    "tools/packages",
     "tools/util"
 ]
