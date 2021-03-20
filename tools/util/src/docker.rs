@@ -1,12 +1,10 @@
-use std::process::{Command, ExitStatus};
+use std::process::Command;
 
 use anyhow::bail;
 
 pub fn build_and_run(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
     build(name, file, arg)?;
-
-    let status = run(name)?;
-    println!("\n{}", status);
+    run(name)?;
 
     Ok(())
 }
@@ -30,13 +28,12 @@ pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn run(name: &str) -> anyhow::Result<ExitStatus> {
+pub fn run(name: &str) -> anyhow::Result<()> {
     let status = Command::new("docker").arg("run").arg(name).status()?;
 
     if !status.success() {
         bail!("`docker run` invocation failed: {}", status);
     }
 
-    // TASK: Don't return status.
-    Ok(status)
+    Ok(())
 }
