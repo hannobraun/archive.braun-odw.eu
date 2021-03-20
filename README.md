@@ -15,3 +15,7 @@ Configuration for my personal IT infrastructure. Currently a work in progress.
 
 - Manual: https://hydra.nixos.org/build/115931128/download/1/manual/manual.html
 - Repository: https://github.com/NixOS/nixops
+
+### Other Documentation
+
+- Nix Pills: https://nixos.org/guides/nix-pills/index.html
