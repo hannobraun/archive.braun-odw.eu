@@ -10,7 +10,6 @@ fn main() -> anyhow::Result<()> {
         "tools/nodes/docker/Dockerfile",
         &format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key),
     )?;
-
     println!("\n{}\n\n", status);
 
     let status = util::docker::run(name)?;
