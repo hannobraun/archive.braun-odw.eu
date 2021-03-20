@@ -6,7 +6,7 @@ fn main() -> anyhow::Result<()> {
     let name = "nodes-test";
 
     let status = util::docker::build(
-        "nodes-test",
+        name,
         "tools/nodes/docker/Dockerfile",
         &format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key),
     )?;
