@@ -1,5 +1,3 @@
-use std::process::Command;
-
 use util::secrets::Secrets;
 
 fn main() -> anyhow::Result<()> {
@@ -15,7 +13,7 @@ fn main() -> anyhow::Result<()> {
 
     println!("\n{}\n\n", status);
 
-    let status = Command::new("docker").arg("run").arg(name).status()?;
+    let status = util::docker::run(name)?;
     println!("\n{}", status);
 
     Ok(())

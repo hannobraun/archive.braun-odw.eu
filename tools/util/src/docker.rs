@@ -16,3 +16,11 @@ pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
 
     Ok(status)
 }
+
+pub fn run(name: &str) -> anyhow::Result<ExitStatus> {
+    let status = Command::new("docker").arg("run").arg(name).status()?;
+
+    // TASK: Return error, if command was unsuccessful.
+
+    Ok(status)
+}
