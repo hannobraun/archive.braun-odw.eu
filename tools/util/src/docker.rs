@@ -1,5 +1,15 @@
 use std::process::{Command, ExitStatus};
 
+pub fn build_and_run(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
+    let status = build(name, file, arg)?;
+    println!("\n{}\n\n", status);
+
+    let status = run(name)?;
+    println!("\n{}", status);
+
+    Ok(())
+}
+
 pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
     let status = Command::new("docker")
         .arg("build")
