@@ -1,5 +1,7 @@
 use std::process::{Command, ExitStatus};
 
+use anyhow::bail;
+
 pub fn build_and_run(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
     let status = build(name, file, arg)?;
     println!("\n{}\n\n", status);
@@ -22,7 +24,10 @@ pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
         .arg("nodes/")
         .status()?;
 
-    // TASK: If command failed, return error. Don't return status.
+    if !status.success() {
+        bail!("`docker build` invocation failed: {}", status);
+    }
+
     Ok(status)
 }
 
