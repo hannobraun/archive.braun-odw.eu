@@ -3,8 +3,7 @@ use std::process::{Command, ExitStatus};
 use anyhow::bail;
 
 pub fn build_and_run(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
-    let status = build(name, file, arg)?;
-    println!("\n{}\n\n", status);
+    build(name, file, arg)?;
 
     let status = run(name)?;
     println!("\n{}", status);
@@ -12,7 +11,7 @@ pub fn build_and_run(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
+pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<()> {
     let status = Command::new("docker")
         .arg("build")
         .arg("--tag")
@@ -28,7 +27,7 @@ pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
         bail!("`docker build` invocation failed: {}", status);
     }
 
-    Ok(status)
+    Ok(())
 }
 
 pub fn run(name: &str) -> anyhow::Result<ExitStatus> {
