@@ -12,15 +12,13 @@ pub fn build(name: &str, file: &str, arg: &str) -> anyhow::Result<ExitStatus> {
         .arg("nodes/")
         .status()?;
 
-    // TASK: Abort, if command was unsuccessful.
-
+    // TASK: If command failed, return error. Don't return status.
     Ok(status)
 }
 
 pub fn run(name: &str) -> anyhow::Result<ExitStatus> {
     let status = Command::new("docker").arg("run").arg(name).status()?;
 
-    // TASK: Return error, if command was unsuccessful.
-
+    // TASK: If command failed, return error. Don't return status.
     Ok(status)
 }
