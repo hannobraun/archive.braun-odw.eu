@@ -6,14 +6,20 @@ pub fn build_and_run(
     name: &str,
     file: &str,
     args: &[&str],
+    path: &str,
 ) -> anyhow::Result<()> {
-    build(name, file, args)?;
+    build(name, file, args, path)?;
     run(name)?;
 
     Ok(())
 }
 
-pub fn build(name: &str, file: &str, args: &[&str]) -> anyhow::Result<()> {
+pub fn build(
+    name: &str,
+    file: &str,
+    args: &[&str],
+    path: &str,
+) -> anyhow::Result<()> {
     let mut command = Command::new("docker");
 
     command
@@ -27,7 +33,7 @@ pub fn build(name: &str, file: &str, args: &[&str]) -> anyhow::Result<()> {
         command.arg("--build-arg").arg(arg);
     }
 
-    let status = command.arg("nodes/").status()?;
+    let status = command.arg(path).status()?;
 
     if !status.success() {
         bail!("`docker build` invocation failed: {}", status);

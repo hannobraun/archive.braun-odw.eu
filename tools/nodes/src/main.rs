@@ -7,6 +7,7 @@ fn main() -> anyhow::Result<()> {
         "nodes-test",
         "tools/nodes/Dockerfile",
         &[&format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key)],
+        "nodes/",
     )?;
 
     Ok(())
