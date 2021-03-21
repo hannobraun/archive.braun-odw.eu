@@ -2,6 +2,7 @@
 //       - https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo
 //       - https://nixos.wiki/wiki/Packaging/Tutorial
 
-fn main() {
+fn main() -> anyhow::Result<()> {
     println!("Hello, world!");
+    Ok(())
 }
