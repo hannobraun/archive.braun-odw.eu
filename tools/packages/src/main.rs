@@ -3,6 +3,12 @@
 //       - https://nixos.wiki/wiki/Packaging/Tutorial
 
 fn main() -> anyhow::Result<()> {
-    println!("Hello, world!");
+    util::docker::build_and_run(
+        "packages-test",
+        "tools/packages/Dockerfile",
+        &[],
+        "packages/",
+    )?;
+
     Ok(())
 }
