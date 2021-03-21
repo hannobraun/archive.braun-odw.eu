@@ -5,7 +5,7 @@ fn main() -> anyhow::Result<()> {
 
     util::docker::build_and_run(
         "nodes-test",
-        "tools/nodes/docker/Dockerfile",
+        "tools/nodes/Dockerfile",
         &format!("SSH_KEY={}", secrets.nodes["reineke"].ssh_key),
     )?;
 
