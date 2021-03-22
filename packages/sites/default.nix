@@ -7,7 +7,13 @@ with import <nixpkgs> {};
 rustPlatform.buildRustPackage rec {
     name = "sites";
 
-    # TASK: Figure out how to specify the local directory as the source.
+    # Specify source directory. Since Nix expects us to point to an archive file
+    # here, we need to disable the unpack package to make it work.
+    src = ".";
+    unpackPhase = ":";
+
+    # TASK: Figure out how to get `Cargo.lock`. Since the package is part of a
+    #       workspace, we don't have the `Cargo.lock` right here.
 
     # TASK: Figure out what to do with this. Ideally, I'd want Nix to ignore the
     #       checksum. I'm building a local project, after all.
