@@ -36,4 +36,10 @@ rustPlatform.buildRustPackage rec {
     #       gotten to the point where it would complain about the wrong value
     #       (and give me the right one) yet.
     cargoSha256 = "1487n0vwm73i2sjz4cqpls1191lglk9wravmjc2nlzqwc96lqh7q";
+
+    # TASK: I'm not quite sure what's happening, but from the build output it
+    #       seems that Nix is building the package twice for some reason? The
+    #       second time around, it runs `cargo build` with `--frozen`, which
+    #       fails because a dependency needs to be downloaded. Previoulsy, there
+    #       are messages about dependencies being vendored.
 }
