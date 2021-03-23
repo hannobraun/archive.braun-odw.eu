@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     #       bad hack. There must be a way to refer to the directory that
     #       default.nix is located in?
     src = "/sites";
-    unpackPhase = ":";
+    unpackPhase = "cp -r $src/* .";
 
     # TASK: Figure out how to get `Cargo.lock`. Since the package is part of a
     #       workspace, we don't have the `Cargo.lock` right here.
