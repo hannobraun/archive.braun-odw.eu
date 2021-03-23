@@ -7,14 +7,16 @@ with import <nixpkgs> {};
 rustPlatform.buildRustPackage rec {
     name = "sites";
 
-    # Specify source directory. Since Nix expects us to point to an archive file
-    # here, we need to disable the unpack package to make it work.
+    # Specify source directory.
     #
     # TASK: This is an absolute path, which works because we happen to run in a
     #       Docker container and know where we copied the source to. But it is a
     #       bad hack. There must be a way to refer to the directory that
     #       default.nix is located in?
     src = "/sites";
+
+    # Nix expects `src` to be an archive file, but we're pointing to a
+    # directory. To make this work, we need to override the unpack phase.
     unpackPhase = "cp -r $src/* .";
 
     # TASK: Figure out how to get `Cargo.lock`. Since the package is part of a
