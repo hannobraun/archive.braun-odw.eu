@@ -17,10 +17,16 @@ rustPlatform.buildRustPackage rec {
 
     # Nix expects `src` to be an archive file, but we're pointing to a
     # directory. To make this work, we need to override the unpack phase.
-    unpackPhase = "cp -r $src/* .";
+    #
+    # In addition to copying the files from the source directory, this also
+    # makes sure `Cargo.lock` exists. Nix checks for this file's existence and
+    # will fail otherwise.
+    unpackPhase = "
+        cp -r $src/* .
 
-    # TASK: Figure out how to get `Cargo.lock`. Since the package is part of a
-    #       workspace, we don't have the `Cargo.lock` right here.
+        HOME=. # Nix sets this to a non-existing directory
+        cargo update
+    ";
 
     # TASK: Figure out what to do with this. Ideally, I'd want Nix to ignore the
     #       checksum. I'm building a local project, after all.
