@@ -15,6 +15,8 @@ stdenv.mkDerivation {
     #       default.nix is located in?
     src = "/sites";
 
+    buildInputs = [ cargo ];
+
     buildPhase = "
         echo BUILDING
     ";
