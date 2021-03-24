@@ -23,9 +23,7 @@ stdenv.mkDerivation {
     ";
 
     installPhase = "
-        echo INSTALLING
-
-        mkdir -p $out
-        echo This is test output > $out/output
+        mkdir -p $out/bin
+        cp target/release/sites $out/bin
     ";
 }
