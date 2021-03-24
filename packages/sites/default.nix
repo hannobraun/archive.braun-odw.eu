@@ -4,7 +4,7 @@
 
 with import <nixpkgs> {};
 
-rustPlatform.buildRustPackage rec {
+stdenv.mkDerivation {
     name = "sites";
 
     # Specify source directory.
@@ -15,26 +15,14 @@ rustPlatform.buildRustPackage rec {
     #       default.nix is located in?
     src = "/sites";
 
-    # Nix expects `src` to be an archive file, but we're pointing to a
-    # directory. To make this work, we need to override the unpack phase.
-    #
-    # In addition to copying the files from the source directory, this also
-    # makes sure `Cargo.lock` exists. Nix checks for this file's existence and
-    # will fail otherwise.
-    unpackPhase = "
-        cp -r $src/* .
-
-        HOME=. # Nix sets this to a non-existing directory
-        cargo update
+    buildPhase = "
+        echo BUILDING
     ";
 
-    # TASK: Figure out what to do with this. Ideally, I'd want Nix to ignore the
-    #       checksum. I'm building a local project, after all.
-    cargoSha256 = "1487n0vwm73i2sjz4cqpls1191lglk9wravmjc2nlzqwc96lqh7q";
+    installPhase = "
+        echo INSTALLING
 
-    # TASK: I'm not quite sure what's happening, but from the build output it
-    #       seems that Nix is building the package twice for some reason? The
-    #       second time around, it runs `cargo build` with `--frozen`, which
-    #       fails because a dependency needs to be downloaded. Previoulsy, there
-    #       are messages about dependencies being vendored.
+        mkdir -p $out
+        echo This is test output > $out/output
+    ";
 }
