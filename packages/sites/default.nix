@@ -30,11 +30,6 @@ rustPlatform.buildRustPackage rec {
 
     # TASK: Figure out what to do with this. Ideally, I'd want Nix to ignore the
     #       checksum. I'm building a local project, after all.
-    #
-    #       The current value is copied from somewhere, because Nix expects a
-    #       string with a valid length for a SHA-256 checksum, but I haven't
-    #       gotten to the point where it would complain about the wrong value
-    #       (and give me the right one) yet.
     cargoSha256 = "1487n0vwm73i2sjz4cqpls1191lglk9wravmjc2nlzqwc96lqh7q";
 
     # TASK: I'm not quite sure what's happening, but from the build output it
