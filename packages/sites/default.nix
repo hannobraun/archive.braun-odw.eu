@@ -18,7 +18,8 @@ stdenv.mkDerivation {
     buildInputs = [ cargo ];
 
     buildPhase = "
-        echo BUILDING
+        export CARGO_HOME=$(mktemp -d cargo-home.XXXXXXXX)
+        cargo build --release
     ";
 
     installPhase = "
