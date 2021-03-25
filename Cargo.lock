@@ -636,14 +636,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "packages"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "util",
-]
-
-[[package]]
 name = "parking_lot"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
