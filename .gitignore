@@ -3,3 +3,6 @@
 
 # Cargo
 /target
+
+# Build directory for Docker container
+/docker
