@@ -36,7 +36,7 @@ pub fn build(
     let status = command.arg(path).status()?;
 
     if !status.success() {
-        bail!("`docker build` invocation failed: {}", status);
+        bail!("`docker build` failed: {}", status);
     }
 
     Ok(())
@@ -46,7 +46,7 @@ pub fn run(name: &str) -> anyhow::Result<()> {
     let status = Command::new("docker").arg("run").arg(name).status()?;
 
     if !status.success() {
-        bail!("`docker run` invocation failed: {}", status);
+        bail!("`docker run` failed: {}", status);
     }
 
     Ok(())
