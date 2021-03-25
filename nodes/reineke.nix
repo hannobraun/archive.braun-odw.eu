@@ -39,7 +39,7 @@
       services.openssh.enable = true;
 
       # The NixOS documentation states not to do this when using NixOps, because
-      # it overwrites the deployed by NixOps:
+      # it overwrites the key deployed by NixOps:
       # https://nixos.org/manual/nixos/stable/options.html#opt-users.users._name_.openssh.authorizedKeys.keys
       #
       # However, I think this is exactly what we want here, as we don't want to
