@@ -18,10 +18,10 @@ RUN echo "${SSH_KEY}" > ~/.ssh/id_rsa
 RUN chmod 0600 ~/.ssh/id_rsa
 RUN ssh-keyscan reineke.nodes.braun-odw.eu >> ~/.ssh/known_hosts
 
-COPY nodes/ nodes/
 COPY packages/ packages/
-
-RUN nixops create nodes/reineke.nix
 RUN nix-build packages/sites
+
+COPY nodes/ nodes/
+RUN nixops create nodes/reineke.nix
 
 ENTRYPOINT nixops deploy
