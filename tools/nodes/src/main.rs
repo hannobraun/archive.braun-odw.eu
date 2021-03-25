@@ -27,6 +27,9 @@ fn prepare_docker_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
         fs::remove_dir_all(&path)?;
     }
     fs::create_dir_all(&path)?;
+
     fs_extra::copy_items(&["nodes/"], &path, &CopyOptions::new())?;
+    fs_extra::copy_items(&["packages/"], &path, &CopyOptions::new())?;
+
     Ok(())
 }
