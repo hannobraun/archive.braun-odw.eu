@@ -13,7 +13,7 @@ stdenv.mkDerivation {
     #       Docker container and know where we copied the source to. But it is a
     #       bad hack. There must be a way to refer to the directory that
     #       default.nix is located in?
-    src = "/sites";
+    src = "/packages/sites";
 
     buildInputs = [ cargo ];
 

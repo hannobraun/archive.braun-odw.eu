@@ -22,5 +22,6 @@ COPY nodes/ nodes/
 COPY packages/ packages/
 
 RUN nixops create nodes/reineke.nix
+RUN nix-build packages/sites
 
 ENTRYPOINT nixops deploy
