@@ -1,7 +1,3 @@
-# TASK: Make this work. Relevant documentation:
-#       - https://nixos.org/manual/nixpkgs/stable/#compiling-rust-applications-with-cargo
-#       - https://nixos.wiki/wiki/Packaging/Tutorial
-
 with import <nixpkgs> {};
 
 stdenv.mkDerivation {
