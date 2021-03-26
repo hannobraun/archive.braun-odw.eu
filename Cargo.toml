@@ -1,7 +1,0 @@
-[workspace]
-members = [
-    "packages/sites",
-    "tools/domains",
-    "tools/nodes",
-    "tools/util"
-]
