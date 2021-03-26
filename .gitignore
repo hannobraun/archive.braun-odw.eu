@@ -1,8 +1,0 @@
-# Secret configuration
-/secrets.toml
-
-# Cargo
-/target
-
-# Build directory for Docker container
-/docker
