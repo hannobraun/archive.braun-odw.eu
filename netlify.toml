@@ -1,6 +1,12 @@
 [build]
-publish = "sites/hanno.braun-odw.eu/"
+publish = "sites/"
 
 # TASK: Build website. Once a Cargo package exists here, the following line
 #       should do it.
 # command = "cargo run"
+
+[[redirects]]
+from   = "https://hanno.braun-odw.eu/*"
+to     = "/hanno.braun-odw.eu/:splat"
+status = 200
+force  = true
