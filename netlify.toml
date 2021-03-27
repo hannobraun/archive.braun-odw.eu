@@ -1,2 +1,6 @@
 [build]
 publish = "sites/hanno.braun-odw.eu/"
+
+# TASK: Build website. Once a Cargo package exists here, the following line
+#       should do it.
+# command = "cargo run"
