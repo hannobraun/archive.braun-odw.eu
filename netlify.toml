@@ -10,3 +10,6 @@ from   = "https://hanno.braun-odw.eu/*"
 to     = "/hanno.braun-odw.eu/:splat"
 status = 200
 force  = true
+
+# TASK: Redirect braun-odw.eu to hanno.braun-odw.eu.
+# TASK: Redirect www.braun-odw.eu to hanno.braun-odw.eu.
