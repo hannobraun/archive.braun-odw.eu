@@ -1,9 +1,7 @@
 [build]
 publish = "sites/"
+command = "cargo run --bin sites"
 
-# TASK: Build website. Once a Cargo package exists here, the following line
-#       should do it.
-# command = "cargo run"
 
 # Primary domains
 
