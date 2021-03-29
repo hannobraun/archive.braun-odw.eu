@@ -1,3 +1,5 @@
+# TASK: Rename to `toolchain.toml` once Rustup 1.24.0 is out and available in
+#       the Netlify build image.
 [toolchain]
 channel = "stable"
 profile = "minimal"
