@@ -11,9 +11,10 @@ use self::{args::Args, build::build};
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
+    let source_dir = Path::new("sites");
     let output_dir = Path::new("output");
 
-    build(output_dir).await?;
+    build(source_dir, output_dir).await?;
     if args.serve {
         serve_sites(output_dir).await?;
     }
