@@ -39,7 +39,6 @@ pub async fn build(
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
 
-    // TASK: Re-build sites, if contents change.
     prepare_output_dir(&output_dir).await.with_context(|| {
         format!("Failed to prepare output dir: {}", output_dir.display())
     })?;
