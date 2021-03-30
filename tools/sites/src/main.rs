@@ -5,7 +5,7 @@ use std::path::Path;
 
 use clap::Clap as _;
 
-use self::args::Args;
+use self::{args::Args, build::build};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -13,10 +13,7 @@ async fn main() -> anyhow::Result<()> {
 
     let output_dir = Path::new("output");
 
-    // TASK: Re-build sites, if contents change.
-    build::prepare_output_dir(output_dir)?;
-    build::copy_sites(output_dir)?;
-
+    build(output_dir)?;
     if args.serve {
         serve_sites(output_dir).await?;
     }
