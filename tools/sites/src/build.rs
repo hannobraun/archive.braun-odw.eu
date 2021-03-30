@@ -10,6 +10,8 @@ pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
+    // TASK: Add logging.
+
     let source_dir = source_dir.as_ref();
 
     let (tx, mut rx) = unbounded_channel();
