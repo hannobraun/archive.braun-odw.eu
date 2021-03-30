@@ -15,7 +15,7 @@ async fn main() -> anyhow::Result<()> {
     let source_dir = "sites";
     let output_dir = "output";
 
-    if args.serve {
+    if args.dev {
         let build = build_continuously(source_dir, output_dir);
         let serve = serve_sites(output_dir);
         tokio::try_join!(build, serve)?;

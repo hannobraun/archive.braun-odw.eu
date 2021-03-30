@@ -3,7 +3,7 @@ publish = "output/sites/"
 command = "cargo run --bin sites"
 
 [dev]
-command    = "cargo run --bin sites -- --serve"
+command    = "cargo run --bin sites -- --dev"
 targetPort = 34480
 framework  = "#custom"
 
