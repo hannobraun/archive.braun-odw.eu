@@ -13,7 +13,7 @@ async fn main() -> anyhow::Result<()> {
 
     let output_dir = Path::new("output");
 
-    build(output_dir)?;
+    build(output_dir).await?;
     if args.serve {
         serve_sites(output_dir).await?;
     }

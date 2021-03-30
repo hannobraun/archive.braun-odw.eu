@@ -2,7 +2,7 @@ use std::{fs, path::Path};
 
 use fs_extra::dir::CopyOptions;
 
-pub fn build(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
+pub async fn build(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
     // TASK: Re-build sites, if contents change.
     prepare_output_dir(&output_dir)?;
     copy_sites(&output_dir)?;
