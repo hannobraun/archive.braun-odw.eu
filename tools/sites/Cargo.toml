@@ -10,7 +10,7 @@ anyhow        = "*"
 async-walkdir = "*"
 clap          = "3.0.0-beta.2"
 futures       = "*"
-notify        = "*"
+notify        = "5.0.0-pre.6"
 warp          = "*"
 
 [dependencies.tokio]
