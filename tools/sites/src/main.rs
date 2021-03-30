@@ -3,7 +3,6 @@ mod build;
 mod serve;
 
 use build::build_continuously;
-use clap::Clap as _;
 
 use self::{args::Args, build::build, serve::serve_sites};
 
