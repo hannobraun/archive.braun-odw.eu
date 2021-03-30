@@ -54,7 +54,7 @@ pub async fn build(
     Ok(())
 }
 
-pub async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
+async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
     let path = path.as_ref();
 
     if path.exists() {
@@ -65,7 +65,7 @@ pub async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn copy_sites(
+async fn copy_sites(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
