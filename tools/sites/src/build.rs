@@ -1,6 +1,7 @@
-use std::{fs, path::Path};
+use std::path::Path;
 
 use fs_extra::dir::CopyOptions;
+use tokio::fs;
 
 pub async fn build(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
     // TASK: Re-build sites, if contents change.
@@ -14,9 +15,9 @@ pub async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
     let path = path.as_ref();
 
     if path.exists() {
-        fs::remove_dir_all(path)?;
+        fs::remove_dir_all(path).await?;
     }
-    fs::create_dir_all(path)?;
+    fs::create_dir_all(path).await?;
 
     Ok(())
 }
