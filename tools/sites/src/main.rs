@@ -7,7 +7,8 @@ use fs_extra::dir::CopyOptions;
 
 use self::args::Args;
 
-fn main() -> anyhow::Result<()> {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     println!("serve: {}", args.serve);
 
