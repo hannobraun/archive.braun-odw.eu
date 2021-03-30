@@ -55,9 +55,7 @@ pub async fn build(
     Ok(())
 }
 
-async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
-    let path = path.as_ref();
-
+async fn prepare_output_dir(path: &Path) -> anyhow::Result<()> {
     if path.exists() {
         fs::remove_dir_all(path).await?;
     }
