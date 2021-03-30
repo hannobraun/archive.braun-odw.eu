@@ -1,12 +1,13 @@
 mod args;
 mod build;
+mod serve;
 
 use std::path::Path;
 
 use build::build_continuously;
 use clap::Clap as _;
 
-use self::{args::Args, build::build};
+use self::{args::Args, build::build, serve::serve_sites};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -22,17 +23,6 @@ async fn main() -> anyhow::Result<()> {
     } else {
         build(source_dir, output_dir).await?;
     }
-
-    Ok(())
-}
-
-async fn serve_sites(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
-    // TASK: Add logging.
-
-    let sites_dir = output_dir.as_ref().join("sites");
-
-    let filter = warp::filters::fs::dir(sites_dir);
-    warp::serve(filter).run(([127, 0, 0, 1], 34480)).await;
 
     Ok(())
 }
