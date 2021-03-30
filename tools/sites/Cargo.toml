@@ -10,6 +10,7 @@ anyhow        = "*"
 async-walkdir = "*"
 clap          = "3.0.0-beta.2"
 fs_extra      = "*"
+futures       = "*"
 warp          = "*"
 
 [dependencies.tokio]
