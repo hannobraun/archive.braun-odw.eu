@@ -1,12 +1,22 @@
 use std::path::Path;
 
+use anyhow::Context as _;
 use fs_extra::dir::CopyOptions;
 use tokio::fs;
 
 pub async fn build(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
+    let output_dir = output_dir.as_ref();
+
     // TASK: Re-build sites, if contents change.
-    prepare_output_dir(&output_dir).await?;
-    copy_sites(&output_dir).await?;
+    prepare_output_dir(&output_dir).await.with_context(|| {
+        format!("Failed to prepare output dir: {}", output_dir.display())
+    })?;
+    copy_sites(&output_dir).await.with_context(|| {
+        format!(
+            "Failed to copy sites to output dir: {}",
+            output_dir.display()
+        )
+    })?;
 
     Ok(())
 }
