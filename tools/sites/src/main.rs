@@ -3,6 +3,7 @@ mod build;
 
 use std::path::Path;
 
+use build::build_continuously;
 use clap::Clap as _;
 
 use self::{args::Args, build::build};
@@ -15,8 +16,9 @@ async fn main() -> anyhow::Result<()> {
     let output_dir = Path::new("output");
 
     if args.serve {
-        build(source_dir, output_dir).await?;
-        serve_sites(output_dir).await?;
+        let build = build_continuously(source_dir, output_dir);
+        let serve = serve_sites(output_dir);
+        tokio::try_join!(build, serve)?;
     } else {
         build(source_dir, output_dir).await?;
     }
