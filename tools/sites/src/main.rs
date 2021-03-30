@@ -14,7 +14,7 @@ fn main() -> anyhow::Result<()> {
     let output_dir = Path::new("output");
 
     prepare_output_dir(output_dir)?;
-    fs_extra::copy_items(&["sites"], output_dir, &CopyOptions::new())?;
+    copy_sites(output_dir)?;
 
     Ok(())
 }
@@ -27,5 +27,10 @@ fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
     }
     fs::create_dir_all(path)?;
 
+    Ok(())
+}
+
+fn copy_sites(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
+    fs_extra::copy_items(&["sites"], output_dir, &CopyOptions::new())?;
     Ok(())
 }
