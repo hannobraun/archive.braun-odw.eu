@@ -1,8 +1,16 @@
+mod args;
+
 use std::{fs, path::Path};
 
+use clap::Clap as _;
 use fs_extra::dir::CopyOptions;
 
+use self::args::Args;
+
 fn main() -> anyhow::Result<()> {
+    let args = Args::parse();
+    println!("serve: {}", args.serve);
+
     let output_dir = Path::new("output");
 
     prepare_output_dir(output_dir)?;
