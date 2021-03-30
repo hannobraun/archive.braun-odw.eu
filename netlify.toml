@@ -1,5 +1,5 @@
 [build]
-publish = "sites/"
+publish = "output/sites/"
 command = "cargo run --bin sites"
 
 # TASK: Set up a development server that continually builds changes, and hook it
