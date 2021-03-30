@@ -36,6 +36,7 @@ pub async fn build(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
+    let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
 
     // TASK: Re-build sites, if contents change.
@@ -66,12 +67,9 @@ async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
 }
 
 async fn copy_sites(
-    source_dir: impl AsRef<Path>,
-    output_dir: impl AsRef<Path>,
+    source_dir: &Path,
+    output_dir: &Path,
 ) -> anyhow::Result<()> {
-    let source_dir = source_dir.as_ref();
-    let output_dir = output_dir.as_ref();
-
     let mut entries = WalkDir::new(source_dir);
 
     while let Some(entry) = entries.next().await {
