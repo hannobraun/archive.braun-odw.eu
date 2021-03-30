@@ -1,7 +1,8 @@
 use std::path::Path;
 
 use anyhow::Context as _;
-use fs_extra::dir::CopyOptions;
+use async_walkdir::WalkDir;
+use futures::StreamExt as _;
 use tokio::fs;
 
 pub async fn build(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
@@ -33,8 +34,29 @@ pub async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
 }
 
 pub async fn copy_sites(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
-    // TASK: Make asynchronous. Probably requires a manual implementation,
-    //       possibly based on https://crates.io/crates/async-walkdir.
-    fs_extra::copy_items(&["sites"], output_dir, &CopyOptions::new())?;
+    let source_dir = Path::new("sites");
+    let output_dir = output_dir.as_ref();
+
+    let mut entries = WalkDir::new(source_dir);
+
+    while let Some(entry) = entries.next().await {
+        let source = entry?.path();
+        let output = output_dir.join(&source);
+
+        handle_entry(&source, &output).await.with_context(|| {
+            format!("Failed to handle directory entry: {}", source.display())
+        })?;
+    }
+
+    Ok(())
+}
+
+async fn handle_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
+    if source.is_dir() {
+        fs::create_dir_all(output).await?;
+    } else {
+        fs::copy(source, output).await?;
+    }
+
     Ok(())
 }
