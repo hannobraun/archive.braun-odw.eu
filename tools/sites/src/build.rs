@@ -23,6 +23,8 @@ pub async fn prepare_output_dir(path: impl AsRef<Path>) -> anyhow::Result<()> {
 }
 
 pub async fn copy_sites(output_dir: impl AsRef<Path>) -> anyhow::Result<()> {
+    // TASK: Make asynchronous. Probably requires a manual implementation,
+    //       possibly based on https://crates.io/crates/async-walkdir.
     fs_extra::copy_items(&["sites"], output_dir, &CopyOptions::new())?;
     Ok(())
 }
