@@ -2,6 +2,10 @@ use clap::Clap;
 
 #[derive(Clap)]
 pub struct Args {
+    /// Enable dev mode
+    ///
+    /// Causes the sites tool to not only build the sites, but also serve them
+    /// and rebuild them continuously as long as it is running.
     #[clap(short, long)]
     pub dev: bool,
 }
