@@ -14,9 +14,11 @@ async fn main() -> anyhow::Result<()> {
     let source_dir = Path::new("sites");
     let output_dir = Path::new("output");
 
-    build(source_dir, output_dir).await?;
     if args.serve {
+        build(source_dir, output_dir).await?;
         serve_sites(output_dir).await?;
+    } else {
+        build(source_dir, output_dir).await?;
     }
 
     Ok(())
