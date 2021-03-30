@@ -2,9 +2,11 @@ mod args;
 mod build;
 mod serve;
 
-use build::build_continuously;
-
-use self::{args::Args, build::build, serve::serve_sites};
+use self::{
+    args::Args,
+    build::{build, build_continuously},
+    serve::serve_sites,
+};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
