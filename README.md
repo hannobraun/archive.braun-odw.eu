@@ -18,6 +18,4 @@ However, since there is some particular configuration around domains, additional
 2. In `netlify.toml`, change the redirect of the domain you're testing to redirect from `http://...` instead of `https://...`.
 3. Make sure to add the port used by the Netlify Dev server to the URL in the browser.
 
-Steps 1. and 2. will become redundant once we have a build process that can update the `<base>` element in the HTML document.
-
-**TASK:** Can the Netlify Dev server be configured to use port 80, to make step 3 redundant? Can this be made to work from a permissions standpoint, without having to run everything as root?
+All these steps will become redundant once we have a build process that can update the `<base>` element in the HTML document.
