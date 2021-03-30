@@ -13,6 +13,7 @@ async fn main() -> anyhow::Result<()> {
 
     let output_dir = Path::new("output");
 
+    // TASK: Re-build sites, if contents change.
     prepare_output_dir(output_dir)?;
     copy_sites(output_dir)?;
 
