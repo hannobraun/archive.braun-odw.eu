@@ -2,10 +2,15 @@
 publish = "output/sites/"
 command = "cargo run --bin sites"
 
+[build.environment]
+RUST_LOG = "info"
+
+
 [dev]
 command    = "cargo run --bin sites -- --dev"
 targetPort = 34480
 framework  = "#custom"
+
 
 # Primary domains
 
