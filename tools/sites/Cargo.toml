@@ -6,12 +6,14 @@ edition = "2018"
 
 
 [dependencies]
-anyhow        = "*"
-async-walkdir = "*"
-clap          = "3.0.0-beta.2"
-futures       = "*"
-notify        = "5.0.0-pre.6"
-warp          = "*"
+anyhow             = "*"
+async-walkdir      = "*"
+clap               = "3.0.0-beta.2"
+futures            = "*"
+notify             = "5.0.0-pre.6"
+tracing            = "*"
+tracing-subscriber = "*"
+warp               = "*"
 
 [dependencies.tokio]
 version  = "*"
