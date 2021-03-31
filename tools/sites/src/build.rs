@@ -5,16 +5,16 @@ use async_walkdir::WalkDir;
 use futures::StreamExt as _;
 use notify::{immediate_watcher, RecommendedWatcher, Watcher};
 use tokio::{fs, sync::mpsc::unbounded_channel};
+use tracing::info;
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
-    // TASK: Add logging.
-
     let source_dir = source_dir.as_ref();
 
     // Build at least once, before waiting for events.
+    info!("Building sites.");
     build(source_dir, &output_dir).await?;
 
     let (tx, mut rx) = unbounded_channel();
@@ -27,7 +27,9 @@ pub async fn build_continuously(
     })?;
     watcher.watch(source_dir, notify::RecursiveMode::Recursive)?;
 
-    while let Some(_event) = rx.recv().await {
+    while let Some(event) = rx.recv().await {
+        info!("Building sites. Trigger: {:?}", event);
+
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
     }
