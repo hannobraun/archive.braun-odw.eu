@@ -30,6 +30,12 @@ pub async fn build_continuously(
 
     while let Some(event) = rx.recv().await {
         let event = event?;
+
+        if event.kind.is_access() {
+            // Access is non-mutating, so not interesting to us.
+            continue;
+        }
+
         let paths: Vec<_> = event
             .paths
             .into_iter()
