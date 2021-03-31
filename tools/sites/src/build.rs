@@ -31,10 +31,17 @@ pub async fn build_continuously(
     while let Some(event) = rx.recv().await {
         let event = event?;
 
-        if event.kind.is_access() {
-            // Access is non-mutating, so not interesting to us.
-            continue;
-        }
+        let kind = match event.kind {
+            notify::EventKind::Any => "any",
+            notify::EventKind::Access(_) => {
+                // Access is non-mutating, so not interesting to us.
+                continue;
+            }
+            notify::EventKind::Create(_) => "create",
+            notify::EventKind::Modify(_) => "modify",
+            notify::EventKind::Remove(_) => "remove",
+            notify::EventKind::Other => "other",
+        };
 
         let paths: Vec<_> = event
             .paths
@@ -46,7 +53,7 @@ pub async fn build_continuously(
             })
             .collect();
 
-        info!("Building sites. Trigger: {:?} on {:?}", event.kind, paths);
+        info!("Building sites. Trigger: {} {:?}", kind, paths);
 
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
