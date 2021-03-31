@@ -12,6 +12,7 @@ pub async fn build_continuously(
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
+    let source_dir_abs = source_dir.canonicalize()?;
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
@@ -29,10 +30,17 @@ pub async fn build_continuously(
 
     while let Some(event) = rx.recv().await {
         let event = event?;
-        info!(
-            "Building sites. Trigger: {:?} on {:?}",
-            event.kind, event.paths
-        );
+        let paths: Vec<_> = event
+            .paths
+            .into_iter()
+            .map(|path| {
+                // If we can't strip the prefix, just leave the path as-is.
+                let path = path.strip_prefix(&source_dir_abs).unwrap_or(&path);
+                path.to_path_buf()
+            })
+            .collect();
+
+        info!("Building sites. Trigger: {:?} on {:?}", event.kind, paths);
 
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
