@@ -28,7 +28,11 @@ pub async fn build_continuously(
     watcher.watch(source_dir, notify::RecursiveMode::Recursive)?;
 
     while let Some(event) = rx.recv().await {
-        info!("Building sites. Trigger: {:?}", event);
+        let event = event?;
+        info!(
+            "Building sites. Trigger: {:?} on {:?}",
+            event.kind, event.paths
+        );
 
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
