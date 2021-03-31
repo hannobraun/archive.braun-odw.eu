@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{fmt::Write as _, path::Path};
 
 use anyhow::Context as _;
 use async_walkdir::WalkDir;
@@ -43,17 +43,20 @@ pub async fn build_continuously(
             notify::EventKind::Other => "other",
         };
 
-        let paths: Vec<_> = event
-            .paths
-            .into_iter()
-            .map(|path| {
-                // If we can't strip the prefix, just leave the path as-is.
-                let path = path.strip_prefix(&source_dir_abs).unwrap_or(&path);
-                path.to_path_buf()
-            })
-            .collect();
+        let mut paths = String::new();
 
-        info!("Building sites. Trigger: {} {:?}", kind, paths);
+        let num_paths = event.paths.len();
+        for (i, path) in event.paths.into_iter().enumerate() {
+            // If we can't strip the prefix, just leave the path as-is.
+            let path = path.strip_prefix(&source_dir_abs).unwrap_or(&path);
+
+            write!(paths, "{}", path.display())?;
+            if i < num_paths - 1 {
+                write!(paths, ", ")?;
+            }
+        }
+
+        info!("Building sites. Trigger: {} {}", kind, paths);
 
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
