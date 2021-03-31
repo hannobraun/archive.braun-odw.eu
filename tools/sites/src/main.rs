@@ -10,6 +10,8 @@ use self::{
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    tracing_subscriber::fmt::init();
+
     let args = Args::parse();
 
     let source_dir = "sites";
