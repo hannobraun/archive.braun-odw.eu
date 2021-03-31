@@ -14,6 +14,9 @@ pub async fn build_continuously(
 
     let source_dir = source_dir.as_ref();
 
+    // Build at least once, before waiting for events.
+    build(source_dir, &output_dir).await?;
+
     let (tx, mut rx) = unbounded_channel();
 
     let mut watcher: RecommendedWatcher = immediate_watcher(move |event| {
