@@ -112,7 +112,7 @@ async fn copy_static_files(
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
         copy_dir_entry(&source, &output).await.with_context(|| {
-            format!("Failed to handle directory entry: {}", source.display())
+            format!("Failed to copy directory entry: {}", source.display())
         })?;
     }
 
