@@ -111,7 +111,7 @@ async fn copy_static_files(
 
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
-        handle_entry(&source, &output).await.with_context(|| {
+        copy_dir_entry(&source, &output).await.with_context(|| {
             format!("Failed to handle directory entry: {}", source.display())
         })?;
     }
@@ -119,7 +119,7 @@ async fn copy_static_files(
     Ok(())
 }
 
-async fn handle_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
+async fn copy_dir_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
     if source.is_dir() {
         fs::create_dir_all(output).await?;
     } else {
