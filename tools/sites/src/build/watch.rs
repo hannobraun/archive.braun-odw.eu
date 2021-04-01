@@ -1,12 +1,13 @@
-use std::path::PathBuf;
+use std::{fmt, path::PathBuf};
 
 pub struct Trigger {
     pub kind: &'static str,
     pub paths: Vec<PathBuf>,
+    pub prefix: PathBuf,
 }
 
 impl Trigger {
-    pub fn new(event: notify::Event) -> Option<Self> {
+    pub fn new(event: notify::Event, prefix: PathBuf) -> Option<Self> {
         let kind = match event.kind {
             notify::EventKind::Access(_) => {
                 // Access is non-mutating, so not interesting to us.
@@ -23,6 +24,24 @@ impl Trigger {
         Some(Self {
             kind,
             paths: event.paths,
+            prefix,
         })
+    }
+}
+
+impl fmt::Display for Trigger {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let num_paths = self.paths.len();
+        for (i, path) in self.paths.iter().enumerate() {
+            // If we can't strip the prefix, just leave the path as-is.
+            let path = path.strip_prefix(&self.prefix).unwrap_or(&path);
+
+            write!(f, "{}", path.display())?;
+            if i < num_paths - 1 {
+                write!(f, ", ")?;
+            }
+        }
+
+        Ok(())
     }
 }

@@ -1,6 +1,6 @@
 mod watch;
 
-use std::{fmt::Write as _, path::Path};
+use std::path::Path;
 
 use anyhow::Context as _;
 use async_walkdir::WalkDir;
@@ -36,25 +36,12 @@ pub async fn build_continuously(
     while let Some(event) = rx.recv().await {
         let event = event?;
 
-        let trigger = match watch::Trigger::new(event) {
+        let trigger = match watch::Trigger::new(event, source_dir_abs.clone()) {
             Some(trigger) => trigger,
             None => continue,
         };
 
-        let mut paths = String::new();
-
-        let num_paths = trigger.paths.len();
-        for (i, path) in trigger.paths.into_iter().enumerate() {
-            // If we can't strip the prefix, just leave the path as-is.
-            let path = path.strip_prefix(&source_dir_abs).unwrap_or(&path);
-
-            write!(paths, "{}", path.display())?;
-            if i < num_paths - 1 {
-                write!(paths, ", ")?;
-            }
-        }
-
-        info!("Building sites. Trigger: {} {}", trigger.kind, paths);
+        info!("Building sites. Trigger: {}", trigger);
 
         // Let's not be picky and just rebuild on any event.
         build(source_dir, &output_dir).await?;
