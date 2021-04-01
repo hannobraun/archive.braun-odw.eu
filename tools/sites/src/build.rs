@@ -77,7 +77,7 @@ pub async fn build(
     prepare_output_dir(&output_dir).await.with_context(|| {
         format!("Failed to prepare output dir: {}", output_dir.display())
     })?;
-    copy_static_files(&source_dir, &output_dir)
+    copy_static(&source_dir, &output_dir)
         .await
         .with_context(|| {
             format!(
@@ -98,7 +98,7 @@ async fn prepare_output_dir(path: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-async fn copy_static_files(
+async fn copy_static(
     source_dir: &Path,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
