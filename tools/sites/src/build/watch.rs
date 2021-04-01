@@ -13,9 +13,11 @@ pub struct Trigger {
 
 impl Trigger {
     pub fn new(
-        event: notify::Event,
+        event: notify::Result<notify::Event>,
         prefix: &Path,
     ) -> anyhow::Result<Option<Self>> {
+        let event = event?;
+
         let kind = match event.kind {
             notify::EventKind::Access(_) => {
                 // Access is non-mutating, so not interesting to us.

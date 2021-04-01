@@ -31,8 +31,6 @@ pub async fn build_continuously(
     watcher.watch(source_dir, notify::RecursiveMode::Recursive)?;
 
     while let Some(event) = rx.recv().await {
-        let event = event?;
-
         let trigger = match watch::Trigger::new(event, source_dir)? {
             Some(trigger) => trigger,
             None => continue,
