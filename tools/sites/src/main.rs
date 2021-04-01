@@ -14,7 +14,7 @@ async fn main() -> anyhow::Result<()> {
 
     let args = Args::parse();
 
-    let source_dir = "sites";
+    let source_dir = "sites/static";
     let output_dir = "output";
 
     if args.dev {
