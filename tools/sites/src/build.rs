@@ -5,7 +5,7 @@ use async_walkdir::WalkDir;
 use futures::StreamExt as _;
 use notify::{immediate_watcher, RecommendedWatcher, Watcher};
 use tokio::{fs, sync::mpsc::unbounded_channel};
-use tracing::info;
+use tracing::{debug, info};
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
@@ -107,6 +107,8 @@ async fn copy_sites(
     while let Some(entry) = entries.next().await {
         let source = entry?.path();
         let output = output_dir.join(&source);
+
+        debug!("Copying `{}` to `{}`", source.display(), output.display());
 
         handle_entry(&source, &output).await.with_context(|| {
             format!("Failed to handle directory entry: {}", source.display())
