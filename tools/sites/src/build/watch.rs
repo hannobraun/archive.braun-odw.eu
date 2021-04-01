@@ -5,6 +5,7 @@ use std::{
 
 use anyhow::Context as _;
 
+#[derive(Debug)]
 pub struct Trigger {
     pub kind: &'static str,
     pub paths: Vec<PathBuf>,
