@@ -102,11 +102,12 @@ async fn copy_static_files(
     source_dir: &Path,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
-    let mut entries = WalkDir::new(source_dir);
+    let source_dir = source_dir.join("static");
+    let mut entries = WalkDir::new(&source_dir);
 
     while let Some(entry) = entries.next().await {
         let source = entry?.path();
-        let output = output_dir.join(source.strip_prefix(source_dir)?);
+        let output = output_dir.join(source.strip_prefix(&source_dir)?);
 
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
