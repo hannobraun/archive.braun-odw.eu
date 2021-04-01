@@ -106,7 +106,7 @@ async fn copy_sites(
 
     while let Some(entry) = entries.next().await {
         let source = entry?.path();
-        let output = output_dir.join(&source);
+        let output = output_dir.join(source.strip_prefix(source_dir)?);
 
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
