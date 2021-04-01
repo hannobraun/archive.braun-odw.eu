@@ -3,6 +3,7 @@ use std::{fmt::Write as _, path::Path};
 use anyhow::Context as _;
 use async_walkdir::WalkDir;
 use futures::StreamExt as _;
+use kuchiki::traits::TendrilSink as _;
 use notify::{immediate_watcher, RecommendedWatcher, Watcher};
 use tokio::{fs, sync::mpsc::unbounded_channel};
 use tracing::{debug, info};
@@ -85,6 +86,9 @@ pub async fn build(
                 output_dir.display()
             )
         })?;
+    build_html(&source_dir, &output_dir)
+        .await
+        .context("Failed to build HTML files")?;
 
     Ok(())
 }
@@ -125,6 +129,33 @@ async fn copy_dir_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
     } else {
         fs::copy(source, output).await?;
     }
+
+    Ok(())
+}
+
+async fn build_html(
+    source_dir: &Path,
+    output_dir: &Path,
+) -> anyhow::Result<()> {
+    // TASK: Process all files in `html`, recursively.
+    let source_file = "hanno.braun-odw.eu/index.html";
+
+    let source = source_dir.join("html").join(source_file);
+
+    // TASK: Look into `parse_html_with_options` and see which ones might make
+    //       a difference.
+    let document = kuchiki::parse_html()
+        .from_utf8()
+        .from_file(&source)
+        .with_context(|| {
+            format!("Failed to parse HTML file `{}`", source.display())
+        })?;
+
+    // TASK: Transform document. Probably best to keep the transformations
+    //       themselves out of this function and accept a closure that does them
+    //       as an argument.
+
+    document.serialize_to_file(output_dir.join(source_file))?;
 
     Ok(())
 }
