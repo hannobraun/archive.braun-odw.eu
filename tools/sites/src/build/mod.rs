@@ -6,8 +6,7 @@ use anyhow::Context as _;
 use async_walkdir::WalkDir;
 use futures::StreamExt as _;
 use kuchiki::traits::TendrilSink as _;
-use notify::{immediate_watcher, RecommendedWatcher, Watcher};
-use tokio::{fs, sync::mpsc::unbounded_channel};
+use tokio::fs;
 use tracing::{debug, info};
 
 pub async fn build_continuously(
@@ -20,17 +19,8 @@ pub async fn build_continuously(
     info!("Building sites.");
     build(source_dir, &output_dir).await?;
 
-    let (tx, mut rx) = unbounded_channel();
-
-    let mut watcher: RecommendedWatcher = immediate_watcher(move |event| {
-        // The function returns an error, if the received has been closed.
-        // This shouldn't happen unless there's a bug, in which case
-        // crashing this thread probably isn't the worst idea.
-        tx.send(event).unwrap()
-    })?;
-    watcher.watch(source_dir, notify::RecursiveMode::Recursive)?;
-
-    while let Some(event) = rx.recv().await {
+    let mut watcher = watch::Watcher::new(source_dir)?;
+    while let Some(event) = watcher.rx.recv().await {
         let trigger = match watch::Trigger::new(event, source_dir)? {
             Some(trigger) => trigger,
             None => continue,

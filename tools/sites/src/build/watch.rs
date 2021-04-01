@@ -4,6 +4,35 @@ use std::{
 };
 
 use anyhow::Context as _;
+use notify::{immediate_watcher, RecommendedWatcher, Watcher as _};
+use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver};
+
+pub struct Watcher {
+    /// Keeping this around so it won't be dropped
+    _watcher: RecommendedWatcher,
+
+    pub rx: UnboundedReceiver<notify::Result<notify::Event>>,
+}
+
+impl Watcher {
+    pub fn new(path: &Path) -> anyhow::Result<Self> {
+        let (tx, rx) = unbounded_channel();
+
+        let mut watcher: RecommendedWatcher =
+            immediate_watcher(move |event| {
+                // The function returns an error, if the received has been
+                // closed. This shouldn't happen unless there's a bug, in which
+                // case crashing this thread probably isn't the worst idea.
+                tx.send(event).unwrap()
+            })?;
+        watcher.watch(path, notify::RecursiveMode::Recursive)?;
+
+        Ok(Self {
+            _watcher: watcher,
+            rx,
+        })
+    }
+}
 
 #[derive(Debug)]
 pub struct Trigger {
