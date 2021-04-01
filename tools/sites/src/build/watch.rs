@@ -11,7 +11,7 @@ pub struct Watcher {
     /// Keeping this around so it won't be dropped
     _watcher: RecommendedWatcher,
 
-    pub rx: UnboundedReceiver<notify::Result<notify::Event>>,
+    rx: UnboundedReceiver<notify::Result<notify::Event>>,
     path: PathBuf,
 }
 
@@ -54,9 +54,9 @@ impl Watcher {
 
 #[derive(Debug)]
 pub struct Trigger {
-    pub kind: &'static str,
-    pub paths: Vec<PathBuf>,
-    pub prefix: PathBuf,
+    kind: &'static str,
+    paths: Vec<PathBuf>,
+    prefix: PathBuf,
 }
 
 impl Trigger {
