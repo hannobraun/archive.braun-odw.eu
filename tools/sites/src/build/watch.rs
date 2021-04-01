@@ -43,6 +43,8 @@ impl Trigger {
 
 impl fmt::Display for Trigger {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} ", self.kind)?;
+
         let num_paths = self.paths.len();
         for (i, path) in self.paths.iter().enumerate() {
             // If we can't strip the prefix, just leave the path as-is.
