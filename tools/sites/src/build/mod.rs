@@ -15,9 +15,6 @@ pub async fn build_continuously(
     output_dir: impl AsRef<Path>,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
-    let source_dir_abs = source_dir.canonicalize().with_context(|| {
-        format!("Failed to canonicalize path `{}`", source_dir.display())
-    })?;
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
@@ -36,7 +33,7 @@ pub async fn build_continuously(
     while let Some(event) = rx.recv().await {
         let event = event?;
 
-        let trigger = match watch::Trigger::new(event, source_dir_abs.clone()) {
+        let trigger = match watch::Trigger::new(event, source_dir)? {
             Some(trigger) => trigger,
             None => continue,
         };

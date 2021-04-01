@@ -1,4 +1,9 @@
-use std::{fmt, path::PathBuf};
+use std::{
+    fmt,
+    path::{Path, PathBuf},
+};
+
+use anyhow::Context as _;
 
 pub struct Trigger {
     pub kind: &'static str,
@@ -7,11 +12,14 @@ pub struct Trigger {
 }
 
 impl Trigger {
-    pub fn new(event: notify::Event, prefix: PathBuf) -> Option<Self> {
+    pub fn new(
+        event: notify::Event,
+        prefix: &Path,
+    ) -> anyhow::Result<Option<Self>> {
         let kind = match event.kind {
             notify::EventKind::Access(_) => {
                 // Access is non-mutating, so not interesting to us.
-                return None;
+                return Ok(None);
             }
 
             notify::EventKind::Any => "any",
@@ -21,11 +29,15 @@ impl Trigger {
             notify::EventKind::Other => "other",
         };
 
-        Some(Self {
+        let prefix = prefix.canonicalize().with_context(|| {
+            format!("Failed to canonicalize path `{}`", prefix.display())
+        })?;
+
+        Ok(Some(Self {
             kind,
             paths: event.paths,
             prefix,
-        })
+        }))
     }
 }
 
