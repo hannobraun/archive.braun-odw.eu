@@ -12,6 +12,7 @@ pub struct Watcher {
     _watcher: RecommendedWatcher,
 
     pub rx: UnboundedReceiver<notify::Result<notify::Event>>,
+    path: PathBuf,
 }
 
 impl Watcher {
@@ -30,7 +31,24 @@ impl Watcher {
         Ok(Self {
             _watcher: watcher,
             rx,
+            path: path.to_path_buf(),
         })
+    }
+
+    pub async fn watch(&mut self) -> anyhow::Result<Option<Trigger>> {
+        loop {
+            let event = match self.rx.recv().await {
+                Some(event) => event,
+                None => return Ok(None),
+            };
+
+            if let Some(trigger) = Trigger::new(event, &self.path)? {
+                return Ok(Some(trigger));
+            }
+
+            // If the event didn't produce a trigger, let's just wait for
+            // another event in the next loop iteration.
+        }
     }
 }
 

@@ -20,12 +20,7 @@ pub async fn build_continuously(
     build(source_dir, &output_dir).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
-    while let Some(event) = watcher.rx.recv().await {
-        let trigger = match watch::Trigger::new(event, source_dir)? {
-            Some(trigger) => trigger,
-            None => continue,
-        };
-
+    while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
 
         // Let's not be picky and just rebuild on any event.
