@@ -1,13 +1,15 @@
+mod walk;
 mod watch;
 
 use std::path::Path;
 
 use anyhow::Context as _;
-use async_walkdir::WalkDir;
 use futures::StreamExt as _;
 use kuchiki::traits::TendrilSink as _;
 use tokio::fs;
 use tracing::{debug, info};
+
+use self::walk::walk_dir;
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
@@ -67,11 +69,11 @@ async fn copy_static(
     output_dir: &Path,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.join("static");
-    let mut entries = WalkDir::new(&source_dir);
+    let output_dir = output_dir.to_path_buf();
 
+    let mut entries = walk_dir(source_dir, output_dir);
     while let Some(entry) = entries.next().await {
-        let source = entry?.path();
-        let output = output_dir.join(source.strip_prefix(&source_dir)?);
+        let (source, output) = entry?;
 
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
