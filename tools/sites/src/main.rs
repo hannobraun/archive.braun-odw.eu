@@ -35,7 +35,12 @@ async fn main() -> anyhow::Result<()> {
 struct Transform;
 
 impl build::Transform for Transform {
-    fn transform(&mut self, source: &Path, document: &mut kuchiki::NodeRef) {
+    fn transform(
+        &mut self,
+        source: &Path,
+        document: &mut kuchiki::NodeRef,
+    ) -> anyhow::Result<()> {
         println!("Transforming {:?} at {}", document, source.display());
+        Ok(())
     }
 }
