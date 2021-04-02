@@ -51,7 +51,7 @@ pub async fn build(
                 output_dir.display()
             )
         })?;
-    html::build(&source_dir, &output_dir, transform)
+    html::process(&source_dir, &output_dir, transform)
         .await
         .context("Failed to build HTML files")?;
 

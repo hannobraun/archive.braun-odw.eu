@@ -11,7 +11,7 @@ use tokio::sync::mpsc::unbounded_channel;
 
 use super::{walk::walk_dir, Transform};
 
-pub async fn build(
+pub async fn process(
     source_dir: &Path,
     output_dir: &Path,
     transform: &mut impl Transform,
