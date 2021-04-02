@@ -3,10 +3,11 @@ mod watch;
 
 use std::path::Path;
 
-use anyhow::Context as _;
+use anyhow::{bail, Context as _};
 use futures::StreamExt as _;
-use kuchiki::traits::TendrilSink as _;
-use tokio::fs;
+use html5ever::{tokenizer::TokenizerOpts, tree_builder::TreeBuilderOpts};
+use kuchiki::{traits::TendrilSink as _, ParseOpts};
+use tokio::{fs, sync::mpsc::unbounded_channel};
 use tracing::{debug, info};
 
 use self::walk::walk_dir;
@@ -110,14 +111,38 @@ async fn build_html(
             continue;
         }
 
-        // TASK: Look into `parse_html_with_options` and see which ones might
-        //       make a difference.
-        let document = kuchiki::parse_html()
+        let (tx, mut rx) = unbounded_channel();
+        let options = ParseOpts {
+            tokenizer: TokenizerOpts {
+                exact_errors: true,
+                ..TokenizerOpts::default()
+            },
+            tree_builder: TreeBuilderOpts {
+                exact_errors: true,
+                ..TreeBuilderOpts::default()
+            },
+            on_parse_error: Some(Box::new(move |error| {
+                // This method returns an error, if the received has been
+                // closed. This shouldn't happen unless there's a bug, in which
+                // case crashing this thread probably isn't the worst idea.
+                tx.send(error).unwrap();
+            })),
+            ..ParseOpts::default()
+        };
+
+        let document = kuchiki::parse_html_with_options(options)
             .from_utf8()
             .from_file(&source)
             .with_context(|| {
                 format!("Failed to parse HTML file `{}`", source.display())
             })?;
+
+        if let Some(error) = rx.recv().await {
+            // TASK: This will abort the whole process, but it should only abort
+            //       this build run. It should be handle somewhere up the call
+            //       chain.
+            bail!("Error parsing `{}`: {}", source.display(), error);
+        }
 
         // TASK: Transform document. Probably best to keep the transformations
         //       themselves out of this function and accept a closure that does
