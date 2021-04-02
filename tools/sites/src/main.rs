@@ -44,7 +44,6 @@ impl build::Transform for Transform {
     ) -> anyhow::Result<()> {
         if self.dev {
             for base in document.select("base").unwrap() {
-                println!("{:?}", base);
                 *base.attributes.borrow_mut().get_mut("href").unwrap() =
                     String::from("/hanno.braun-odw.eu/");
             }
