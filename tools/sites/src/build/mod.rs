@@ -43,7 +43,7 @@ pub async fn build(
     prepare_output_dir(&output_dir).await.with_context(|| {
         format!("Failed to prepare output dir: {}", output_dir.display())
     })?;
-    static_files::copy_static(&source_dir, &output_dir)
+    static_files::copy(&source_dir, &output_dir)
         .await
         .with_context(|| {
             format!(

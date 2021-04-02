@@ -7,7 +7,7 @@ use tracing::debug;
 
 use super::walk::walk_dir;
 
-pub async fn copy_static(
+pub async fn copy(
     source_dir: &Path,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
