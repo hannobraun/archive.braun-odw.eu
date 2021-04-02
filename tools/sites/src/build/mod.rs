@@ -1,5 +1,8 @@
+mod transform;
 mod walk;
 mod watch;
+
+pub use self::transform::Transform;
 
 use std::path::Path;
 
@@ -15,17 +18,18 @@ use self::walk::walk_dir;
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
+    transform: &mut impl Transform,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build(source_dir, &output_dir).await?;
+    build(source_dir, &output_dir, transform).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        build(source_dir, &output_dir).await?;
+        build(source_dir, &output_dir, transform).await?;
     }
 
     Ok(())
@@ -34,6 +38,7 @@ pub async fn build_continuously(
 pub async fn build(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
+    transform: &mut impl Transform,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
@@ -49,7 +54,7 @@ pub async fn build(
                 output_dir.display()
             )
         })?;
-    build_html(&source_dir, &output_dir)
+    build_html(&source_dir, &output_dir, transform)
         .await
         .context("Failed to build HTML files")?;
 
@@ -99,6 +104,7 @@ async fn copy_dir_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
 async fn build_html(
     source_dir: &Path,
     output_dir: &Path,
+    transform: &mut impl Transform,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.join("html");
     let output_dir = output_dir.to_path_buf();
@@ -130,7 +136,7 @@ async fn build_html(
             ..ParseOpts::default()
         };
 
-        let document = kuchiki::parse_html_with_options(options)
+        let mut document = kuchiki::parse_html_with_options(options)
             .from_utf8()
             .from_file(&source)
             .with_context(|| {
@@ -143,6 +149,8 @@ async fn build_html(
             //       chain.
             bail!("Error parsing `{}`: {}", source.display(), error);
         }
+
+        transform.transform(&source, &mut document);
 
         // TASK: Transform document. Probably best to keep the transformations
         //       themselves out of this function and accept a closure that does
