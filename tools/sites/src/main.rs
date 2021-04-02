@@ -19,7 +19,7 @@ async fn main() -> anyhow::Result<()> {
     let source_dir = "sites";
     let output_dir = "output";
 
-    let mut transform = Transform;
+    let mut transform = Transform { dev: args.dev };
 
     if args.dev {
         let build = build_continuously(source_dir, output_dir, &mut transform);
@@ -32,15 +32,24 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-struct Transform;
+struct Transform {
+    dev: bool,
+}
 
 impl build::Transform for Transform {
     fn transform(
         &mut self,
-        source: &Path,
+        _source: &Path,
         document: &mut kuchiki::NodeRef,
     ) -> anyhow::Result<()> {
-        println!("Transforming {:?} at {}", document, source.display());
+        if self.dev {
+            for base in document.select("base").unwrap() {
+                println!("{:?}", base);
+                *base.attributes.borrow_mut().get_mut("href").unwrap() =
+                    String::from("/hanno.braun-odw.eu/");
+            }
+        }
+
         Ok(())
     }
 }
