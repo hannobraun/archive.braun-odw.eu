@@ -99,25 +99,32 @@ async fn build_html(
     source_dir: &Path,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
-    // TASK: Process all files in `html`, recursively.
-    let source_file = "hanno.braun-odw.eu/index.html";
+    let source_dir = source_dir.join("html");
+    let output_dir = output_dir.to_path_buf();
 
-    let source = source_dir.join("html").join(source_file);
+    let mut entries = walk_dir(source_dir, output_dir);
+    while let Some(entry) = entries.next().await {
+        let (source, output) = entry?;
 
-    // TASK: Look into `parse_html_with_options` and see which ones might make
-    //       a difference.
-    let document = kuchiki::parse_html()
-        .from_utf8()
-        .from_file(&source)
-        .with_context(|| {
-            format!("Failed to parse HTML file `{}`", source.display())
-        })?;
+        if source.is_dir() {
+            continue;
+        }
 
-    // TASK: Transform document. Probably best to keep the transformations
-    //       themselves out of this function and accept a closure that does them
-    //       as an argument.
+        // TASK: Look into `parse_html_with_options` and see which ones might
+        //       make a difference.
+        let document = kuchiki::parse_html()
+            .from_utf8()
+            .from_file(&source)
+            .with_context(|| {
+                format!("Failed to parse HTML file `{}`", source.display())
+            })?;
 
-    document.serialize_to_file(output_dir.join(source_file))?;
+        // TASK: Transform document. Probably best to keep the transformations
+        //       themselves out of this function and accept a closure that does
+        //       them as an argument.
+
+        document.serialize_to_file(output)?;
+    }
 
     Ok(())
 }
