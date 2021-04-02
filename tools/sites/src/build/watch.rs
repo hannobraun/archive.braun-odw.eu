@@ -21,7 +21,7 @@ impl Watcher {
 
         let mut watcher: RecommendedWatcher =
             immediate_watcher(move |event| {
-                // The function returns an error, if the received has been
+                // This method returns an error, if the received has been
                 // closed. This shouldn't happen unless there's a bug, in which
                 // case crashing this thread probably isn't the worst idea.
                 tx.send(event).unwrap()
