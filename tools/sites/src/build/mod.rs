@@ -152,10 +152,6 @@ async fn build_html(
 
         transform.transform(&source, &mut document)?;
 
-        // TASK: Transform document. Probably best to keep the transformations
-        //       themselves out of this function and accept a closure that does
-        //       them as an argument.
-
         document.serialize_to_file(output)?;
     }
 
