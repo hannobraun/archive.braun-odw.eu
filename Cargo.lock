@@ -1440,6 +1440,7 @@ dependencies = [
  "async-walkdir",
  "clap",
  "futures",
+ "html5ever",
  "kuchiki",
  "notify",
  "tokio",
