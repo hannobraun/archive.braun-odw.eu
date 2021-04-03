@@ -58,10 +58,10 @@ pub async fn process(
             // TASK: This will abort the whole process, but it should only abort
             //       this build run. It should be handle somewhere up the call
             //       chain.
-            return Err(Error::Parse {
+            return Err(ParseError {
                 file: source.to_string_lossy().into(),
                 message: error.into(),
-            });
+            })?;
         }
 
         transform.transform(&source, &mut document)?;
@@ -77,9 +77,16 @@ pub enum Error {
     #[error("I/O error")]
     Io(#[from] io::Error),
 
-    #[error("Error parsing `{file}`: {message}")]
-    Parse { file: String, message: String },
+    #[error(transparent)]
+    Parse(#[from] ParseError),
 
     #[error("Error transforming HTML")]
     Transform(#[from] anyhow::Error),
+}
+
+#[derive(Error, Debug)]
+#[error("Error parsing `{file}`: {message}")]
+pub struct ParseError {
+    file: String,
+    message: String,
 }
