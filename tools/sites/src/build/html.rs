@@ -72,7 +72,7 @@ pub async fn process(
     Ok(())
 }
 
-#[derive(Error, Debug)]
+#[derive(Debug, Error)]
 pub enum Error {
     #[error("I/O error")]
     Io(#[from] io::Error),
@@ -84,7 +84,7 @@ pub enum Error {
     Transform(#[from] anyhow::Error),
 }
 
-#[derive(Error, Debug)]
+#[derive(Debug, Error)]
 #[error("Error parsing `{file}`: {message}")]
 pub struct ParseError {
     file: String,
