@@ -1,12 +1,13 @@
-use std::path::Path;
+use std::{io, path::Path};
 
-use anyhow::{bail, Context as _};
+use anyhow::Context as _;
 use futures::StreamExt as _;
 use html5ever::{
     tendril::TendrilSink as _, tokenizer::TokenizerOpts,
     tree_builder::TreeBuilderOpts,
 };
 use kuchiki::ParseOpts;
+use thiserror::Error;
 use tokio::sync::mpsc::unbounded_channel;
 
 use super::{walk::walk_dir, Transform};
@@ -15,7 +16,7 @@ pub async fn process(
     source_dir: &Path,
     output_dir: &Path,
     transform: &mut impl Transform,
-) -> anyhow::Result<()> {
+) -> Result<(), Error> {
     let source_dir = source_dir.join("html");
     let output_dir = output_dir.to_path_buf();
 
@@ -57,7 +58,10 @@ pub async fn process(
             // TASK: This will abort the whole process, but it should only abort
             //       this build run. It should be handle somewhere up the call
             //       chain.
-            bail!("Error parsing `{}`: {}", source.display(), error);
+            return Err(Error::ParseHtml {
+                file: source.to_string_lossy().into(),
+                message: error.into(),
+            });
         }
 
         transform.transform(&source, &mut document)?;
@@ -66,4 +70,16 @@ pub async fn process(
     }
 
     Ok(())
+}
+
+#[derive(Error, Debug)]
+pub enum Error {
+    #[error("I/O error")]
+    Io(#[from] io::Error),
+
+    #[error("Error parsing `{file}`: {message}")]
+    ParseHtml { file: String, message: String },
+
+    #[error("Error transforming HTML")]
+    Transform(#[from] anyhow::Error),
 }
