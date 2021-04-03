@@ -11,7 +11,7 @@ use std::path::Path;
 use anyhow::Context as _;
 use thiserror::Error;
 use tokio::fs;
-use tracing::info;
+use tracing::{error, info};
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
@@ -27,7 +27,10 @@ pub async fn build_continuously(
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        build(source_dir, &output_dir, transform).await?;
+        match build(source_dir, &output_dir, transform).await {
+            Err(Error::ParseHtml(err)) => error!("{}", err),
+            result => result?,
+        }
     }
 
     Ok(())

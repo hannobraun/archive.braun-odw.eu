@@ -55,9 +55,6 @@ pub async fn process(
             })?;
 
         if let Some(error) = rx.recv().await {
-            // TASK: This will abort the whole process, but it should only abort
-            //       this build run. It should be handle somewhere up the call
-            //       chain.
             return Err(ParseError {
                 file: source.to_string_lossy().into(),
                 message: error.into(),
