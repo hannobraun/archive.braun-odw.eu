@@ -58,7 +58,7 @@ pub async fn process(
             // TASK: This will abort the whole process, but it should only abort
             //       this build run. It should be handle somewhere up the call
             //       chain.
-            return Err(Error::ParseHtml {
+            return Err(Error::Parse {
                 file: source.to_string_lossy().into(),
                 message: error.into(),
             });
@@ -78,7 +78,7 @@ pub enum Error {
     Io(#[from] io::Error),
 
     #[error("Error parsing `{file}`: {message}")]
-    ParseHtml { file: String, message: String },
+    Parse { file: String, message: String },
 
     #[error("Error transforming HTML")]
     Transform(#[from] anyhow::Error),
