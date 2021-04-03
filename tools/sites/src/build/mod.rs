@@ -9,6 +9,7 @@ pub use self::transform::Transform;
 use std::path::Path;
 
 use anyhow::Context as _;
+use thiserror::Error;
 use tokio::fs;
 use tracing::info;
 
@@ -36,7 +37,7 @@ pub async fn build(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
     transform: &mut impl Transform,
-) -> anyhow::Result<()> {
+) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
 
@@ -51,9 +52,10 @@ pub async fn build(
                 output_dir.display()
             )
         })?;
-    html::process(&source_dir, &output_dir, transform)
-        .await
-        .context("Failed to build HTML files")?;
+    match html::process(&source_dir, &output_dir, transform).await {
+        Err(html::Error::Parse(err)) => return Err(err)?,
+        result => result.context("Failed to build HTML files")?,
+    }
 
     Ok(())
 }
@@ -65,4 +67,13 @@ async fn prepare_output_dir(path: &Path) -> anyhow::Result<()> {
     fs::create_dir_all(path).await?;
 
     Ok(())
+}
+
+#[derive(Debug, Error)]
+pub enum Error {
+    #[error("Error parsing HTML")]
+    ParseHtml(#[from] html::ParseError),
+
+    #[error(transparent)]
+    Other(#[from] anyhow::Error),
 }
