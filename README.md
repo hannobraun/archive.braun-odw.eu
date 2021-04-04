@@ -2,7 +2,7 @@
 
 ## About
 
-My personal IT infrastructure. Currently a work in progress.
+Infrastructure for some of my websites. Built with a homegrown static site generator (because it's fun and educational) and hosted on Netlify.
 
 ## Testing
 
