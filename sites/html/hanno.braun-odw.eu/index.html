@@ -18,8 +18,74 @@
 </head>
 
 <body>
-    <!-- TASK: Build website -->
-    <p>Hello, world!</p>
+    <!--
+        TASK: Replace email links with a `<slot>`, inject it during the build
+              process. Add name to the `mailto` link then.
+    -->
+    <main>
+        <h1>Hanno Braun</h1>
+
+        <section>
+            <h2>Who?</h2>
+            <p>
+                Hanno Braun, self-employed software developer from the Odenwald region, Germany. The best way to reach me is via email (<a href="mailto:hb@hannobraun.de">hb@hannobraun.de</a>).
+            </p>
+            <!-- TASK: Add picture. -->
+        </section>
+        <section>
+            <h2>Ongoing Work</h2>
+            <section class="item">
+                <h3>Braun Embedded</h3>
+                <a href="https://braun-embedded.com/">
+                    https://braun-embedded.com/
+                </a>
+                <p>
+                    I provide software development and consulting services, specifically relating to Rust firmware on ARM Cortex-M microcontrollers. If you want to write your next firmware project in Rust and could use some help with the low-level stuff, <a href="mailto:hanno@braun-embedded.com">let me know</a>!
+                </p>
+            </section>
+            <section class="item">
+                <h3>Flott</h3>
+                <a href="https://flott-motion.org/">
+                    https://flott-motion.org/
+                </a>
+                <p>
+                    Flott is an open source toolkit for motion control software written in Rust. I'm its creator and main developer. Please consider <a href="https://github.com/sponsors/hannobraun">sponsoring me</a>, if you want to support this effort.
+                </p>
+            </section>
+            <section class="item">
+                <h3>Made by Hanno</h3>
+                <a href="https://madeby.hannobraun.de/">
+                    https://madeby.hannobraun.de/
+                </a>
+                <p>
+                    I have a small workshop where I make semi-interesting stuff, mainly 3D-printed.
+                </p>
+            </section>
+        </section>
+        <section>
+            <h2>Side Projects</h2>
+            <p>
+                I work on lots of smaller projects on the side. Check out my GitHub accounts (<a href="https://github.com/hannobraun">personal</a> and <a href="https://github.com/braun-embedded">professional</a>), if you want to find out more.
+            </p>
+        </section>
+    </main>
+
+    <hr />
+
+    <footer>
+        <address>
+            <p>Hanno Braun</p>
+            <p>Untere Pfarrgasse 19</p>
+            <p>64720 Michelstadt</p>
+            <p>Germany</p>
+
+            <hr />
+
+            <p><a href="mailto:hb@hannobraun.de">hb@hannobraun.de</a></p>
+        </address>
+
+        <!-- TASK: Made in Odenwald -->
+    </footer>
 </body>
 
 </html>
