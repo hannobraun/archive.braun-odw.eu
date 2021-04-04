@@ -12,10 +12,4 @@ A local development server can be started using the [Netlify CLI](https://cli.ne
 netlify dev
 ```
 
-However, since there is some particular configuration around domains, additional steps need to be taken to make it work.
-
-1. Edit `/etc/hosts` to point the domain you're testing to `127.0.0.1`.
-2. In `netlify.toml`, change the redirect of the domain you're testing to redirect from `http://...` instead of `https://...`.
-3. Make sure to add the port used by the Netlify Dev server to the URL in the browser.
-
-All these steps will become redundant once we have a build process that can update the `<base>` element in the HTML document.
+This will automatically open `http://localhost:8888/` in your browser, which shows nothing and returns a 404 response code. Add the domain of the site you want to see to that address. For example, the site that ends up being deployed to <a href="https://hanno.braun-odw.eu/">https://hanno.braun-odw.eu/</a> will be available at `http://localhost:8888/hanno.braun-odw.eu/`.
