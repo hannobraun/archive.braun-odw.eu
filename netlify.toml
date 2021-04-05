@@ -20,6 +20,12 @@ to     = "/hanno.braun-odw.eu/:splat"
 status = 200
 force  = true
 
+[[redirects]]
+from   = "https://archive.braun-odw.eu/*"
+to     = "/archive.braun-odw.eu/:splat"
+status = 200
+force  = true
+
 
 # Secondary domains
 
