@@ -21,7 +21,6 @@ framework  = "#custom"
 from   = "https://braun-odw.eu/.well-known/*"
 to     = "/well-known/:splat"
 status = 200
-force  = true
 
 
 # Primary domains
@@ -30,13 +29,11 @@ force  = true
 from   = "https://hanno.braun-odw.eu/*"
 to     = "/hanno.braun-odw.eu/:splat"
 status = 200
-force  = true
 
 [[redirects]]
 from   = "https://archive.braun-odw.eu/*"
 to     = "/archive.braun-odw.eu/:splat"
 status = 200
-force  = true
 
 
 # Secondary domains
@@ -45,19 +42,16 @@ force  = true
 from   = "https://braun-odw.eu/*"
 to     = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
 
 [[redirects]]
 from   = "https://www.braun-odw.eu/*"
 to     = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
 
 [[redirects]]
 from   = "https://braun-odw.netlify.app/*"
 to     = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
 
 
 # Legacy domains
@@ -66,16 +60,13 @@ force  = true
 from   = "https://hannobraun.de/"
 to     = "https://hanno.braun-odw.eu/"
 status = 301
-force  = true
 
 [[redirects]]
 from   = "https://hannobraun.de/*"
 to     = "https://archive.braun-odw.eu/:splat"
 status = 301
-force  = true
 
 [[redirects]]
 from   = "https://www.hannobraun.de/*"
 to     = "https://hannobraun.de/:splat"
 status = 301
-force  = true
