@@ -12,6 +12,18 @@ targetPort = 34480
 framework  = "#custom"
 
 
+# .well-known directory
+#
+# Netlify seems to filter any paths beginning with a "." during the deploy
+# process, as far as I can tell. This makes the .well-known directory work.
+
+[[redirection]]
+from   = "https://braun-odw.eu/.well-known/*"
+to     = "/well-known/:splat"
+status = 200
+force  = true
+
+
 # Primary domains
 
 [[redirects]]
@@ -45,18 +57,6 @@ force  = true
 from   = "https://braun-odw.netlify.app/*"
 to     = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
-
-
-# .well-known directory
-#
-# Netlify seems to filter any paths beginning with a "." during the deploy
-# process, as far as I can tell. This makes the .well-known directory work.
-
-[[redirection]]
-from   = "https://braun-odw.eu/.well-known/*"
-to     = "/well-known/:spat"
-status = 200
 force  = true
 
 
