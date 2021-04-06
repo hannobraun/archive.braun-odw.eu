@@ -17,7 +17,7 @@ framework  = "#custom"
 # Netlify seems to filter any paths beginning with a "." during the deploy
 # process, as far as I can tell. This makes the .well-known directory work.
 
-[[redirection]]
+[[redirects]]
 from   = "https://braun-odw.eu/.well-known/*"
 to     = "/well-known/:splat"
 status = 200
