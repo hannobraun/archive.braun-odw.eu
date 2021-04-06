@@ -48,6 +48,18 @@ status = 301
 force  = true
 
 
+# .well-known directory
+#
+# Netlify seems to filter any paths beginning with a "." during the deploy
+# process, as far as I can tell. This makes the .well-known directory work.
+
+[[redirection]]
+from   = "https://braun-odw.eu/.well-known/*"
+to     = "/well-known/:spat"
+status = 200
+force  = true
+
+
 # Legacy domains
 
 [[redirects]]
