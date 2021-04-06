@@ -23,6 +23,11 @@ to     = "/well-known/:splat"
 status = 200
 force  = true
 
+[[headers]]
+for = "https://braun-odw.eu/.well-known/matrix/client"
+[headers.values]
+Access-Control-Allow-Origin = "*"
+
 
 # Primary domains
 
