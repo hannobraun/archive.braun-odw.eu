@@ -57,7 +57,12 @@ pub async fn build(
         })?;
     match html::process(&source_dir, &output_dir, transform).await {
         Err(html::Error::Parse(err)) => return Err(err)?,
-        result => result.context("Failed to process HTML files")?,
+        result => result.with_context(|| {
+            format!(
+                "Failed to process HTML files for `{}`",
+                source_dir.display()
+            )
+        })?,
     }
 
     Ok(())
