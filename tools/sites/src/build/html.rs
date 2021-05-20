@@ -20,6 +20,10 @@ pub async fn process(
     let source_dir = source_dir.join("html");
     let output_dir = output_dir.to_path_buf();
 
+    if !source_dir.exists() {
+        return Ok(());
+    }
+
     let mut entries = walk_dir(source_dir, output_dir);
     while let Some(entry) = entries.next().await {
         let (source, output) = entry?;
