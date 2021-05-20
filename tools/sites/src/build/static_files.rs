@@ -33,6 +33,9 @@ async fn copy_dir_entry(source: &Path, output: &Path) -> anyhow::Result<()> {
     if source.is_dir() {
         fs::create_dir_all(output).await?;
     } else {
+        if let Some(parent) = output.parent() {
+            fs::create_dir_all(parent).await?;
+        }
         fs::copy(source, output).await?;
     }
 
