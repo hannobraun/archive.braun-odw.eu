@@ -18,7 +18,11 @@ pub async fn copy(source_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
         copy_dir_entry(&source, &output).await.with_context(|| {
-            format!("Failed to copy directory entry: {}", source.display())
+            format!(
+                "Failed to copy `{}` to `{}`",
+                source.display(),
+                output.display(),
+            )
         })?;
     }
 
