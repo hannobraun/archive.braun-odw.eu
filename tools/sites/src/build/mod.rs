@@ -6,11 +6,11 @@ mod watch;
 
 pub use self::transform::Transform;
 
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use anyhow::Context as _;
 use thiserror::Error;
-use tokio::fs;
+use tokio::{fs, io};
 use tracing::{error, info};
 
 pub async fn build_continuously(
@@ -47,6 +47,31 @@ pub async fn build(
     prepare_output_dir(&output_dir).await.with_context(|| {
         format!("Failed to prepare output dir: {}", output_dir.display())
     })?;
+
+    let mut entries = fs::read_dir(source_dir).await?;
+
+    while let Some(entry) = entries.next_entry().await? {
+        let path = entry.path();
+
+        if path.is_file() {
+            return Err(Error::InvalidSite(path));
+        }
+
+        let output_dir = output_dir.join(path.file_name().unwrap());
+        build_site(path, output_dir, transform).await?;
+    }
+
+    Ok(())
+}
+
+async fn build_site(
+    source_dir: impl AsRef<Path>,
+    output_dir: impl AsRef<Path>,
+    transform: &mut impl Transform,
+) -> Result<(), Error> {
+    let source_dir = source_dir.as_ref();
+    let output_dir = output_dir.as_ref();
+
     static_files::copy(&source_dir, &output_dir)
         .await
         .with_context(|| {
@@ -79,6 +104,12 @@ async fn prepare_output_dir(path: &Path) -> anyhow::Result<()> {
 
 #[derive(Debug, Error)]
 pub enum Error {
+    #[error("I/O error")]
+    Io(#[from] io::Error),
+
+    #[error("Found file in `sites/` directory")]
+    InvalidSite(PathBuf),
+
     #[error("Error parsing HTML")]
     ParseHtml(#[from] html::ParseError),
 
