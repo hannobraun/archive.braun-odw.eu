@@ -1,5 +1,6 @@
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
+use anyhow::anyhow;
 use futures::StreamExt as _;
 use rsass::{compile_scss_path, output::Format};
 use tokio::{fs::File, io::AsyncWriteExt};
@@ -19,13 +20,38 @@ pub async fn compile(
 
     let mut entries = walk_dir(source_dir, output_dir);
     while let Some(entry) = entries.next().await {
-        let (source, output) = entry?;
+        let (source, mut output) = entry?;
 
         let css = compile_scss_path(&source, Format::default())?;
 
+        replace_file_extension(&mut output)?;
         let mut output = File::create(output).await?;
         output.write_all(&css).await?;
     }
+
+    Ok(())
+}
+
+fn replace_file_extension(path: &mut PathBuf) -> anyhow::Result<()> {
+    let file_name = path
+        .file_name()
+        .expect("Untransformed output path did not have file name");
+    let file_name = file_name.to_str().ok_or_else(|| {
+        anyhow!(
+            "File name is not valid unicode: {}",
+            file_name.to_string_lossy(),
+        )
+    })?;
+    let mut file_name = file_name.to_string();
+
+    let extension = ".scss";
+    let index = file_name.rfind(extension).ok_or_else(|| {
+        anyhow!("File `{}` does not end with `{}`", file_name, extension)
+    })?;
+    file_name.truncate(index);
+
+    file_name.push_str(".css");
+    path.set_file_name(file_name);
 
     Ok(())
 }
