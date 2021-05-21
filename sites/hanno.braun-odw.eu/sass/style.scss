@@ -14,23 +14,23 @@ body {
 
 section {
     margin-left: 1.5em;
-}
 
-section p, section ul {
-    margin-left: 1.5em;
-}
+    p, ul {
+        margin-left: 1.5em;
+    }
 
-section ul {
-    list-style-type: none;
-    padding-left:    0;
-}
+    ul {
+        list-style-type: none;
+        padding-left:    0;
 
-section ul li > a {
-    font-size: 90%;
-}
+        li > a {
+            font-size: 90%;
+        }
 
-section ul h1, section ul h2, section ul h3 {
-    margin-bottom: 0;
+        h1, h2, h3 {
+            margin-bottom: 0;
+        }
+    }
 }
 
 table.contact * {
