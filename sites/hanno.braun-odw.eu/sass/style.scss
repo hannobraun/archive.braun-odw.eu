@@ -12,6 +12,11 @@ body {
     }
 }
 
+a {
+	font-weight: bold;
+	color: #1010c0;
+}
+
 section {
     margin-left: 1.5em;
 
@@ -48,11 +53,6 @@ table.contact {
     p {
         margin: 0;
     }
-}
-
-a {
-	font-weight: bold;
-	color: #1010c0;
 }
 
 footer {
