@@ -7,6 +7,7 @@ use tokio::{fs::File, io::AsyncWriteExt};
 
 use crate::build::walk::walk_dir;
 
+// TASK: Handle SCSS compile errors, don't let them end the application.
 pub async fn compile(
     source_dir: &Path,
     output_dir: &Path,
