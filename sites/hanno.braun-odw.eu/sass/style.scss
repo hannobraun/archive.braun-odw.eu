@@ -59,30 +59,30 @@ footer {
     margin-top: 3em;
     margin-bottom: 3em;
     text-align: center;
-}
 
-footer address {
-    display: inline-block;
-    text-align: left;
-}
+    address {
+        display: inline-block;
+        text-align: left;
 
-footer address p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
 
-footer address hr {
-    width: 20%;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
+        hr {
+            width: 20%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+    }
 
-footer .made-in-odenwald {
-    margin-top: 3em;
-    margin-bottom: 3em;
-}
+    .made-in-odenwald {
+        margin-top: 3em;
+        margin-bottom: 3em;
 
-footer .made-in-odenwald a {
-    font-size: 110%;
-    color: #000000;
+        a {
+            font-size: 110%;
+            color: #000000;
+        }
+    }
 }
