@@ -23,12 +23,14 @@ section {
         list-style-type: none;
         padding-left:    0;
 
-        li > a {
-            font-size: 90%;
-        }
+        li {
+            h1, h2, h3 {
+                margin-bottom: 0;
+            }
 
-        h1, h2, h3 {
-            margin-bottom: 0;
+            > a {
+                font-size: 90%;
+            }
         }
     }
 }
