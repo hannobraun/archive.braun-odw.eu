@@ -35,17 +35,19 @@ section {
     }
 }
 
-table.contact * {
-	vertical-align: text-top;
-}
+table.contact {
+    * {
+        vertical-align: text-top;
+    }
 
-table.contact th {
-	text-align: right;
-	padding:    0.3em 0.8em;
-}
+    th {
+        text-align: right;
+        padding:    0.3em 0.8em;
+    }
 
-table.contact p {
-	margin: 0;
+    p {
+        margin: 0;
+    }
 }
 
 a {
