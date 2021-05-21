@@ -1,4 +1,5 @@
 mod html;
+mod sass;
 mod static_files;
 mod transform;
 mod walk;
@@ -89,6 +90,7 @@ async fn build_site(
             )
         })?,
     }
+    sass::compile(&source_dir, &output_dir).await?;
 
     Ok(())
 }
