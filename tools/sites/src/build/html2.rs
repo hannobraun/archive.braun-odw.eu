@@ -49,12 +49,14 @@ macro_rules! html {
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: vec![html!(@content $($content)*).into()],
+            content: std::vec::Vec::new(),
         };
 
         $(
             element.attributes.insert(stringify!($attr_name), $attr_value);
         )*
+
+        element.content.push(html!(@content $($content)*).into());
 
         element
     }};
