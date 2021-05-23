@@ -110,9 +110,7 @@ mod tests {
     fn macro_should_create_element_with_nested_element() {
         let html = html! {
             p() {
-                a() {
-                    "This is a link."
-                }
+                strong() { "This is a paragraph." }
             }
         };
 
@@ -120,9 +118,9 @@ mod tests {
             name: "p",
             attributes: hash_map!(),
             content: vec![Content::Element(Element {
-                name: "a",
+                name: "strong",
                 attributes: hash_map!(),
-                content: vec![Content::Text("This is a link.")],
+                content: vec![Content::Text("This is a paragraph.")],
             })],
         };
 
