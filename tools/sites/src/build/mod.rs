@@ -14,6 +14,7 @@ use thiserror::Error;
 use tokio::{fs, io};
 use tracing::{error, info};
 
+// TASK: Handle SCSS compile errors, don't let them end the application.
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
@@ -90,7 +91,15 @@ async fn build_site(
             )
         })?,
     }
-    sass::compile(&source_dir, &output_dir).await?;
+    match sass::compile(&source_dir, &output_dir).await {
+        Err(sass::Error::Parse(err)) => return Err(err)?,
+        result => result.with_context(|| {
+            format!(
+                "Failed to compile SASS files for `{}`",
+                source_dir.display()
+            )
+        })?,
+    }
 
     Ok(())
 }
@@ -114,6 +123,9 @@ pub enum Error {
 
     #[error("Error parsing HTML")]
     ParseHtml(#[from] html::ParseError),
+
+    #[error("Error parsing SASS")]
+    ParseSass(#[from] rsass::Error),
 
     #[error(transparent)]
     Other(#[from] anyhow::Error),

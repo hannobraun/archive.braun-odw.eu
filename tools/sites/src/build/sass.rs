@@ -4,15 +4,17 @@ use anyhow::anyhow;
 use futures::StreamExt as _;
 use rsass::{compile_scss_path, output::Format};
 use thiserror::Error;
-use tokio::{fs::File, io::AsyncWriteExt};
+use tokio::{
+    fs::File,
+    io::{self, AsyncWriteExt},
+};
 
 use crate::build::walk::walk_dir;
 
-// TASK: Handle SCSS compile errors, don't let them end the application.
 pub async fn compile(
     source_dir: &Path,
     output_dir: &Path,
-) -> anyhow::Result<()> {
+) -> Result<(), Error> {
     let source_dir = source_dir.join("sass");
     let output_dir = output_dir.to_path_buf();
 
