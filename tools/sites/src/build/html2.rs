@@ -6,7 +6,7 @@ use std::collections::HashMap;
 pub struct Element {
     pub name: &'static str,
     pub attributes: HashMap<&'static str, &'static str>,
-    pub content: Content,
+    pub content: Vec<Content>,
 }
 
 #[cfg(test)]
@@ -32,7 +32,7 @@ macro_rules! html {
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: Content::Text($content),
+            content: vec![Content::Text($content)],
         };
 
         $(
@@ -60,7 +60,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: hash_map!("id" => "id", "class" => "class"),
-            content: Content::Text("This is a paragraph."),
+            content: vec![Content::Text("This is a paragraph.")],
         };
 
         assert_eq!(html, expected);
