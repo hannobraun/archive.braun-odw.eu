@@ -107,7 +107,7 @@ mod tests {
             }
         };
 
-        let mut expected = Element {
+        let expected = Element {
             name: "p",
             attributes: hash_map!("id" => "id", "class" => "class"),
             content: vec![Content::Element(Element {
@@ -119,8 +119,6 @@ mod tests {
                 content: vec![Content::Text("This is a link.")],
             })],
         };
-        expected.attributes.insert("id", "id");
-        expected.attributes.insert("class", "class");
 
         assert_eq!(html, expected);
     }
