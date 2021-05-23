@@ -84,6 +84,15 @@ macro_rules! html {
         html!(@content $vec, $($rest)*);
     }};
 
+    // Content parsing directive for injected content
+    (@content $vec:expr,
+        { $injected:expr }
+        $($rest:tt)*
+    ) => {{
+        $vec.push($injected.into());
+        html!(@content $vec, $($rest)*);
+    }};
+
     // Content parsing directive to terminate parsing once no content is left
     (@content $vec:expr,) => {};
 
@@ -178,6 +187,33 @@ mod tests {
                 }),
                 Content::Text("content."),
             ],
+        };
+
+        assert_eq!(html, expected);
+    }
+
+    #[test]
+    fn macro_should_create_element_with_injected_content() {
+        let injected = html! {
+            p {
+                "This is a paragraph."
+            }
+        };
+
+        let html = html! {
+            div {
+                { injected }
+            }
+        };
+
+        let expected = Element {
+            name: "div",
+            attributes: hash_map!(),
+            content: vec![Content::Element(Element {
+                name: "p",
+                attributes: hash_map!(),
+                content: vec![Content::Text("This is a paragraph.")],
+            })],
         };
 
         assert_eq!(html, expected);
