@@ -45,7 +45,6 @@ macro_rules! html {
             $($content:tt)*
         }
     ) => {{
-        #[allow(unused_mut)]
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
