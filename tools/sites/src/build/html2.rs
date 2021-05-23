@@ -1,7 +1,5 @@
-#[cfg(test)]
 use std::collections::HashMap;
 
-#[cfg(test)]
 #[derive(Debug, Eq, PartialEq)]
 pub struct Element {
     pub name: &'static str,
@@ -9,21 +7,18 @@ pub struct Element {
     pub content: Vec<Content>,
 }
 
-#[cfg(test)]
 #[derive(Debug, Eq, PartialEq)]
 pub enum Content {
     Element(Element),
     Text(&'static str),
 }
 
-#[cfg(test)]
 impl From<Element> for Content {
     fn from(element: Element) -> Self {
         Self::Element(element)
     }
 }
 
-#[cfg(test)]
 impl From<&'static str> for Content {
     fn from(text: &'static str) -> Self {
         Self::Text(text)
@@ -35,7 +30,6 @@ impl From<&'static str> for Content {
 /// Syntax heavily inspired by [Maple].
 ///
 /// [Maple]: https://github.com/lukechu10/maple
-#[cfg(test)]
 macro_rules! html {
     // Content parsing directive for elements without attributes
     (@content $vec:expr,
@@ -110,7 +104,6 @@ macro_rules! html {
     }};
 }
 
-#[cfg(test)]
 mod tests {
     use common_macros::hash_map;
 

@@ -1,4 +1,5 @@
 mod html;
+#[cfg(test)]
 mod html2;
 mod sass;
 mod static_files;
