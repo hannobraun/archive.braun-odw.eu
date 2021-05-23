@@ -23,7 +23,14 @@ pub enum Content {
 /// [Maple]: https://github.com/lukechu10/maple
 #[cfg(test)]
 macro_rules! html {
-    // Private parsing rule for element content.
+    // Rule for parsing an element, when it is known that we have all the syntax
+    // required for an element. This exists to enable code reuse within the
+    // macro as elements are parsed in two places (entry point and content
+    // parsing directive).
+    //
+    // The entry point can't just call the content parsing directive, as the
+    // entry point returns an `Element`, while the content parsing directive
+    // returns `Content`.
     (@element
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
@@ -44,6 +51,7 @@ macro_rules! html {
         element
     }};
 
+    // Content parsing directives. Each rule parses a different kind of content.
     (@content
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
@@ -67,7 +75,7 @@ macro_rules! html {
         Content::Text($text)
     }};
 
-    // Public entry point to the macro.
+    // Entry point to the macro.
     (
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
