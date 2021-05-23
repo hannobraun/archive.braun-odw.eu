@@ -58,7 +58,7 @@ macro_rules! html {
         element
     }};
     (@content
-        $text:expr
+        $text:literal
     ) => {{
         $text
     }};
