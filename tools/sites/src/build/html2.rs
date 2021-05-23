@@ -55,7 +55,7 @@ macro_rules! html {
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: vec![html!(@content $($content)*)],
+            content: vec![html!(@content $($content)*).into()],
         };
 
         $(
@@ -81,12 +81,12 @@ macro_rules! html {
             }
         );
 
-        Content::Element(element)
+        element
     }};
     (@content
         $text:expr
     ) => {{
-        Content::Text($text)
+        $text
     }};
 
     // Entry point to the macro.
