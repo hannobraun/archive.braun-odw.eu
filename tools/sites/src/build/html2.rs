@@ -37,6 +37,16 @@ impl From<&'static str> for Content {
 /// [Maple]: https://github.com/lukechu10/maple
 #[cfg(test)]
 macro_rules! html {
+    // Content parsing directive for elements without attributes
+    (@content $vec:expr,
+        $name:ident {
+            $($content:tt)*
+        }
+        $($rest:tt)*
+    ) => {{
+        html!(@content $vec, $name() { $($content)* } $($rest)*);
+    }};
+
     // Content parsing directive for elements
     (@content $vec:expr,
         $name:ident(
@@ -88,6 +98,23 @@ mod tests {
     use common_macros::hash_map;
 
     use super::{Content, Element};
+
+    #[test]
+    fn macro_should_create_element_with_text() {
+        let html = html! {
+            p {
+                "This is a paragraph."
+            }
+        };
+
+        let expected = Element {
+            name: "p",
+            attributes: hash_map!(),
+            content: vec![Content::Text("This is a paragraph.")],
+        };
+
+        assert_eq!(html, expected);
+    }
 
     #[test]
     fn macro_should_create_element_with_attributes() {
