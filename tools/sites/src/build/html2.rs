@@ -39,7 +39,7 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashMap;
+    use common_macros::hash_map;
 
     use super::Element;
 
@@ -51,13 +51,11 @@ mod tests {
             }
         };
 
-        let mut expected = Element {
+        let expected = Element {
             name: "p",
-            attributes: HashMap::new(),
+            attributes: hash_map!("id" => "id", "class" => "class"),
             content: "This is a paragraph.",
         };
-        expected.attributes.insert("id", "id");
-        expected.attributes.insert("class", "class");
 
         assert_eq!(p, expected);
     }
