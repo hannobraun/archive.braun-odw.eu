@@ -90,7 +90,7 @@ mod tests {
     use super::{Content, Element};
 
     #[test]
-    fn macro_should_create_element_with_text() {
+    fn macro_should_create_element_with_attributes() {
         let html = html! {
             p(id="id", class="class") {
                 "This is a paragraph."
