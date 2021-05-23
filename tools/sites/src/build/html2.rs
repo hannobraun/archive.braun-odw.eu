@@ -16,6 +16,20 @@ pub enum Content {
     Text(&'static str),
 }
 
+#[cfg(test)]
+impl From<Element> for Content {
+    fn from(element: Element) -> Self {
+        Self::Element(element)
+    }
+}
+
+#[cfg(test)]
+impl From<&'static str> for Content {
+    fn from(text: &'static str) -> Self {
+        Self::Text(text)
+    }
+}
+
 /// Macro to build HTML
 ///
 /// Syntax heavily inspired by [Maple].
