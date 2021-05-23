@@ -134,9 +134,7 @@ mod tests {
         let html = html! {
             p() {
                 "This is a paragraph with"
-                strong() {
-                    "mixed"
-                }
+                strong() { "mixed" }
                 "content."
             }
         };
