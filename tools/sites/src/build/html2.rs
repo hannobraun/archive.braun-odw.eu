@@ -109,8 +109,8 @@ mod tests {
     #[test]
     fn macro_should_create_element_with_nested_element() {
         let html = html! {
-            p(id="id", class="class") {
-                a(href="https://site.example/", target="_href") {
+            p() {
+                a() {
                     "This is a link."
                 }
             }
@@ -118,13 +118,10 @@ mod tests {
 
         let expected = Element {
             name: "p",
-            attributes: hash_map!("id" => "id", "class" => "class"),
+            attributes: hash_map!(),
             content: vec![Content::Element(Element {
                 name: "a",
-                attributes: hash_map!(
-                    "href" => "https://site.example/",
-                    "target" => "_href",
-                ),
+                attributes: hash_map!(),
                 content: vec![Content::Text("This is a link.")],
             })],
         };
