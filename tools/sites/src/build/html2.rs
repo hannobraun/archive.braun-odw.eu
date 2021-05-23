@@ -44,6 +44,8 @@ macro_rules! html {
         }
         $($rest:tt)*
     ) => {{
+        // Just call the regular element parsing directive with an empty
+        // attribute list.
         html!(@content $vec, $name() { $($content)* } $($rest)*);
     }};
 
