@@ -64,20 +64,8 @@ macro_rules! html {
     }};
 
     // Entry point to the macro.
-    (
-        $name:ident(
-            $($attr_name:ident = $attr_value:expr),* $(,)?
-        ) {
-            $($content:tt)*
-        }
-    ) => {
-        html!(@content
-            $name(
-                $($attr_name=$attr_value),*
-            ) {
-                $($content)*
-            }
-        )
+    ($($html:tt)*) => {
+        html!(@content $($html)*)
     };
 }
 
