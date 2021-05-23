@@ -37,7 +37,7 @@ impl From<&'static str> for Content {
 /// [Maple]: https://github.com/lukechu10/maple
 #[cfg(test)]
 macro_rules! html {
-    // Content parsing directives. Each rule parses a different kind of content.
+    // Parsing directive for element content
     (@content $vec:expr,
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
@@ -62,6 +62,8 @@ macro_rules! html {
         $vec.push(element.into());
         html!(@content $vec, $($rest)*);
     }};
+
+    // Parsing directive for text content
     (@content $vec:expr,
         $text:literal
         $($rest:tt)*
@@ -69,9 +71,11 @@ macro_rules! html {
         $vec.push($text.into());
         html!(@content $vec, $($rest)*);
     }};
+
+    // Parsing directive to terminate parsing once no content is left
     (@content $vec:expr,) => {};
 
-    // Entry point to the macro.
+    // Entry point to the macro
     ($($html:tt)*) => {{
         let mut v: Vec<Element> = Vec::new();
         html!(@content &mut v, $($html)*);
