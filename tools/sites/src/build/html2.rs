@@ -52,6 +52,9 @@ macro_rules! html {
     // Content parsing directive for elements
     (@content $vec:expr,
         $name:ident(
+            // TASK: `$attr_name` needs to be a string, otherwise attributes
+            //       that contain `-` cannot be represented.
+            // TASK: Remove the comma, if possible. HTML doesn't have any here.
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
             $($content:tt)*
@@ -97,6 +100,9 @@ macro_rules! html {
     (@content $vec:expr,) => {};
 
     // Entry point to the macro
+    // TASK: Make parameters more specific to make error message more clear.
+    //       Currently any syntax error will result in an error message about
+    //       the recursion limit.
     ($($html:tt)*) => {{
         let mut v: Vec<Element> = Vec::new();
         html!(@content &mut v, $($html)*);
