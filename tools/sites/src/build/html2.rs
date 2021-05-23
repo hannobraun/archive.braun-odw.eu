@@ -44,6 +44,7 @@ macro_rules! html {
         ) {
             $($content:tt)*
         }
+        $($rest:tt)*
     ) => {{
         let mut element = Element {
             name: stringify!($name),
@@ -59,12 +60,16 @@ macro_rules! html {
         html!(@content &mut element.content, $($content)*);
 
         $vec.push(element.into());
+        html!(@content $vec, $($rest)*);
     }};
     (@content $vec:expr,
         $text:literal
+        $($rest:tt)*
     ) => {{
         $vec.push($text.into());
+        html!(@content $vec, $($rest)*);
     }};
+    (@content $vec:expr,) => {};
 
     // Entry point to the macro.
     ($($html:tt)*) => {{
@@ -118,6 +123,35 @@ mod tests {
                 ),
                 content: vec![Content::Text("This is a link.")],
             })],
+        };
+
+        assert_eq!(html, expected);
+    }
+
+    #[test]
+    fn macro_should_create_element_with_mixed_content() {
+        let html = html! {
+            p() {
+                "This is a paragraph with"
+                strong() {
+                    "mixed"
+                }
+                "content."
+            }
+        };
+
+        let expected = Element {
+            name: "p",
+            attributes: hash_map!(),
+            content: vec![
+                Content::Text("This is a paragraph with"),
+                Content::Element(Element {
+                    name: "strong",
+                    attributes: hash_map!(),
+                    content: vec![Content::Text("mixed")],
+                }),
+                Content::Text("content."),
+            ],
         };
 
         assert_eq!(html, expected);
