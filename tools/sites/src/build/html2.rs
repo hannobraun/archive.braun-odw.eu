@@ -23,7 +23,7 @@ pub enum Content {
 #[cfg(test)]
 macro_rules! html {
     // Private parsing rule for element content.
-    (@content
+    (@element
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
@@ -45,7 +45,7 @@ macro_rules! html {
 
     // Public entry point to the macro.
     ($($html:tt)*) => {
-        html!(@content $($html)*)
+        html!(@element $($html)*)
     };
 }
 
