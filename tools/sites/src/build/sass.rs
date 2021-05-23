@@ -3,6 +3,7 @@ use std::path::{Path, PathBuf};
 use anyhow::anyhow;
 use futures::StreamExt as _;
 use rsass::{compile_scss_path, output::Format};
+use thiserror::Error;
 use tokio::{fs::File, io::AsyncWriteExt};
 
 use crate::build::walk::walk_dir;
@@ -55,4 +56,16 @@ fn replace_file_extension(path: &mut PathBuf) -> anyhow::Result<()> {
     path.set_file_name(file_name);
 
     Ok(())
+}
+
+#[derive(Debug, Error)]
+pub enum Error {
+    #[error("I/O error")]
+    Io(#[from] io::Error),
+
+    #[error(transparent)]
+    Parse(#[from] rsass::Error),
+
+    #[error("Error compiling SASS")]
+    Other(#[from] anyhow::Error),
 }
