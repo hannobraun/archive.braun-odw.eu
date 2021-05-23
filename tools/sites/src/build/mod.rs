@@ -14,7 +14,6 @@ use thiserror::Error;
 use tokio::{fs, io};
 use tracing::{error, info};
 
-// TASK: Handle SCSS compile errors, don't let them end the application.
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
@@ -31,6 +30,7 @@ pub async fn build_continuously(
         info!("Building sites. Trigger: {}", trigger);
         match build(source_dir, &output_dir, transform).await {
             Err(Error::ParseHtml(err)) => error!("{}", err),
+            Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
     }
