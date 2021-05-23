@@ -136,8 +136,8 @@ mod tests {
     #[test]
     fn macro_should_create_element_with_nested_element() {
         let html = html! {
-            p() {
-                strong() { "This is a paragraph." }
+            p {
+                strong { "This is a paragraph." }
             }
         };
 
@@ -157,9 +157,9 @@ mod tests {
     #[test]
     fn macro_should_create_element_with_mixed_content() {
         let html = html! {
-            p() {
+            p {
                 "This is a paragraph with"
-                strong() { "mixed" }
+                strong { "mixed" }
                 "content."
             }
         };
