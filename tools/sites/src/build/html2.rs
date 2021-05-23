@@ -22,7 +22,8 @@ pub enum Content {
 /// [Maple]: https://github.com/lukechu10/maple
 #[cfg(test)]
 macro_rules! html {
-    (
+    // Private parsing rule for element content.
+    (@content
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
@@ -41,6 +42,11 @@ macro_rules! html {
 
         element
     }};
+
+    // Public entry point to the macro.
+    ($($html:tt)*) => {
+        html!(@content $($html)*)
+    };
 }
 
 #[cfg(test)]
