@@ -12,6 +12,7 @@ pub struct Element {
 #[cfg(test)]
 #[derive(Debug, Eq, PartialEq)]
 pub enum Content {
+    Element(Element),
     Text(&'static str),
 }
 
@@ -27,13 +28,13 @@ macro_rules! html {
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
-            $content:expr
+            $($content:tt)*
         }
     ) => {{
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: vec![Content::Text($content)],
+            content: vec![html!(@content $($content)*)],
         };
 
         $(
@@ -43,19 +44,42 @@ macro_rules! html {
         element
     }};
 
+    (@content
+        $name:ident(
+            $($attr_name:ident = $attr_value:expr),* $(,)?
+        ) {
+            $($content:tt)*
+        }
+    ) => {{
+        let element = html!(@element
+            $name(
+                $($attr_name=$attr_value),*
+            ) {
+                $($content)*
+            }
+        );
+
+        Content::Element(element)
+    }};
+    (@content
+        $text:expr
+    ) => {{
+        Content::Text($text)
+    }};
+
     // Public entry point to the macro.
     (
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
-            $content:expr
+            $($content:tt)*
         }
     ) => {
         html!(@element
             $name(
                 $($attr_name=$attr_value),*
             ) {
-                $content
+                $($content)*
             }
         )
     };
@@ -80,6 +104,34 @@ mod tests {
             attributes: hash_map!("id" => "id", "class" => "class"),
             content: vec![Content::Text("This is a paragraph.")],
         };
+
+        assert_eq!(html, expected);
+    }
+
+    #[test]
+    fn macro_should_create_element_with_nested_element() {
+        let html = html! {
+            p(id="id", class="class") {
+                a(href="https://site.example/", target="_href") {
+                    "This is a link."
+                }
+            }
+        };
+
+        let mut expected = Element {
+            name: "p",
+            attributes: hash_map!("id" => "id", "class" => "class"),
+            content: vec![Content::Element(Element {
+                name: "a",
+                attributes: hash_map!(
+                    "href" => "https://site.example/",
+                    "target" => "_href",
+                ),
+                content: vec![Content::Text("This is a link.")],
+            })],
+        };
+        expected.attributes.insert("id", "id");
+        expected.attributes.insert("class", "class");
 
         assert_eq!(html, expected);
     }
