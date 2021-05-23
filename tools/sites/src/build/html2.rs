@@ -6,7 +6,13 @@ use std::collections::HashMap;
 pub struct Element {
     pub name: &'static str,
     pub attributes: HashMap<&'static str, &'static str>,
-    pub content: &'static str,
+    pub content: Content,
+}
+
+#[cfg(test)]
+#[derive(Debug, Eq, PartialEq)]
+pub enum Content {
+    Text(&'static str),
 }
 
 /// Macro to build HTML
@@ -26,7 +32,7 @@ macro_rules! html {
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: $content,
+            content: Content::Text($content),
         };
 
         $(
@@ -41,7 +47,7 @@ macro_rules! html {
 mod tests {
     use common_macros::hash_map;
 
-    use super::Element;
+    use super::{Content, Element};
 
     #[test]
     fn macro_should_create_element_with_text() {
@@ -54,7 +60,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: hash_map!("id" => "id", "class" => "class"),
-            content: "This is a paragraph.",
+            content: Content::Text("This is a paragraph."),
         };
 
         assert_eq!(p, expected);
