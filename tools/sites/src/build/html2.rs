@@ -51,7 +51,7 @@ mod tests {
 
     #[test]
     fn macro_should_create_element_with_text() {
-        let p = html! {
+        let html = html! {
             p(id="id", class="class") {
                 "This is a paragraph."
             }
@@ -63,6 +63,6 @@ mod tests {
             content: Content::Text("This is a paragraph."),
         };
 
-        assert_eq!(p, expected);
+        assert_eq!(html, expected);
     }
 }
