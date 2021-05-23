@@ -44,8 +44,20 @@ macro_rules! html {
     }};
 
     // Public entry point to the macro.
-    ($($html:tt)*) => {
-        html!(@element $($html)*)
+    (
+        $name:ident(
+            $($attr_name:ident = $attr_value:expr),* $(,)?
+        ) {
+            $content:expr
+        }
+    ) => {
+        html!(@element
+            $name(
+                $($attr_name=$attr_value),*
+            ) {
+                $content
+            }
+        )
     };
 }
 
