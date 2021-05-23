@@ -38,7 +38,7 @@ impl From<&'static str> for Content {
 #[cfg(test)]
 macro_rules! html {
     // Content parsing directives. Each rule parses a different kind of content.
-    (@content
+    (@content $vec:expr,
         $name:ident(
             $($attr_name:ident = $attr_value:expr),* $(,)?
         ) {
@@ -56,20 +56,23 @@ macro_rules! html {
             element.attributes.insert(stringify!($attr_name), $attr_value);
         )*
 
-        element.content.push(html!(@content $($content)*).into());
 
-        element
+        html!(@content &mut element.content, $($content)*);
+
+        $vec.push(element.into());
     }};
-    (@content
+    (@content $vec:expr,
         $text:literal
     ) => {{
-        $text
+        $vec.push($text.into());
     }};
 
     // Entry point to the macro.
-    ($($html:tt)*) => {
-        html!(@content $($html)*)
-    };
+    ($($html:tt)*) => {{
+        let mut v: Vec<Element> = Vec::new();
+        html!(@content &mut v, $($html)*);
+        v.remove(0)
+    }};
 }
 
 #[cfg(test)]
