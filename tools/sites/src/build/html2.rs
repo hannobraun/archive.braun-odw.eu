@@ -81,12 +81,25 @@ macro_rules! html {
     (@content $vec:expr,) => {};
 
     // Entry point to the macro
-    // TASK: Make parameters more specific to make error message more clear.
-    //       Currently any syntax error will result in an error message about
-    //       the recursion limit.
-    ($($html:tt)*) => {{
+    (
+        $name:ident $((
+            $($attr_name:literal = $attr_value:expr)*
+        ))? {
+            $($content:tt)*
+        }
+        $($rest:tt)*
+    ) => {{
         let mut v: Vec<Element> = Vec::new();
-        html!(@content &mut v, $($html)*);
+
+        html!(@content &mut v,
+            $name $((
+                $($attr_name = $attr_value)*
+            ))? {
+                $($content)*
+            }
+            $($rest)*
+        );
+
         v.remove(0)
     }};
 }
