@@ -82,7 +82,7 @@ macro_rules! html {
         let mut element = Element {
             name: stringify!($name),
             attributes: std::collections::HashMap::new(),
-            content: std::vec::Vec::new(),
+            content: Vec::new(),
         };
 
         $(
