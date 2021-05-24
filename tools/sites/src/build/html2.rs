@@ -34,9 +34,7 @@ macro_rules! html {
     // Content parsing directive for elements
     (@content $vec:expr,
         $name:ident $((
-            // TASK: `$attr_name` needs to be a string, otherwise attributes
-            //       that contain `-` cannot be represented.
-            $($attr_name:ident = $attr_value:expr)*
+            $($attr_name:literal = $attr_value:expr)*
         ))? {
             $($content:tt)*
         }
@@ -50,7 +48,7 @@ macro_rules! html {
 
         $(
             $(
-                element.attributes.insert(stringify!($attr_name), $attr_value);
+                element.attributes.insert($attr_name, $attr_value);
             )*
         )?
 
@@ -118,7 +116,7 @@ mod tests {
     #[test]
     fn macro_should_create_element_with_attributes() {
         let html = html! {
-            p(id="id" class="class") {
+            p("id"="id" "class"="class") {
                 "This is a paragraph."
             }
         };
