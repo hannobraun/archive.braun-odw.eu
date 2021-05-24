@@ -31,26 +31,14 @@ impl From<&'static str> for Content {
 ///
 /// [Maple]: https://github.com/lukechu10/maple
 macro_rules! html {
-    // Content parsing directive for elements without attributes
-    (@content $vec:expr,
-        $name:ident {
-            $($content:tt)*
-        }
-        $($rest:tt)*
-    ) => {{
-        // Just call the regular element parsing directive with an empty
-        // attribute list.
-        html!(@content $vec, $name() { $($content)* } $($rest)*);
-    }};
-
     // Content parsing directive for elements
     (@content $vec:expr,
-        $name:ident(
+        $name:ident $((
             // TASK: `$attr_name` needs to be a string, otherwise attributes
             //       that contain `-` cannot be represented.
             // TASK: Remove the comma, if possible. HTML doesn't have any here.
             $($attr_name:ident = $attr_value:expr),* $(,)?
-        ) {
+        ))? {
             $($content:tt)*
         }
         $($rest:tt)*
@@ -62,8 +50,10 @@ macro_rules! html {
         };
 
         $(
-            element.attributes.insert(stringify!($attr_name), $attr_value);
-        )*
+            $(
+                element.attributes.insert(stringify!($attr_name), $attr_value);
+            )*
+        )?
 
 
         html!(@content &mut element.content, $($content)*);
