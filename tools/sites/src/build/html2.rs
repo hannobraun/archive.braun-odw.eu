@@ -138,6 +138,7 @@ macro_rules! html {
     }};
 }
 
+#[cfg(test)]
 mod tests {
     use common_macros::hash_map;
 
