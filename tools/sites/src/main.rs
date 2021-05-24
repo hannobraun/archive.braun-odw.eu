@@ -19,14 +19,12 @@ async fn main() -> anyhow::Result<()> {
     let source_dir = "sites";
     let output_dir = "output";
 
-    let mut transform = Transform { dev: args.dev };
-
     if args.dev {
-        let build = build_continuously(source_dir, output_dir, &mut transform);
+        let build = build_continuously(source_dir, output_dir, args.dev);
         let serve = serve_sites(output_dir);
         tokio::try_join!(build, serve)?;
     } else {
-        build(source_dir, output_dir, &mut transform).await?;
+        build(source_dir, output_dir, args.dev).await?;
     }
 
     Ok(())

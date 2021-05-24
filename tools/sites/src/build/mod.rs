@@ -1,5 +1,3 @@
-mod html;
-#[cfg(test)]
 mod html2;
 mod sass;
 mod static_files;
@@ -13,25 +11,27 @@ use std::path::{Path, PathBuf};
 
 use anyhow::Context as _;
 use thiserror::Error;
-use tokio::{fs, io};
+use tokio::{
+    fs::{self, File},
+    io::{self, AsyncWriteExt},
+};
 use tracing::{error, info};
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    transform: &mut impl Transform,
+    dev: bool,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build(source_dir, &output_dir, transform).await?;
+    build(source_dir, &output_dir, dev).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        match build(source_dir, &output_dir, transform).await {
-            Err(Error::ParseHtml(err)) => error!("{}", err),
+        match build(source_dir, &output_dir, dev).await {
             Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
@@ -43,7 +43,7 @@ pub async fn build_continuously(
 pub async fn build(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    transform: &mut impl Transform,
+    dev: bool,
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
@@ -62,7 +62,7 @@ pub async fn build(
         }
 
         let output_dir = output_dir.join(path.file_name().unwrap());
-        build_site(path, output_dir, transform).await?;
+        build_site(path, output_dir, dev).await?;
     }
 
     Ok(())
@@ -71,7 +71,7 @@ pub async fn build(
 async fn build_site(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    transform: &mut impl Transform,
+    dev: bool,
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
@@ -84,15 +84,12 @@ async fn build_site(
                 output_dir.display()
             )
         })?;
-    match html::process(&source_dir, &output_dir, transform).await {
-        Err(html::Error::Parse(err)) => return Err(err)?,
-        result => result.with_context(|| {
-            format!(
-                "Failed to process HTML files for `{}`",
-                source_dir.display()
-            )
-        })?,
-    }
+    let mut html = Vec::new();
+    html2::build(dev, &mut html).expect("I/O error writing to `Vec`");
+    File::create(output_dir.join("index.html"))
+        .await?
+        .write_all(&html)
+        .await?;
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
         result => result.with_context(|| {
@@ -122,9 +119,6 @@ pub enum Error {
 
     #[error("Found file in `sites/` directory")]
     InvalidSite(PathBuf),
-
-    #[error("Error parsing HTML")]
-    ParseHtml(#[from] html::ParseError),
 
     #[error("Error parsing SASS")]
     ParseSass(#[from] rsass::Error),

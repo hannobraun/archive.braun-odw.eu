@@ -279,7 +279,6 @@ mod tests {
     }
 }
 
-#[allow(unused)]
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
     let base = if dev {
         html! {
