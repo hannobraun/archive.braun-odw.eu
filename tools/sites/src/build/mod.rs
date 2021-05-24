@@ -1,4 +1,4 @@
-mod html2;
+mod html;
 mod sass;
 mod static_files;
 mod transform;
