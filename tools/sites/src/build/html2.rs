@@ -1,12 +1,9 @@
-use std::{
-    collections::HashMap,
-    io::{self, Write},
-};
+use std::io::{self, Write};
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Element {
     pub name: &'static str,
-    pub attributes: HashMap<&'static str, &'static str>,
+    pub attributes: Vec<(&'static str, &'static str)>,
     pub content: Vec<Content>,
 }
 
@@ -81,13 +78,13 @@ macro_rules! html {
         #[allow(unused_mut)]
         let mut element = Element {
             name: stringify!($name),
-            attributes: std::collections::HashMap::new(),
+            attributes: Vec::new(),
             content: Vec::new(),
         };
 
         $(
             $(
-                element.attributes.insert($attr_name, $attr_value);
+                element.attributes.push(($attr_name, $attr_value));
             )*
         )?
 
@@ -145,8 +142,6 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use common_macros::hash_map;
-
     use super::{Content, Element};
 
     #[test]
@@ -159,7 +154,7 @@ mod tests {
 
         let expected = Element {
             name: "p",
-            attributes: hash_map!(),
+            attributes: Vec::new(),
             content: vec![Content::Text("This is a paragraph.")],
         };
 
@@ -176,7 +171,7 @@ mod tests {
 
         let expected = Element {
             name: "p",
-            attributes: hash_map!("id" => "id", "class" => "class"),
+            attributes: vec![("id", "id"), ("class", "class")],
             content: vec![Content::Text("This is a paragraph.")],
         };
 
@@ -193,10 +188,10 @@ mod tests {
 
         let expected = Element {
             name: "p",
-            attributes: hash_map!(),
+            attributes: Vec::new(),
             content: vec![Content::Element(Element {
                 name: "strong",
-                attributes: hash_map!(),
+                attributes: Vec::new(),
                 content: vec![Content::Text("This is a paragraph.")],
             })],
         };
@@ -216,12 +211,12 @@ mod tests {
 
         let expected = Element {
             name: "p",
-            attributes: hash_map!(),
+            attributes: Vec::new(),
             content: vec![
                 Content::Text("This is a paragraph with"),
                 Content::Element(Element {
                     name: "strong",
-                    attributes: hash_map!(),
+                    attributes: Vec::new(),
                     content: vec![Content::Text("mixed")],
                 }),
                 Content::Text("content."),
@@ -247,10 +242,10 @@ mod tests {
 
         let expected = Element {
             name: "div",
-            attributes: hash_map!(),
+            attributes: Vec::new(),
             content: vec![Content::Element(Element {
                 name: "p",
-                attributes: hash_map!(),
+                attributes: Vec::new(),
                 content: vec![Content::Text("This is a paragraph.")],
             })],
         };
