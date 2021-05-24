@@ -18,13 +18,17 @@ impl Element {
             write!(target, " {}=\"{}\"", name, value)?;
         }
 
-        write!(target, ">")?;
+        if self.content.is_empty() {
+            write!(target, " />")?;
+        } else {
+            write!(target, ">")?;
 
-        for child in &self.content {
-            child.write_to(target)?;
+            for child in &self.content {
+                child.write_to(target)?;
+            }
+
+            write!(target, "</{}>", self.name)?;
         }
-
-        write!(target, "</{}>", self.name)?;
 
         Ok(())
     }
@@ -259,6 +263,7 @@ mod tests {
         let html = html! {
             p("class"="class") {
                 strong { "This is a paragraph." }
+                br {}
             }
         };
 
@@ -268,6 +273,7 @@ mod tests {
         let expected = "\
             <p class=\"class\">\
                 <strong>This is a paragraph.</strong>\
+                <br />\
             </p>\
         ";
 
