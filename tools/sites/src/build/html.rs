@@ -279,6 +279,8 @@ mod tests {
     }
 }
 
+// TASK: Move this into a separate, site-specific application. Leave
+//       infrastructure code in a library that is called from there.
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
     let base = if dev {
         html! {
