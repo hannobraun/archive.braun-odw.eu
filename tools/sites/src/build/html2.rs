@@ -1,4 +1,7 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    io::{self, Write},
+};
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Element {
@@ -7,10 +10,41 @@ pub struct Element {
     pub content: Vec<Content>,
 }
 
+impl Element {
+    pub fn write_to(&self, target: &mut impl Write) -> io::Result<()> {
+        write!(target, "<{}", self.name)?;
+
+        for (name, value) in &self.attributes {
+            write!(target, " {}=\"{}\"", name, value)?;
+        }
+
+        write!(target, ">")?;
+
+        for child in &self.content {
+            child.write_to(target)?;
+        }
+
+        write!(target, "</{}>", self.name)?;
+
+        Ok(())
+    }
+}
+
 #[derive(Debug, Eq, PartialEq)]
 pub enum Content {
     Element(Element),
     Text(&'static str),
+}
+
+impl Content {
+    pub fn write_to(&self, target: &mut impl Write) -> io::Result<()> {
+        match self {
+            Self::Element(element) => element.write_to(target)?,
+            Self::Text(text) => write!(target, "{}", text)?,
+        }
+
+        Ok(())
+    }
 }
 
 impl From<Element> for Content {
@@ -216,5 +250,25 @@ mod tests {
         };
 
         assert_eq!(html, expected);
+    }
+
+    #[test]
+    fn element_should_write_html_code() {
+        let html = html! {
+            p("class"="class") {
+                strong { "This is a paragraph." }
+            }
+        };
+
+        let mut output = Vec::new();
+        html.write_to(&mut output).unwrap();
+
+        let expected = "\
+            <p class=\"class\">\
+                <strong>This is a paragraph.</strong>\
+            </p>\
+        ";
+
+        assert_eq!(output, expected.as_bytes().to_vec());
     }
 }
