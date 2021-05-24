@@ -425,7 +425,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     ) {
                                         "Fornjot"
                                     }
-                                    "is an experimental programmatic CAD \
+                                    " is an experimental programmatic CAD \
                                     system. I've been working on multiple \
                                     iterations of it over a few years, and \
                                     this is the first public release."
