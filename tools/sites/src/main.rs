@@ -2,8 +2,6 @@ mod args;
 mod build;
 mod serve;
 
-use std::path::Path;
-
 use self::{
     args::Args,
     build::{build, build_continuously},
@@ -28,25 +26,4 @@ async fn main() -> anyhow::Result<()> {
     }
 
     Ok(())
-}
-
-struct Transform {
-    dev: bool,
-}
-
-impl build::Transform for Transform {
-    fn transform(
-        &mut self,
-        _source: &Path,
-        document: &mut kuchiki::NodeRef,
-    ) -> anyhow::Result<()> {
-        if self.dev {
-            for base in document.select("base").unwrap() {
-                *base.attributes.borrow_mut().get_mut("href").unwrap() =
-                    String::from("/hanno.braun-odw.eu/");
-            }
-        }
-
-        Ok(())
-    }
 }
