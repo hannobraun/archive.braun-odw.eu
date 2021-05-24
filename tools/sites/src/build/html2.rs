@@ -271,6 +271,9 @@ mod tests {
             </p>\
         ";
 
+        println!("expected: {}", expected);
+        println!("actual: {}", String::from_utf8(output.clone()).unwrap());
+
         assert_eq!(output, expected.as_bytes().to_vec());
     }
 }
