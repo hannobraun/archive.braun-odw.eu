@@ -36,8 +36,7 @@ macro_rules! html {
         $name:ident $((
             // TASK: `$attr_name` needs to be a string, otherwise attributes
             //       that contain `-` cannot be represented.
-            // TASK: Remove the comma, if possible. HTML doesn't have any here.
-            $($attr_name:ident = $attr_value:expr),* $(,)?
+            $($attr_name:ident = $attr_value:expr)*
         ))? {
             $($content:tt)*
         }
@@ -119,7 +118,7 @@ mod tests {
     #[test]
     fn macro_should_create_element_with_attributes() {
         let html = html! {
-            p(id="id", class="class") {
+            p(id="id" class="class") {
                 "This is a paragraph."
             }
         };
