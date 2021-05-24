@@ -85,7 +85,7 @@ async fn build_site(
             )
         })?;
     let mut html = Vec::new();
-    html2::build(dev, &mut html).expect("I/O error writing to `Vec`");
+    html::build(dev, &mut html).expect("I/O error writing to `Vec`");
     File::create(output_dir.join("index.html"))
         .await?
         .write_all(&html)
