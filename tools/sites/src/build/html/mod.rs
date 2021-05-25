@@ -4,8 +4,6 @@ pub mod model;
 
 use std::io::{self, Write};
 
-use self::model::Element;
-
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {

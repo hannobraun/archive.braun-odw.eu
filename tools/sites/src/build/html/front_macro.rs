@@ -13,7 +13,7 @@ macro_rules! html {
         }
         $($rest:tt)*
     ) => {{
-        let mut v: Vec<Element> = Vec::new();
+        let mut v: Vec<crate::build::html::model::Element> = Vec::new();
 
         html!(@content &mut v,
             $name $((
@@ -37,7 +37,7 @@ macro_rules! html {
         $($rest:tt)*
     ) => {{
         #[allow(unused_mut)]
-        let mut element = Element {
+        let mut element = crate::build::html::model::Element {
             name: stringify!($name),
             attributes: Vec::new(),
             content: Vec::new(),
