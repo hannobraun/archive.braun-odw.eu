@@ -66,7 +66,7 @@ mod tests {
 
     #[test]
     fn element_should_write_html_code() {
-        let html = Element {
+        let element = Element {
             name: "p",
             attributes: vec![("class", "class")],
             content: vec![
@@ -84,7 +84,7 @@ mod tests {
         };
 
         let mut output = Vec::new();
-        html.write_to(&mut output).unwrap();
+        element.write_to(&mut output).unwrap();
 
         let expected = "\
             <p class=\"class\">\
