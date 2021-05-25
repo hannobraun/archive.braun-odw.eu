@@ -62,13 +62,25 @@ impl From<&'static str> for Content {
 
 #[cfg(test)]
 mod tests {
+    use super::{Content, Element};
+
     #[test]
     fn element_should_write_html_code() {
-        let html = html! {
-            p("class"="class") {
-                strong { "This is a paragraph." }
-                br {}
-            }
+        let html = Element {
+            name: "p",
+            attributes: vec![("class", "class")],
+            content: vec![
+                Content::Element(Element {
+                    name: "strong",
+                    attributes: Vec::new(),
+                    content: vec![Content::Text("This is a paragraph.")],
+                }),
+                Content::Element(Element {
+                    name: "br",
+                    attributes: Vec::new(),
+                    content: vec![],
+                }),
+            ],
         };
 
         let mut output = Vec::new();
