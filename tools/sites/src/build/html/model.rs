@@ -59,3 +59,31 @@ impl From<&'static str> for Content {
         Self::Text(text)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn element_should_write_html_code() {
+        let html = html! {
+            p("class"="class") {
+                strong { "This is a paragraph." }
+                br {}
+            }
+        };
+
+        let mut output = Vec::new();
+        html.write_to(&mut output).unwrap();
+
+        let expected = "\
+            <p class=\"class\">\
+                <strong>This is a paragraph.</strong>\
+                <br />\
+            </p>\
+        ";
+
+        println!("expected: {}", expected);
+        println!("actual: {}", String::from_utf8(output.clone()).unwrap());
+
+        assert_eq!(output, expected.as_bytes().to_vec());
+    }
+}
