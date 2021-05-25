@@ -66,6 +66,29 @@ impl From<&'static str> for Content {
 ///
 /// [Maple]: https://github.com/lukechu10/maple
 macro_rules! html {
+    // Entry point to the macro
+    (
+        $name:ident $((
+            $($attr_name:literal = $attr_value:expr)*
+        ))? {
+            $($content:tt)*
+        }
+        $($rest:tt)*
+    ) => {{
+        let mut v: Vec<Element> = Vec::new();
+
+        html!(@content &mut v,
+            $name $((
+                $($attr_name = $attr_value)*
+            ))? {
+                $($content)*
+            }
+            $($rest)*
+        );
+
+        v.remove(0)
+    }};
+
     // Content parsing directive for elements
     (@content $vec:expr,
         $name:ident $((
@@ -115,29 +138,6 @@ macro_rules! html {
 
     // Content parsing directive to terminate parsing once no content is left
     (@content $vec:expr,) => {};
-
-    // Entry point to the macro
-    (
-        $name:ident $((
-            $($attr_name:literal = $attr_value:expr)*
-        ))? {
-            $($content:tt)*
-        }
-        $($rest:tt)*
-    ) => {{
-        let mut v: Vec<Element> = Vec::new();
-
-        html!(@content &mut v,
-            $name $((
-                $($attr_name = $attr_value)*
-            ))? {
-                $($content)*
-            }
-            $($rest)*
-        );
-
-        v.remove(0)
-    }};
 }
 
 #[cfg(test)]
