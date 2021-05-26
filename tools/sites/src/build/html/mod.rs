@@ -25,18 +25,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                     "Hanno Braun"
                 }
 
-                {
-                    if dev {
-                        html! {
-
-                            base("href"="/hanno.braun-odw.eu/") {}
-                        }
-                    } else {
-                        html! {
-                            base("href"="/") {}
-                        }
-                    }
-                }
+                { base(dev) }
 
                 link(
                     "href"="style.css"
@@ -282,6 +271,19 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
     html.write_to(target)?;
 
     Ok(())
+}
+
+fn base(dev: bool) -> Element {
+    if dev {
+        html! {
+
+            base("href"="/hanno.braun-odw.eu/") {}
+        }
+    } else {
+        html! {
+            base("href"="/") {}
+        }
+    }
 }
 
 fn email(text: &'static str) -> Element {
