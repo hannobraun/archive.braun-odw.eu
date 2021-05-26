@@ -111,9 +111,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                             }
                         }
                     }
-                    // TASK: Look into removing `class`. I don't think it's
-                    //       used.
-                    section("class"="side-projects") {
+                    section {
                         h2 { "Side Projects" }
                         p {
                             "I always have an ongoing side project, and I try \
