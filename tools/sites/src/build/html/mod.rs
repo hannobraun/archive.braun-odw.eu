@@ -128,11 +128,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     }
                                 }
                                 p {
-                                    a(
-                                        "href"=
-                                        "https://github.com/hannobraun/fornjot" "target"="_blank"
-                                    ) {
-                                        "Fornjot"
+                                    {
+                                        ext_link(
+                                            "https://github.com/hannobraun/fornjot",
+                                            "Fornjot",
+                                        )
                                     }
                                     " is an experimental programmatic CAD \
                                     system. I've been working on multiple \
@@ -142,11 +142,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                 p {
                                     "The goal for this first release was to \
                                     build enough infrastructure to support "
-                                    a(
-                                        "href"=
-                                        "https://github.com/hannobraun/fornjot/tree/main/models/spacer" "target"="_blank"
-                                    ) {
-                                        "a simple spacer model"
+                                    {
+                                        ext_link(
+                                            "https://github.com/hannobraun/fornjot/tree/main/models/spacer",
+                                            "a simple spacer model",
+                                        )
                                     }
                                     ". I plan to extend it and create more \
                                     complex models going forward."
@@ -164,12 +164,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     "I revamped my website (the one you're \
                                     looking at right now) and put it on new \
                                     technical footing, using my own "
-                                    a(
-                                        "href"=
-                                        "https://github.com/hannobraun/braun-odw.eu"
-                                        "target"="_blank"
-                                    ) {
-                                        "homegrown static site generator"
+                                    {
+                                        ext_link(
+                                            "https://github.com/hannobraun/braun-odw.eu",
+                                            "homegrown static site generator",
+                                        )
                                     }
                                     ". I also got a new domain and started \
                                     consolidating most of my IT infrastructure \
@@ -186,12 +185,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     }
                                 }
                                 p {
-                                    a(
-                                        "href"=
-                                        "https://github.com/hannobraun/my-boss"
-                                        "target"="_blank"
-                                    ) {
-                                        "My Boss"
+                                    {
+                                        ext_link(
+                                            "https://github.com/hannobraun/my-boss",
+                                            "My Boss",
+                                        )
                                     }
                                     " is software that tells me what to do and \
                                     when to do it. Kind of like an ERP system, \
@@ -223,16 +221,18 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                         }
                         p {
                             "There's a lot more on my GitHub accounts ("
-                            a(
-                                "href"="https://github.com/hannobraun" "target"="_blank"
-                            ) {
-                                "personal"
+                            {
+                                ext_link(
+                                    "https://github.com/hannobraun",
+                                    "personal",
+                                )
                             }
                             " and "
-                            a(
-                                "href"="https://github.com/braun-embedded" "target"="_blank"
-                            ) {
-                                "professional"
+                            {
+                                ext_link(
+                                    "https://github.com/braun-embedded",
+                                    "professional",
+                                )
                             }
                             "), if you want to see more."
                         }
@@ -280,6 +280,14 @@ fn base(dev: bool) -> Element {
     } else {
         html! {
             base("href"="/") {}
+        }
+    }
+}
+
+fn ext_link(link: &'static str, text: &'static str) -> Element {
+    html! {
+        a("href"=link "target"="_blank") {
+            { text }
         }
     }
 }
