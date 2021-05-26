@@ -4,6 +4,8 @@ pub mod model;
 
 use std::io::{self, Write};
 
+use self::model::Element;
+
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
@@ -43,7 +45,6 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                 ) {}
             }
             body {
-                // TASK: Add name to `mailto` links.
                 main {
                     h1 { "Hanno Braun" }
 
@@ -53,9 +54,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                             "Hanno Braun, self-employed software developer \
                             from the Odenwald region, Germany. The best way to \
                             reach me is via email ("
-                            a("href"="mailto:hanno@braun-odw.eu") {
-                                "hanno@braun-odw.eu"
-                            }
+                            { email("hanno@braun-odw.eu") }
                             ") and Matrix ("
                             a("href"="https://matrix.to/#/@hanno:braun-odw.eu")
                             {
@@ -83,10 +82,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     your next firmware project in Rust and \
                                     could use some help with the low-level \
                                     stuff, "
-                                    a("href"="mailto:hanno@braun-odw.eu")
-                                    {
-                                        "let me know"
-                                    }
+                                    { email("let me know") }
                                     "!"
                                 }
                             }
@@ -267,9 +263,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                         hr {}
 
                         p {
-                            a("href"="mailto:hanno@braun-odw.eu") {
-                                "hanno@braun-odw.eu"
-                            }
+                            {{ email("hanno@braun-odw.eu") }}
                         }
                     }
 
@@ -287,4 +281,13 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
     html.write_to(target)?;
 
     Ok(())
+}
+
+fn email(text: &'static str) -> Element {
+    // TASK: Add name to `mailto` link.
+    html! {
+        a("href"="mailto:hanno@braun-odw.eu") {
+            { text }
+        }
+    }
 }
