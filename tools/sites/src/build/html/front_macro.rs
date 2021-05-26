@@ -67,7 +67,7 @@ macro_rules! html {
 
     // Content parsing directive for injected content
     (@content $vec:expr,
-        { $injected:ident }
+        { $injected:expr }
         $($rest:tt)*
     ) => {{
         $vec.push($injected.into());
