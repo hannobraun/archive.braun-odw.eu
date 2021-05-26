@@ -9,16 +9,6 @@ use self::model::Element;
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
-    let base = if dev {
-        html! {
-
-            base("href"="/hanno.braun-odw.eu/") {}
-        }
-    } else {
-        html! {
-            base("href"="/") {}
-        }
-    };
     let html = html! {
         html {
             head {
@@ -35,7 +25,18 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                     "Hanno Braun"
                 }
 
-                { base }
+                {
+                    if dev {
+                        html! {
+
+                            base("href"="/hanno.braun-odw.eu/") {}
+                        }
+                    } else {
+                        html! {
+                            base("href"="/") {}
+                        }
+                    }
+                }
 
                 link(
                     "href"="style.css"
