@@ -285,9 +285,8 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
 }
 
 fn email(text: &'static str) -> Element {
-    // TASK: Add name to `mailto` link.
     html! {
-        a("href"="mailto:hanno@braun-odw.eu") {
+        a("href"="mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E") {
             { text }
         }
     }
