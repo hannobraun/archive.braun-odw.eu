@@ -83,7 +83,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                                     your next firmware project in Rust and \
                                     could use some help with the low-level \
                                     stuff, "
-                                    a("href"="mailto:hanno@braun-embedded.com")
+                                    a("href"="mailto:hanno@braun-odw.eu")
                                     {
                                         "let me know"
                                     }
