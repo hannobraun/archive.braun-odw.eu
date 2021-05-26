@@ -54,6 +54,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                         }
                         // TASK: Add picture.
                     }
+                    // TASK: Use `ext_link` to generate links.
                     section {
                         h2 { "Ongoing Work" }
                         ul {
