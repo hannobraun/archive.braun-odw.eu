@@ -1499,6 +1499,9 @@ checksum = "cbce6d4507c7e4a3962091436e56e95290cb71fa302d0d270e32130b75fbff27"
 [[package]]
 name = "site"
 version = "0.1.0"
+dependencies = [
+ "sites",
+]
 
 [[package]]
 name = "sites"
