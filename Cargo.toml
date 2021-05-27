@@ -1,2 +1,5 @@
 [workspace]
-members = ["tools/sites"]
+members = [
+    "sites/hanno.braun-odw.eu/rust",
+    "tools/sites",
+]
