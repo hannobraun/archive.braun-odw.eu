@@ -1,6 +1,6 @@
 [build]
 publish = "output/"
-command = "cargo run --bin sites"
+command = "cargo run --bin builder"
 
 [build.environment]
 RUST_LOG = "info"
