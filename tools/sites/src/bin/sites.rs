@@ -1,4 +1,4 @@
-use sites::{
+use ssg::{
     args::Args,
     build::{build, build_continuously},
     serve::serve_sites,

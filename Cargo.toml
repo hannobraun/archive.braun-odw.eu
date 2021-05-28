@@ -2,4 +2,5 @@
 members = [
     "sites/hanno.braun-odw.eu/rust",
     "tools/sites",
+    "tools/ssg",
 ]

@@ -7,16 +7,10 @@ edition = "2018"
 
 [dependencies]
 anyhow             = "*"
-async-walkdir      = "*"
-clap               = "3.0.0-beta.2"
-futures            = "*"
-kuchiki            = "*"
-notify             = "5.0.0-pre.8"
-rsass              = "*"
-thiserror          = "*"
-tracing            = "*"
 tracing-subscriber = "*"
-warp               = "*"
+
+[dependencies.ssg]
+path = "../ssg"
 
 [dependencies.tokio]
 version  = "*"

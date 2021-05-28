@@ -1505,17 +1505,9 @@ name = "sites"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "async-walkdir",
- "clap",
- "futures",
- "kuchiki",
- "notify",
- "rsass",
- "thiserror",
+ "ssg",
  "tokio",
- "tracing",
  "tracing-subscriber",
- "warp",
 ]
 
 [[package]]
@@ -1538,6 +1530,23 @@ checksum = "9e3dfc207c526015c632472a77be09cf1b6e46866581aecae5cc38fb4235dea2"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "ssg"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-walkdir",
+ "clap",
+ "futures",
+ "kuchiki",
+ "notify",
+ "rsass",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "warp",
 ]
 
 [[package]]
