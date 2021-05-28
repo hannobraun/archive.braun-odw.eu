@@ -1,8 +1,8 @@
-mod html;
-mod sass;
-mod static_files;
-mod walk;
-mod watch;
+pub mod html;
+pub mod sass;
+pub mod static_files;
+pub mod walk;
+pub mod watch;
 
 use std::path::{Path, PathBuf};
 
