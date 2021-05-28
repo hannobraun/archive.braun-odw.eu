@@ -54,15 +54,17 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                         }
                         // TASK: Add picture.
                     }
-                    // TASK: Use `ext_link` to generate links.
                     section {
                         h2 { "Ongoing Work" }
                         ul {
                             li {
                                 header {
                                     h3 { "Braun Embedded" }
-                                    a("href"="https://braun-embedded.com/") {
-                                        "https://braun-embedded.com/"
+                                    {
+                                        ext_link(
+                                            "https://braun-embedded.com/",
+                                            "https://braun-embedded.com/",
+                                        )
                                     }
                                 }
                                 p {
@@ -80,8 +82,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                             li {
                                 header {
                                     h3 { "Flott" }
-                                    a("href"="https://flott-motion.org/") {
-                                        "https://flott-motion.org/"
+                                    {
+                                        ext_link(
+                                            "https://flott-motion.org/",
+                                            "https://flott-motion.org/",
+                                        )
                                     }
                                 }
                                 p {
@@ -101,8 +106,11 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                             li {
                                 header {
                                     h3 { "Made by Hanno" }
-                                    a("href"="https://madeby.hannobraun.de/") {
-                                        "https://madeby.hannobraun.de/"
+                                    {
+                                        ext_link(
+                                            "https://madeby.hannobraun.de/",
+                                            "https://madeby.hannobraun.de/",
+                                        )
                                     }
                                 }
                                 p {
