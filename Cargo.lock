@@ -143,6 +143,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "builder"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "ssg",
+ "tokio",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "bytecount"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1256,16 +1266,6 @@ dependencies = [
 [[package]]
 name = "site"
 version = "0.1.0"
-
-[[package]]
-name = "sites"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "ssg",
- "tokio",
- "tracing-subscriber",
-]
 
 [[package]]
 name = "slab"

@@ -9,7 +9,7 @@ RUST_LOG = "info"
 # TASK: Make this work again. It needs to call something that rebuilds the site
 #       application when anything changes.
 [dev]
-command    = "cargo run --bin sites -- --dev"
+command    = "cargo run --bin builder -- --dev"
 targetPort = 34480
 framework  = "#custom"
 
