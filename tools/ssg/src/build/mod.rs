@@ -1,11 +1,8 @@
 mod html;
 mod sass;
 mod static_files;
-mod transform;
 mod walk;
 mod watch;
-
-pub use self::transform::Transform;
 
 use std::path::{Path, PathBuf};
 
