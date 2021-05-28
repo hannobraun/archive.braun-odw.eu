@@ -3,6 +3,7 @@
 /// Syntax heavily inspired by [Maple].
 ///
 /// [Maple]: https://github.com/lukechu10/maple
+#[macro_export]
 macro_rules! html {
     // Entry point to the macro
     (
