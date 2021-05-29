@@ -30,7 +30,7 @@ pub async fn build(output_dir: impl AsRef<Path>, dev: bool) -> io::Result<()> {
 
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
-fn html(dev: bool) -> Element {
+pub fn html(dev: bool) -> Element {
     html! {
         html {
             head {
