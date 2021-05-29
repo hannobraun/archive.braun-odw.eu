@@ -11,23 +11,25 @@ use thiserror::Error;
 use tokio::{fs, io};
 use tracing::{error, info};
 
+use crate::args::Args;
+
 use self::html::model::Element;
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    dev: bool,
+    args: Args,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build_all(source_dir, &output_dir, dev).await?;
+    build_all(source_dir, &output_dir, args.dev).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        match build_all(source_dir, &output_dir, dev).await {
+        match build_all(source_dir, &output_dir, args.dev).await {
             Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
