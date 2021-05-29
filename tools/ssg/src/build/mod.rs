@@ -11,6 +11,8 @@ use thiserror::Error;
 use tokio::{fs, io};
 use tracing::{error, info};
 
+use self::html::model::Element;
+
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
@@ -56,7 +58,7 @@ pub async fn build(
         }
 
         let output_dir = output_dir.join(path.file_name().unwrap());
-        build_site(path, output_dir, dev).await?;
+        build_site(path, output_dir, html::html(dev)).await?;
     }
 
     Ok(())
@@ -65,7 +67,7 @@ pub async fn build(
 async fn build_site(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    dev: bool,
+    html: Element,
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
@@ -78,7 +80,7 @@ async fn build_site(
                 output_dir.display()
             )
         })?;
-    html::build(output_dir, html::html(dev)).await?;
+    html::build(output_dir, html).await?;
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
         result => result.with_context(|| {
