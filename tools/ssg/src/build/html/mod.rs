@@ -11,11 +11,12 @@ use tokio::{fs::File, io::AsyncWriteExt as _};
 
 use self::model::Element;
 
-pub async fn build(output_dir: impl AsRef<Path>, dev: bool) -> io::Result<()> {
+pub async fn build(
+    output_dir: impl AsRef<Path>,
+    html: Element,
+) -> io::Result<()> {
     let output_dir = output_dir.as_ref();
     let mut target = Vec::new();
-
-    let html = html(dev);
 
     writeln!(target, "<!DOCTYPE html>")?;
     html.write_to(&mut target)?;

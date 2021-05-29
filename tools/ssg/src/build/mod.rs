@@ -78,7 +78,7 @@ async fn build_site(
                 output_dir.display()
             )
         })?;
-    html::build(output_dir, dev).await?;
+    html::build(output_dir, html::html(dev)).await?;
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
         result => result.with_context(|| {
