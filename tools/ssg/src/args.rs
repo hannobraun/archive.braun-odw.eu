@@ -1,6 +1,6 @@
 use clap::Clap;
 
-#[derive(Clap)]
+#[derive(Clap, Clone, Copy)]
 pub struct Args {
     /// Enable dev mode
     ///
