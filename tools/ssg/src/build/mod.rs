@@ -8,10 +8,7 @@ use std::path::{Path, PathBuf};
 
 use anyhow::Context as _;
 use thiserror::Error;
-use tokio::{
-    fs::{self, File},
-    io::{self, AsyncWriteExt},
-};
+use tokio::{fs, io};
 use tracing::{error, info};
 
 pub async fn build_continuously(
@@ -81,12 +78,7 @@ async fn build_site(
                 output_dir.display()
             )
         })?;
-    let mut html = Vec::new();
-    html::build(dev, &mut html).expect("I/O error writing to `Vec`");
-    File::create(output_dir.join("index.html"))
-        .await?
-        .write_all(&html)
-        .await?;
+    html::build(output_dir, dev).await?;
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
         result => result.with_context(|| {

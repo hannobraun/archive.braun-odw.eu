@@ -2,17 +2,30 @@
 pub mod front_macro;
 pub mod model;
 
-use std::io::{self, Write};
+use std::{
+    io::{self, Write},
+    path::Path,
+};
+
+use tokio::{fs::File, io::AsyncWriteExt as _};
 
 use self::model::Element;
 
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
-pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
+pub async fn build(output_dir: impl AsRef<Path>, dev: bool) -> io::Result<()> {
+    let output_dir = output_dir.as_ref();
+    let mut target = Vec::new();
+
     let html = html(dev);
 
     writeln!(target, "<!DOCTYPE html>")?;
-    html.write_to(target)?;
+    html.write_to(&mut target)?;
+
+    File::create(output_dir.join("index.html"))
+        .await?
+        .write_all(&target)
+        .await?;
 
     Ok(())
 }
