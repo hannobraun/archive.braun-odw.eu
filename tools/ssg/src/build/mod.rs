@@ -22,12 +22,12 @@ pub async fn build_continuously(
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build(source_dir, &output_dir, dev).await?;
+    build_all(source_dir, &output_dir, dev).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        match build(source_dir, &output_dir, dev).await {
+        match build_all(source_dir, &output_dir, dev).await {
             Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
@@ -36,7 +36,7 @@ pub async fn build_continuously(
     Ok(())
 }
 
-pub async fn build(
+pub async fn build_all(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
     dev: bool,

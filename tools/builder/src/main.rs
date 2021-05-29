@@ -1,6 +1,6 @@
 use ssg::{
     args::Args,
-    build::{build, build_continuously},
+    build::{build_all, build_continuously},
     serve::serve_sites,
 };
 
@@ -18,7 +18,7 @@ async fn main() -> anyhow::Result<()> {
         let serve = serve_sites(output_dir);
         tokio::try_join!(build, serve)?;
     } else {
-        build(source_dir, output_dir, args.dev).await?;
+        build_all(source_dir, output_dir, args.dev).await?;
     }
 
     Ok(())
