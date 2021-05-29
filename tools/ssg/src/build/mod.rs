@@ -58,13 +58,13 @@ pub async fn build_all(
         }
 
         let output_dir = output_dir.join(path.file_name().unwrap());
-        build(path, output_dir, html::html(dev)).await?;
+        build_once(path, output_dir, html::html(dev)).await?;
     }
 
     Ok(())
 }
 
-async fn build(
+async fn build_once(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
     html: Element,
