@@ -11,8 +11,6 @@ use tokio::{fs::File, io::AsyncWriteExt as _};
 
 use self::model::Element;
 
-// TASK: Move this into a separate, site-specific application. Leave
-//       infrastructure code in a library that is called from there.
 pub async fn build(output_dir: impl AsRef<Path>, dev: bool) -> io::Result<()> {
     let output_dir = output_dir.as_ref();
     let mut target = Vec::new();
@@ -30,6 +28,8 @@ pub async fn build(output_dir: impl AsRef<Path>, dev: bool) -> io::Result<()> {
     Ok(())
 }
 
+// TASK: Move this into a separate, site-specific application. Leave
+//       infrastructure code in a library that is called from there.
 fn html(dev: bool) -> Element {
     html! {
         html {
