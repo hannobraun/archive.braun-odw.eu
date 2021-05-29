@@ -9,7 +9,16 @@ use self::model::Element;
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
 pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
-    let html = html! {
+    let html = html(dev);
+
+    writeln!(target, "<!DOCTYPE html>")?;
+    html.write_to(target)?;
+
+    Ok(())
+}
+
+fn html(dev: bool) -> Element {
+    html! {
         html {
             head {
                 meta(
@@ -272,12 +281,7 @@ pub fn build(dev: bool, target: &mut impl Write) -> io::Result<()> {
                 }
             }
         }
-    };
-
-    writeln!(target, "<!DOCTYPE html>")?;
-    html.write_to(target)?;
-
-    Ok(())
+    }
 }
 
 fn base(dev: bool) -> Element {
