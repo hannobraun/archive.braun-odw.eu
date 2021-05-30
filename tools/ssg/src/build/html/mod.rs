@@ -83,12 +83,7 @@ pub fn html(dev: bool) -> Element {
                             li {
                                 header {
                                     h3 { "Braun Embedded" }
-                                    {
-                                        ext_link(
-                                            "https://braun-embedded.com/",
-                                            "https://braun-embedded.com/",
-                                        )
-                                    }
+                                    { raw_link("https://braun-embedded.com/") }
                                 }
                                 p {
                                     "I provide software development and \
@@ -105,12 +100,7 @@ pub fn html(dev: bool) -> Element {
                             li {
                                 header {
                                     h3 { "Flott" }
-                                    {
-                                        ext_link(
-                                            "https://flott-motion.org/",
-                                            "https://flott-motion.org/",
-                                        )
-                                    }
+                                    { raw_link("https://flott-motion.org/") }
                                 }
                                 p {
                                     "Flott is an open source toolkit for \
@@ -130,8 +120,7 @@ pub fn html(dev: bool) -> Element {
                                 header {
                                     h3 { "Made by Hanno" }
                                     {
-                                        ext_link(
-                                            "https://madeby.hannobraun.de/",
+                                        raw_link(
                                             "https://madeby.hannobraun.de/",
                                         )
                                     }
@@ -309,6 +298,10 @@ fn base(dev: bool) -> Element {
             base("href"="/") {}
         }
     }
+}
+
+fn raw_link(link: &'static str) -> Element {
+    ext_link(link, link)
 }
 
 fn ext_link(link: &'static str, text: &'static str) -> Element {
