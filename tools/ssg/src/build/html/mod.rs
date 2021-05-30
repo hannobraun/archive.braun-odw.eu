@@ -80,57 +80,61 @@ pub fn html(dev: bool) -> Element {
                     section {
                         h2 { "Ongoing Work" }
                         ul {
-                            li {
-                                {
-                                    ongoing_work_header(
-                                        "Braun Embedded",
-                                        "https://braun-embedded.com/",
-                                    )
-                                }
-                                p {
-                                    "I provide software development and \
-                                    consulting services, specifically relating \
-                                    to Rust firmware on ARM Cortex-M \
-                                    microcontrollers. If you want to write \
-                                    your next firmware project in Rust and \
-                                    could use some help with the low-level \
-                                    stuff, "
-                                    { email("let me know") }
-                                    "!"
-                                }
-                            }
-                            li {
-                                {
-                                    ongoing_work_header(
-                                        "Flott",
-                                        "https://flott-motion.org/",
-                                    )
-                                }
-                                p {
-                                    "Flott is an open source toolkit for \
-                                    motion control software written in Rust. \
-                                    I'm its creator and main developer. Please \
-                                    consider "
-                                    a("href"=
-                                        "https://github.com/sponsors/hannobraun"
-                                    )
-                                    {
-                                        "sponsoring me"
+                            {
+                                ongoing_work(
+                                    "Braun Embedded",
+                                    "https://braun-embedded.com/",
+                                    html! {
+                                        p {
+                                            "I provide software development \
+                                            and consulting services, \
+                                            specifically relating to Rust \
+                                            firmware on ARM Cortex-M \
+                                            microcontrollers. If you want to \
+                                            write your next firmware project \
+                                            in Rust and could use some help \
+                                            with the low-level stuff, "
+                                            { email("let me know") }
+                                            "!"
+                                        }
                                     }
-                                    ", if you want to support this effort."
-                                }
+                                )
                             }
-                            li {
-                                {
-                                    ongoing_work_header(
-                                        "Made by Hanno",
-                                        "https://madeby.hannobraun.de/",
-                                    )
-                                }
-                                p {
-                                    "I have a small workshop where I make \
-                                    semi-interesting stuff, mainly 3D-printed."
-                                }
+                            {
+                                ongoing_work(
+                                    "Flott",
+                                    "https://flott-motion.org/",
+                                    html! {
+                                        p {
+                                            "Flott is an open source toolkit \
+                                            for motion control software \
+                                            written in Rust. I'm its creator \
+                                            and main developer. Please \
+                                            consider "
+                                            a("href"=
+                                                "https://github.com/sponsors/hannobraun"
+                                            )
+                                            {
+                                                "sponsoring me"
+                                            }
+                                            ", if you want to support this \
+                                            effort."
+                                        }
+                                    }
+                                )
+                            }
+                            {
+                                ongoing_work(
+                                    "Made by Hanno",
+                                    "https://madeby.hannobraun.de/",
+                                    html! {
+                                        p {
+                                            "I have a small workshop where I \
+                                            make semi-interesting stuff, \
+                                            mainly 3D-printed."
+                                        }
+                                    }
+                                )
                             }
                         }
                     }
@@ -298,6 +302,19 @@ fn base(dev: bool) -> Element {
     } else {
         html! {
             base("href"="/") {}
+        }
+    }
+}
+
+fn ongoing_work(
+    title: &'static str,
+    link: &'static str,
+    content: Element,
+) -> Element {
+    html! {
+        li {
+            { ongoing_work_header(title, link) }
+            { content }
         }
     }
 }
