@@ -31,6 +31,9 @@ pub async fn build(
 
 // TASK: Move this into a separate, site-specific application. Leave
 //       infrastructure code in a library that is called from there.
+// TASK: Consider using a different, macro-less approach to generating HTML
+//       code, maybe using typed-builder:
+//       https://crates.io/crates/typed-builder
 pub fn html(dev: bool) -> Element {
     html! {
         html {
