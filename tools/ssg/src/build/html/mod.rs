@@ -111,11 +111,11 @@ pub fn html(dev: bool) -> Element {
                                             written in Rust. I'm its creator \
                                             and main developer. Please \
                                             consider "
-                                            a("href"=
-                                                "https://github.com/sponsors/hannobraun"
-                                            )
                                             {
-                                                "sponsoring me"
+                                                ext_link(
+                                                    "https://github.com/sponsors/hannobraun",
+                                                    "sponsoring me",
+                                                )
                                             }
                                             ", if you want to support this \
                                             effort."
