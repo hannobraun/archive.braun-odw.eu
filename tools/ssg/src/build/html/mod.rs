@@ -81,9 +81,11 @@ pub fn html(dev: bool) -> Element {
                         h2 { "Ongoing Work" }
                         ul {
                             li {
-                                header {
-                                    h3 { "Braun Embedded" }
-                                    { raw_link("https://braun-embedded.com/") }
+                                {
+                                    ongoing_work_header(
+                                        "Braun Embedded",
+                                        "https://braun-embedded.com/",
+                                    )
                                 }
                                 p {
                                     "I provide software development and \
@@ -98,9 +100,11 @@ pub fn html(dev: bool) -> Element {
                                 }
                             }
                             li {
-                                header {
-                                    h3 { "Flott" }
-                                    { raw_link("https://flott-motion.org/") }
+                                {
+                                    ongoing_work_header(
+                                        "Flott",
+                                        "https://flott-motion.org/",
+                                    )
                                 }
                                 p {
                                     "Flott is an open source toolkit for \
@@ -117,13 +121,11 @@ pub fn html(dev: bool) -> Element {
                                 }
                             }
                             li {
-                                header {
-                                    h3 { "Made by Hanno" }
-                                    {
-                                        raw_link(
-                                            "https://madeby.hannobraun.de/",
-                                        )
-                                    }
+                                {
+                                    ongoing_work_header(
+                                        "Made by Hanno",
+                                        "https://madeby.hannobraun.de/",
+                                    )
                                 }
                                 p {
                                     "I have a small workshop where I make \
@@ -296,6 +298,15 @@ fn base(dev: bool) -> Element {
     } else {
         html! {
             base("href"="/") {}
+        }
+    }
+}
+
+fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
+    html! {
+        header {
+            h3 { { title } }
+            { raw_link(link) }
         }
     }
 }
