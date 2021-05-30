@@ -147,12 +147,11 @@ pub fn html(dev: bool) -> Element {
                         }
                         ol {
                             li {
-                                header {
-                                    h3 { "Fornjot: Spacer" }
-                                    p("class"="date") {
-                                        "Finished "
-                                        span { "2021-05-19" }
-                                    }
+                                {
+                                    side_project_header(
+                                        "Fornjot: Spacer",
+                                        "2021-05-19",
+                                    )
                                 }
                                 p {
                                     {
@@ -180,12 +179,11 @@ pub fn html(dev: bool) -> Element {
                                 }
                             }
                             li {
-                                header {
-                                    h3 { "braun-odw.eu" }
-                                    p("class"="date") {
-                                        "Finished "
-                                        span { "2021-04-06" }
-                                    }
+                                {
+                                    side_project_header(
+                                        "braun-odw.eu",
+                                        "2021-04-06",
+                                    )
                                 }
                                 p {
                                     "I revamped my website (the one you're \
@@ -204,12 +202,11 @@ pub fn html(dev: bool) -> Element {
                                 }
                             }
                             li {
-                                header {
-                                    h3 { "My Boss: Contacts" }
-                                    p("class"="date") {
-                                        "Finished "
-                                        span { "2021-03-05" }
-                                    }
+                                {
+                                    side_project_header(
+                                        "My Boss: Contacts",
+                                        "2021-03-05",
+                                    )
                                 }
                                 p {
                                     {
@@ -324,6 +321,18 @@ fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
         header {
             h3 { { title } }
             { raw_link(link) }
+        }
+    }
+}
+
+fn side_project_header(title: &'static str, date: &'static str) -> Element {
+    html! {
+        header {
+            h3 { { title } }
+            p("class"="date") {
+                "Finished "
+                span { { date } }
+            }
         }
     }
 }
