@@ -66,7 +66,7 @@ pub async fn build_all(
     Ok(())
 }
 
-async fn build_once(
+pub async fn build_once(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
     html: Element,
