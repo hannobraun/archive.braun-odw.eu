@@ -9,6 +9,9 @@ publish = false
 [dependencies]
 anyhow = "*"
 
+[dependencies.ssg]
+path = "../../../tools/ssg"
+
 [dependencies.tokio]
 version  = "*"
 features = ["full"]
