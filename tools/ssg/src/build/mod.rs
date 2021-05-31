@@ -17,19 +17,18 @@ use self::html::model::Element;
 
 pub async fn build_continuously(
     source_dir: impl AsRef<Path>,
-    output_dir: impl AsRef<Path>,
     args: Args,
 ) -> anyhow::Result<()> {
     let source_dir = source_dir.as_ref();
 
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build_all(source_dir, &output_dir, args.clone()).await?;
+    build_all(source_dir, args.clone()).await?;
 
     let mut watcher = watch::Watcher::new(source_dir)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        match build_all(source_dir, &output_dir, args.clone()).await {
+        match build_all(source_dir, args.clone()).await {
             Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
@@ -40,14 +39,12 @@ pub async fn build_continuously(
 
 pub async fn build_all(
     source_dir: impl AsRef<Path>,
-    output_dir: impl AsRef<Path>,
     args: Args,
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
-    let output_dir = output_dir.as_ref();
 
-    prepare_output_dir(&output_dir).await.with_context(|| {
-        format!("Failed to prepare output dir: {}", output_dir.display())
+    prepare_output_dir(&args.target).await.with_context(|| {
+        format!("Failed to prepare output dir: {}", args.target.display())
     })?;
 
     let mut entries = fs::read_dir(source_dir).await?;
@@ -59,7 +56,7 @@ pub async fn build_all(
             return Err(Error::InvalidSite(path));
         }
 
-        let output_dir = output_dir.join(path.file_name().unwrap());
+        let output_dir = args.target.join(path.file_name().unwrap());
         build_once(path, output_dir, Some(html::html(args.dev))).await?;
     }
 

@@ -11,14 +11,13 @@ async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
     let source_dir = "sites";
-    let output_dir = "output";
 
     if args.dev {
-        let build = build_continuously(source_dir, output_dir, args);
-        let serve = serve_sites(output_dir);
+        let build = build_continuously(source_dir, args.clone());
+        let serve = serve_sites(args.target);
         tokio::try_join!(build, serve)?;
     } else {
-        build_all(source_dir, output_dir, args).await?;
+        build_all(source_dir, args).await?;
     }
 
     Ok(())
