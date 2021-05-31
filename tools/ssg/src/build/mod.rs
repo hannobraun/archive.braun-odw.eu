@@ -15,20 +15,15 @@ use crate::args::Args;
 
 use self::html::model::Element;
 
-pub async fn build_continuously(
-    source_dir: impl AsRef<Path>,
-    args: Args,
-) -> anyhow::Result<()> {
-    let source_dir = source_dir.as_ref();
-
+pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
     // Build at least once, before waiting for events.
     info!("Building sites.");
-    build_all(source_dir, args.clone()).await?;
+    build_all(args.clone()).await?;
 
-    let mut watcher = watch::Watcher::new(source_dir)?;
+    let mut watcher = watch::Watcher::new(&args.source)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
-        match build_all(source_dir, args.clone()).await {
+        match build_all(args.clone()).await {
             Err(Error::ParseSass(err)) => error!("{}", err),
             result => result?,
         }
@@ -37,17 +32,12 @@ pub async fn build_continuously(
     Ok(())
 }
 
-pub async fn build_all(
-    source_dir: impl AsRef<Path>,
-    args: Args,
-) -> Result<(), Error> {
-    let source_dir = source_dir.as_ref();
-
+pub async fn build_all(args: Args) -> Result<(), Error> {
     prepare_output_dir(&args.target).await.with_context(|| {
         format!("Failed to prepare output dir: {}", args.target.display())
     })?;
 
-    let mut entries = fs::read_dir(source_dir).await?;
+    let mut entries = fs::read_dir(&args.source).await?;
 
     while let Some(entry) = entries.next_entry().await? {
         let path = entry.path();

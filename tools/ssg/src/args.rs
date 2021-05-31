@@ -4,6 +4,12 @@ use clap::Clap;
 
 #[derive(Clap, Clone)]
 pub struct Args {
+    /// Specify source directory
+    ///
+    /// Defaults to `sites/`.
+    #[clap(short, long, default_value = "sites")]
+    pub source: PathBuf,
+
     /// Specify target directory
     ///
     /// Defaults to `output/`.
