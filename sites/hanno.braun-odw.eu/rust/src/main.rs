@@ -1,11 +1,10 @@
-use ssg::build::build_once;
+use ssg::{args::Args, build::build_once};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let source_dir = "sites";
-    let output_dir = "output";
+    let args = Args::parse();
 
-    build_once(source_dir, output_dir, None).await?;
+    build_once(&args.source, &args.target, None).await?;
 
     Ok(())
 }
