@@ -60,7 +60,7 @@ pub async fn build_all(
         }
 
         let output_dir = output_dir.join(path.file_name().unwrap());
-        build_once(path, output_dir, html::html(args.dev)).await?;
+        build_once(path, output_dir, Some(html::html(args.dev))).await?;
     }
 
     Ok(())
@@ -69,7 +69,7 @@ pub async fn build_all(
 pub async fn build_once(
     source_dir: impl AsRef<Path>,
     output_dir: impl AsRef<Path>,
-    html: Element,
+    html: Option<Element>,
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
@@ -82,7 +82,9 @@ pub async fn build_once(
                 output_dir.display()
             )
         })?;
-    html::build(output_dir, html).await?;
+    if let Some(html) = html {
+        html::build(output_dir, html).await?;
+    }
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
         result => result.with_context(|| {
