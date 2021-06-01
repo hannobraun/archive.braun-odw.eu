@@ -1,6 +1,5 @@
 [workspace]
 members = [
-    "sites/hanno.braun-odw.eu/rust",
     "tools/builder",
     "tools/ssg",
 ]
