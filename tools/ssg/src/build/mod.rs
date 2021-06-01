@@ -15,6 +15,7 @@ use crate::args::Args;
 
 use self::html::model::Element;
 
+// TASK: Move to `builder`.
 pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
     // Build at least once, before waiting for events.
     info!("Building sites.");
@@ -32,6 +33,7 @@ pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
     Ok(())
 }
 
+// TASK: Move to `builder`.
 pub async fn build_all(args: Args) -> Result<(), Error> {
     let mut entries = fs::read_dir(&args.source).await?;
 
