@@ -38,7 +38,7 @@ pub async fn build_all(args: Args) -> Result<(), Error> {
     while let Some(entry) = entries.next_entry().await? {
         let path = entry.path();
 
-        debug!("Building {}", path.display());
+        debug!("Building `{}`", path.display());
 
         if path.is_file() {
             return Err(Error::InvalidSite(path));
