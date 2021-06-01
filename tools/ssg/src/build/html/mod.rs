@@ -36,7 +36,7 @@ pub async fn build(
 //       https://crates.io/crates/typed-builder
 pub fn html(dev: bool) -> Element {
     html! {
-        html {
+        html("lang"="en") {
             head {
                 meta(
                     "http-equiv"="Content-Type"
