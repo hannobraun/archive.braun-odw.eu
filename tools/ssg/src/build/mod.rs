@@ -9,7 +9,7 @@ use std::path::{Path, PathBuf};
 use anyhow::Context as _;
 use thiserror::Error;
 use tokio::{fs, io};
-use tracing::{error, info};
+use tracing::{debug, error, info};
 
 use crate::args::Args;
 
@@ -37,6 +37,8 @@ pub async fn build_all(args: Args) -> Result<(), Error> {
 
     while let Some(entry) = entries.next_entry().await? {
         let path = entry.path();
+
+        debug!("Building {}", path.display());
 
         if path.is_file() {
             return Err(Error::InvalidSite(path));
