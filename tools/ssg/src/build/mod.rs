@@ -68,7 +68,7 @@ pub async fn build_once(
         .await
         .with_context(|| {
             format!(
-                "Failed to copy sites to output dir: {}",
+                "Failed to copy sites to output dir (`{}`)",
                 output_dir.display()
             )
         })?;
