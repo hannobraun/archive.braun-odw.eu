@@ -49,7 +49,10 @@ pub async fn build_all(args: Args) -> Result<(), Error> {
         let output_dir = args.target.join(path.file_name().unwrap());
 
         prepare_output_dir(&output_dir).await.with_context(|| {
-            format!("Failed to prepare output dir: {}", args.target.display())
+            format!(
+                "Failed to prepare output dir (`{}`)",
+                args.target.display()
+            )
         })?;
 
         build_once(path, output_dir, Some(html::html(args.dev))).await?;
