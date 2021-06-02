@@ -149,6 +149,7 @@ dependencies = [
  "anyhow",
  "ssg",
  "tokio",
+ "tracing",
  "tracing-subscriber",
 ]
 
