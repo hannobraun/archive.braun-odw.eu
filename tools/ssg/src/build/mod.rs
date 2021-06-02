@@ -9,49 +9,9 @@ use std::path::{Path, PathBuf};
 use anyhow::Context as _;
 use thiserror::Error;
 use tokio::{fs, io};
-use tracing::{debug, error, info};
-
-use crate::args::Args;
+use tracing::error;
 
 use self::html::model::Element;
-
-// TASK: Move to `builder`.
-pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
-    // Build at least once, before waiting for events.
-    info!("Building sites.");
-    build_all(args.clone()).await?;
-
-    let mut watcher = watch::Watcher::new(&args.source)?;
-    while let Some(trigger) = watcher.watch().await? {
-        info!("Building sites. Trigger: {}", trigger);
-        match build_all(args.clone()).await {
-            Err(Error::ParseSass(err)) => error!("{}", err),
-            result => result?,
-        }
-    }
-
-    Ok(())
-}
-
-// TASK: Move to `builder`.
-pub async fn build_all(args: Args) -> Result<(), Error> {
-    let mut entries = fs::read_dir(&args.source).await?;
-
-    while let Some(entry) = entries.next_entry().await? {
-        let path = entry.path();
-
-        debug!("Building `{}`", path.display());
-
-        if path.is_file() {
-            return Err(Error::InvalidSite(path));
-        }
-
-        let output_dir = args.target.join(path.file_name().unwrap());
-        build_once(path, output_dir, Some(html::html(args.dev))).await?;
-    }
-
-    Ok(())
-}
 
 pub async fn build_once(
     source_dir: impl AsRef<Path>,
