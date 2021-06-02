@@ -1,6 +1,6 @@
 use ssg::{
     args::Args,
-    build::{build_once, html, watch::Watcher, Error},
+    build::{build_once, html::html, watch::Watcher, Error},
     serve::serve_sites,
 };
 use tokio::fs;
@@ -53,7 +53,7 @@ async fn build_all(args: Args) -> Result<(), Error> {
         }
 
         let output_dir = args.target.join(path.file_name().unwrap());
-        build_once(path, output_dir, Some(html::html(args.dev))).await?;
+        build_once(path, output_dir, Some(html(args.dev))).await?;
     }
 
     Ok(())
