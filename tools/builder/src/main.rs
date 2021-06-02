@@ -23,7 +23,7 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
+async fn build_continuously(args: Args) -> anyhow::Result<()> {
     // Build at least once, before waiting for events.
     info!("Building sites.");
     build_all(args.clone()).await?;
@@ -40,7 +40,7 @@ pub async fn build_continuously(args: Args) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn build_all(args: Args) -> Result<(), Error> {
+async fn build_all(args: Args) -> Result<(), Error> {
     let mut entries = fs::read_dir(&args.source).await?;
 
     while let Some(entry) = entries.next_entry().await? {
