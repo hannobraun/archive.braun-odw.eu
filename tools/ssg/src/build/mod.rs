@@ -47,11 +47,6 @@ pub async fn build_all(args: Args) -> Result<(), Error> {
         }
 
         let output_dir = args.target.join(path.file_name().unwrap());
-
-        prepare_output_dir(&output_dir).await.with_context(|| {
-            format!("Failed to prepare output dir (`{}`)", output_dir.display())
-        })?;
-
         build_once(path, output_dir, Some(html::html(args.dev))).await?;
     }
 
@@ -65,6 +60,10 @@ pub async fn build_once(
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
+
+    prepare_output_dir(&output_dir).await.with_context(|| {
+        format!("Failed to prepare output dir (`{}`)", output_dir.display())
+    })?;
 
     static_files::copy(&source_dir, &output_dir)
         .await
