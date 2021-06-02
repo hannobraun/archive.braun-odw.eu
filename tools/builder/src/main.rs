@@ -1,6 +1,6 @@
 use ssg::{
     args::Args,
-    build::{build_once, html, watch, Error},
+    build::{build_once, html, watch::Watcher, Error},
     serve::serve_sites,
 };
 use tokio::fs;
@@ -28,7 +28,7 @@ async fn build_continuously(args: Args) -> anyhow::Result<()> {
     info!("Building sites.");
     build_all(args.clone()).await?;
 
-    let mut watcher = watch::Watcher::new(&args.source)?;
+    let mut watcher = Watcher::new(&args.source)?;
     while let Some(trigger) = watcher.watch().await? {
         info!("Building sites. Trigger: {}", trigger);
         match build_all(args.clone()).await {
