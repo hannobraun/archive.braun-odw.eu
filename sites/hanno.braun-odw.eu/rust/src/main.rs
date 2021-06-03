@@ -89,29 +89,6 @@ pub fn html(dev: bool) -> Element {
                             }
                             {
                                 ongoing_work(
-                                    "Flott",
-                                    "https://flott-motion.org/",
-                                    html! {
-                                        p {
-                                            "Flott is an open source toolkit \
-                                            for motion control software \
-                                            written in Rust. I'm its creator \
-                                            and main developer. Please \
-                                            consider "
-                                            {
-                                                ext_link(
-                                                    "https://github.com/sponsors/hannobraun",
-                                                    "sponsoring me",
-                                                )
-                                            }
-                                            ", if you want to support this \
-                                            effort."
-                                        }
-                                    }
-                                )
-                            }
-                            {
-                                ongoing_work(
                                     "Made by Hanno",
                                     "https://madeby.hannobraun.de/",
                                     html! {
