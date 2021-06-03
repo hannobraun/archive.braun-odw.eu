@@ -16,6 +16,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28b2cd92db5cbd74e8e5028f7e27dd7aa3090e89e4f2a197cc7c8dfb69c7063b"
 
 [[package]]
+name = "archivebraunodweu"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "ssg",
+ "tokio",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "async-channel"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -490,6 +500,16 @@ dependencies = [
  "tokio",
  "tokio-util",
  "tracing",
+]
+
+[[package]]
+name = "hannobraunodweu"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "ssg",
+ "tokio",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -1742,6 +1762,16 @@ name = "wasi"
 version = "0.10.2+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd6fbd9a79829dd1ad0cc20627bf1ed606756a7f77edff7b66b7064f9cb327c6"
+
+[[package]]
+name = "wellknown"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "ssg",
+ "tokio",
+ "tracing-subscriber",
+]
 
 [[package]]
 name = "winapi"
