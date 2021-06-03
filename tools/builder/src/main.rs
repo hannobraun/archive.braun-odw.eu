@@ -56,6 +56,7 @@ async fn build_all(args: Args) -> Result<(), Error> {
         }
 
         let output_dir = args.target.join(path.file_name().unwrap());
+        fs::create_dir_all(&output_dir).await?;
 
         let source = path.canonicalize().with_context(|| {
             format!("Failed to canonicalize source path (`{}`)", path.display())
