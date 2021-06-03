@@ -83,13 +83,16 @@ async fn build_all(args: Args) -> Result<(), Error> {
             command.arg("--dev");
         }
 
-        // TASK: Check return value.
-        command
+        let status = command
             .status()
             .await
             .context("Failed to run site builder")?;
 
         env::set_current_dir(current_dir)?;
+
+        if !status.success() {
+            error!("Failed to execute site builder. Status code: {}", status);
+        }
     }
 
     Ok(())
