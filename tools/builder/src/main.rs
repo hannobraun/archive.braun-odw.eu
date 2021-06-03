@@ -1,9 +1,12 @@
+use std::env;
+
+use anyhow::Context as _;
 use ssg::{
     args::Args,
-    build::{build_once, html::html, watch::Watcher, Error},
+    build::{watch::Watcher, Error},
     serve::serve_sites,
 };
-use tokio::fs;
+use tokio::{fs, process::Command};
 use tracing::{debug, error, info};
 
 #[tokio::main]
@@ -53,7 +56,39 @@ async fn build_all(args: Args) -> Result<(), Error> {
         }
 
         let output_dir = args.target.join(path.file_name().unwrap());
-        build_once(path, output_dir, Some(html(args.dev))).await?;
+
+        let source = path.canonicalize().with_context(|| {
+            format!("Failed to canonicalize source path (`{}`)", path.display())
+        })?;
+        let target = output_dir.canonicalize().with_context(|| {
+            format!(
+                "Failed to canonicalize target path (`{}`)",
+                output_dir.display()
+            )
+        })?;
+
+        let current_dir = env::current_dir()?;
+        env::set_current_dir(path.join("rust"))?;
+
+        let mut command = Command::new("cargo");
+
+        command
+            .arg("run")
+            .arg("--")
+            .args(&["--source", source.to_str().unwrap()])
+            .args(&["--target", target.to_str().unwrap()]);
+
+        if args.dev {
+            command.arg("--dev");
+        }
+
+        // TASK: Check return value.
+        command
+            .status()
+            .await
+            .context("Failed to run site builder")?;
+
+        env::set_current_dir(current_dir)?;
     }
 
     Ok(())
