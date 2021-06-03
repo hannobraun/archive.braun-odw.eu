@@ -1,7 +1,7 @@
 [workspace]
 
 [package]
-name    = "site"
+name    = "archivebraunodweu"
 version = "0.1.0"
 authors = ["Hanno Braun <hanno@braun-odw.eu>"]
 edition = "2018"
