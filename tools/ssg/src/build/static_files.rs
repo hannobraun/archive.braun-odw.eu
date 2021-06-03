@@ -3,13 +3,19 @@ use std::path::Path;
 use anyhow::Context as _;
 use futures::StreamExt as _;
 use tokio::fs;
-use tracing::debug;
+use tracing::{debug, info};
 
 use super::walk::walk_dir;
 
 pub async fn copy(source_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let source_dir = source_dir.join("static");
     let output_dir = output_dir.to_path_buf();
+
+    info!(
+        "Copying static files (`{}` to `{}`)",
+        source_dir.display(),
+        output_dir.display()
+    );
 
     let mut entries = walk_dir(source_dir, output_dir);
     while let Some(entry) = entries.next().await {
