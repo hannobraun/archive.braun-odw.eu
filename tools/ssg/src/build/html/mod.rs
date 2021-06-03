@@ -15,16 +15,13 @@ pub async fn build(
     output_dir: impl AsRef<Path>,
     html: Element,
 ) -> io::Result<()> {
-    let output_dir = output_dir.as_ref();
+    let output = output_dir.as_ref().join("index.html");
     let mut target = Vec::new();
 
     writeln!(target, "<!DOCTYPE html>")?;
     html.write_to(&mut target)?;
 
-    File::create(output_dir.join("index.html"))
-        .await?
-        .write_all(&target)
-        .await?;
+    File::create(output).await?.write_all(&target).await?;
 
     Ok(())
 }
