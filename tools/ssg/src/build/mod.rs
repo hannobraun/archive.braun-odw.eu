@@ -9,7 +9,7 @@ use std::path::{Path, PathBuf};
 use anyhow::Context as _;
 use thiserror::Error;
 use tokio::{fs, io};
-use tracing::error;
+use tracing::{error, info};
 
 use self::html::model::Element;
 
@@ -20,6 +20,12 @@ pub async fn build_once(
 ) -> Result<(), Error> {
     let source_dir = source_dir.as_ref();
     let output_dir = output_dir.as_ref();
+
+    info!(
+        "Building `{}` (output: `{}`)",
+        source_dir.display(),
+        output_dir.display()
+    );
 
     prepare_output_dir(&output_dir).await.with_context(|| {
         format!("Failed to prepare output dir (`{}`)", output_dir.display())
