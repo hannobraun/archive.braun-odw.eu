@@ -3,3 +3,6 @@ members = [
     "tools/builder",
     "tools/ssg",
 ]
+default-members = [
+    "tools/builder"
+]
