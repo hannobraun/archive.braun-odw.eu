@@ -81,7 +81,7 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use crate::build::html::model::{Node, Element};
+    use crate::build::html::model::{Element, Node};
 
     #[test]
     fn macro_should_create_element_with_text() {
