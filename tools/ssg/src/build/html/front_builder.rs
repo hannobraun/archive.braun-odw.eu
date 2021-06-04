@@ -16,12 +16,14 @@ macro_rules! elements {
 
 elements!(a,);
 
-pub trait Attributes: Sized {
-    fn href(self, value: &'static str) -> Self;
-}
-
 macro_rules! attributes {
     ($($name:ident,)*) => {
+        pub trait Attributes: Sized {
+            $(
+                fn $name(self, value: &'static str) -> Self;
+            )*
+        }
+
         impl Attributes for Element {
             $(
                 fn $name(mut self, value: &'static str) -> Self {
