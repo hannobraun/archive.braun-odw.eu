@@ -38,7 +38,7 @@ pub fn html(dev: bool) -> Element {
                     "Hanno Braun"
                 }
 
-                { base(dev) }
+                { base_if_dev_mode(dev) }
 
                 link(
                     "href"="style.css"
@@ -257,7 +257,7 @@ pub fn html(dev: bool) -> Element {
     }
 }
 
-fn base(dev: bool) -> Element {
+fn base_if_dev_mode(dev: bool) -> Element {
     if dev {
         html! {
 
