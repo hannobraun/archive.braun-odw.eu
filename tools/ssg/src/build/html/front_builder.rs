@@ -1,12 +1,20 @@
 use super::model::{Content, Element};
 
-pub fn a() -> Element {
-    Element {
-        name: "a",
-        attributes: Vec::new(),
-        content: Content::new(),
-    }
+macro_rules! elements {
+    ($($name:ident,)*) => {
+        $(
+            pub fn $name() -> Element {
+                Element {
+                    name: stringify!($name),
+                    attributes: Vec::new(),
+                    content: Content::new(),
+                }
+            }
+        )*
+    };
 }
+
+elements!(a,);
 
 pub trait Attributes: Sized {
     fn href(self, value: &'static str) -> Self;
