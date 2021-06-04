@@ -259,14 +259,9 @@ pub fn html(dev: bool) -> Element {
 
 fn base_if_dev_mode(dev: bool) -> Element {
     if dev {
-        html! {
-
-            base("href"="/hanno.braun-odw.eu/") {}
-        }
+        base().href("/hanno.braun-odw.eu/")
     } else {
-        html! {
-            base("href"="/") {}
-        }
+        base().href("/")
     }
 }
 
