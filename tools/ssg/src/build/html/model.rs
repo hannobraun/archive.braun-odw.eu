@@ -57,6 +57,18 @@ impl From<Vec<Node>> for Content {
     }
 }
 
+impl From<Element> for Content {
+    fn from(element: Element) -> Self {
+        Self(vec![Node::Element(element)])
+    }
+}
+
+impl From<&'static str> for Content {
+    fn from(text: &'static str) -> Self {
+        Self(vec![Node::Text(text)])
+    }
+}
+
 impl<'a> IntoIterator for &'a Content {
     type Item = &'a Node;
     type IntoIter = slice::Iter<'a, Node>;
