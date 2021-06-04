@@ -14,7 +14,7 @@ macro_rules! elements {
     };
 }
 
-elements!(a,);
+elements!(a, h3, header, p, span,);
 
 macro_rules! attributes {
     ($($name:ident,)*) => {
@@ -35,7 +35,7 @@ macro_rules! attributes {
     };
 }
 
-attributes!(href, target,);
+attributes!(class, href, target,);
 
 pub trait With: Sized {
     fn with(self, content: impl Into<Content>) -> Self;
