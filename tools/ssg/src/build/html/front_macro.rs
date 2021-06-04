@@ -41,7 +41,7 @@ macro_rules! html {
         let mut element = $crate::build::html::model::Element {
             name: stringify!($name),
             attributes: Vec::new(),
-            content: Vec::new(),
+            content: $crate::build::html::model::Content::new(),
         };
 
         $(
