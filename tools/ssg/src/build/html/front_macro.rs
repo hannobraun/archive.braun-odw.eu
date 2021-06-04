@@ -29,7 +29,7 @@ macro_rules! html {
     }};
 
     // Content parsing directive for elements
-    (@content $vec:expr,
+    (@content $outer_content:expr,
         $name:ident $((
             $($attr_name:literal = $attr_value:expr)*
         ))? {
@@ -53,8 +53,8 @@ macro_rules! html {
 
         html!(@content &mut element.content.0, $($content)*);
 
-        $vec.push(element.into());
-        html!(@content $vec, $($rest)*);
+        $outer_content.push(element.into());
+        html!(@content $outer_content, $($rest)*);
     }};
 
     // Content parsing directive for text
