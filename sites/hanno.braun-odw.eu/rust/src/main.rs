@@ -312,11 +312,7 @@ fn raw_link(link: &'static str) -> Element {
 }
 
 fn ext_link(link: &'static str, text: &'static str) -> Element {
-    html! {
-        a("href"=link "target"="_blank") {
-            { text }
-        }
-    }
+    a().href(link).target("_blank").with(text)
 }
 
 fn email(text: &'static str) -> Element {
