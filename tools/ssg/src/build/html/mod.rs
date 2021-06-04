@@ -1,3 +1,4 @@
+pub mod front_builder;
 pub mod front_macro;
 pub mod model;
 
