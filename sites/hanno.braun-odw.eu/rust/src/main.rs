@@ -275,12 +275,7 @@ fn ongoing_work(
     link: &'static str,
     content: Element,
 ) -> Element {
-    html! {
-        li {
-            { ongoing_work_header(title, link) }
-            { content }
-        }
-    }
+    li().with((ongoing_work_header(title, link), content))
 }
 
 fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
