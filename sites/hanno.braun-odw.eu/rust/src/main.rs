@@ -293,15 +293,10 @@ fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
 }
 
 fn side_project_header(title: &'static str, date: &'static str) -> Element {
-    html! {
-        header {
-            h3 { { title } }
-            p("class"="date") {
-                "Finished "
-                span { { date } }
-            }
-        }
-    }
+    header().with((
+        h3().with(title),
+        p().class("date").with(("Finished ", span().with(date))),
+    ))
 }
 
 fn raw_link(link: &'static str) -> Element {
