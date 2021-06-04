@@ -840,9 +840,8 @@
     };
   });
 
-  module("Game", ["Images", "Rendering", "Input", "MainLoop", "Logic", "Graphics", "Playtomic"], function(Images, Rendering, Input, MainLoop, Logic, Graphics, Playtomic) {
+  module("Game", ["Images", "Rendering", "Input", "MainLoop", "Logic", "Graphics"], function(Images, Rendering, Input, MainLoop, Logic, Graphics) {
     window.startTime = new Date().toString();
-    Playtomic.view();
     return Images.loadImages(["images/star.png"], function(rawImages) {
       var currentInput, display, gameState, images, renderData, renderState;
       images = Images.process(rawImages);
@@ -1249,7 +1248,7 @@
     return module;
   });
 
-  module("Logic", ["Input", "Entities", "Vec2", "Playtomic"], function(Input, Entities, Vec2, Playtomic) {
+  module("Logic", ["Input", "Entities", "Vec2"], function(Input, Entities, Vec2) {
     var blockSquares, checkIfColumnsHaveToBeRemoved, checkLoseCondition, createEntity, destroyEntity, entityFactories, launchNext, module, nextEntityId, refillNext, removeFullColumns, removeSquares;
     nextEntityId = 0;
     entityFactories = {
@@ -1335,8 +1334,7 @@
         return Input.onKeys(["enter"], function() {
           gameState.reset = gameState.lost;
           if (gameState.instructions) {
-            gameState.instructions = false;
-            return Playtomic.play();
+            return gameState.instructions = false;
           }
         });
       },
@@ -1560,8 +1558,6 @@
           gameState.lost = gameState.lost || topSquare !== "empty";
           if (gameState.lost && !gameState.reportedStats) {
             timeTaken = timeInS - gameState.startTimeInS;
-            Playtomic.ranged("score", gameState.score);
-            Playtomic.average("time", timeTaken);
             _results.push(gameState.reportedStats = true);
           } else {
             _results.push(void 0);
@@ -1577,27 +1573,6 @@
     var module;
     return module = {
       itIsAwesome: true
-    };
-  });
-
-  module("Playtomic", [], function() {
-    var apiKey, gameId, guid, module;
-    gameId = 428191;
-    guid = "5519409305d24c43";
-    apiKey = "d0e76e8b41b74561ba6d2aeaff51ec";
-    return module = {
-      view: function() {
-        return Playtomic.Log.View(gameId, guid, apiKey, document.location);
-      },
-      play: function() {
-        return Playtomic.Log.Play();
-      },
-      average: function(metric, value) {
-        return Playtomic.Log.LevelAverageMetric(metric, "level1", value);
-      },
-      ranged: function(metric, value) {
-        return Playtomic.Log.LevelRangedMetric(metric, "level1", value);
-      }
     };
   });
 
