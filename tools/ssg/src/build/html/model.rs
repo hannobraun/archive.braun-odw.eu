@@ -1,4 +1,7 @@
-use std::io::{self, Write};
+use std::{
+    io::{self, Write},
+    slice,
+};
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Element {
@@ -20,7 +23,7 @@ impl Element {
         } else {
             write!(target, ">")?;
 
-            for child in &self.content.0 {
+            for child in &self.content {
                 child.write_to(target)?;
             }
 
@@ -41,6 +44,15 @@ impl Content {
 
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+}
+
+impl<'a> IntoIterator for &'a Content {
+    type Item = &'a Node;
+    type IntoIter = slice::Iter<'a, Node>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.iter()
     }
 }
 
