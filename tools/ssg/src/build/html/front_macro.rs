@@ -58,12 +58,12 @@ macro_rules! html {
     }};
 
     // Content parsing directive for text
-    (@content $vec:expr,
+    (@content $outer_content:expr,
         $text:literal
         $($rest:tt)*
     ) => {{
-        $vec.push($text.into());
-        html!(@content $vec, $($rest)*);
+        $outer_content.push($text.into());
+        html!(@content $outer_content, $($rest)*);
     }};
 
     // Content parsing directive for injected content
