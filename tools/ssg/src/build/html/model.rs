@@ -69,6 +69,25 @@ impl From<&'static str> for Content {
     }
 }
 
+impl<A> From<(A,)> for Content
+where
+    A: Into<Node>,
+{
+    fn from((a,): (A,)) -> Self {
+        Self(vec![a.into()])
+    }
+}
+
+impl<A, B> From<(A, B)> for Content
+where
+    A: Into<Node>,
+    B: Into<Node>,
+{
+    fn from((a, b): (A, B)) -> Self {
+        Self(vec![a.into(), b.into()])
+    }
+}
+
 impl<'a> IntoIterator for &'a Content {
     type Item = &'a Node;
     type IntoIter = slice::Iter<'a, Node>;
