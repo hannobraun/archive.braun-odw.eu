@@ -67,12 +67,12 @@ macro_rules! html {
     }};
 
     // Content parsing directive for injected content
-    (@content $vec:expr,
+    (@content $outer_content:expr,
         { $injected:expr }
         $($rest:tt)*
     ) => {{
-        $vec.push($injected.into());
-        html!(@content $vec, $($rest)*);
+        $outer_content.push($injected.into());
+        html!(@content $outer_content, $($rest)*);
     }};
 
     // Content parsing directive to terminate parsing once no content is left
