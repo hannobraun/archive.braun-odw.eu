@@ -8,4 +8,5 @@ members = [
 ]
 default-members = [
     "tools/builder",
+    "tools/ssg",
 ]
