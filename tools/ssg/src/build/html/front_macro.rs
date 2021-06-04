@@ -51,7 +51,7 @@ macro_rules! html {
         )?
 
 
-        html!(@content &mut element.content, $($content)*);
+        html!(@content &mut element.content.0, $($content)*);
 
         $vec.push(element.into());
         html!(@content $vec, $($rest)*);
@@ -81,7 +81,7 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use crate::build::html::model::{Element, Node};
+    use crate::build::html::model::{Content, Element, Node};
 
     #[test]
     fn macro_should_create_element_with_text() {
@@ -94,7 +94,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: vec![Node::Text("This is a paragraph.")],
+            content: Content(vec![Node::Text("This is a paragraph.")]),
         };
 
         assert_eq!(html, expected);
@@ -111,7 +111,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: vec![("id", "id"), ("class", "class")],
-            content: vec![Node::Text("This is a paragraph.")],
+            content: Content(vec![Node::Text("This is a paragraph.")]),
         };
 
         assert_eq!(html, expected);
@@ -128,11 +128,11 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: vec![Node::Element(Element {
+            content: Content(vec![Node::Element(Element {
                 name: "strong",
                 attributes: Vec::new(),
-                content: vec![Node::Text("This is a paragraph.")],
-            })],
+                content: Content(vec![Node::Text("This is a paragraph.")]),
+            })]),
         };
 
         assert_eq!(html, expected);
@@ -151,15 +151,15 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: vec![
+            content: Content(vec![
                 Node::Text("This is a paragraph with"),
                 Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: vec![Node::Text("mixed")],
+                    content: Content(vec![Node::Text("mixed")]),
                 }),
                 Node::Text("content."),
-            ],
+            ]),
         };
 
         assert_eq!(html, expected);
@@ -182,11 +182,11 @@ mod tests {
         let expected = Element {
             name: "div",
             attributes: Vec::new(),
-            content: vec![Node::Element(Element {
+            content: Content(vec![Node::Element(Element {
                 name: "p",
                 attributes: Vec::new(),
-                content: vec![Node::Text("This is a paragraph.")],
-            })],
+                content: Content(vec![Node::Text("This is a paragraph.")]),
+            })]),
         };
 
         assert_eq!(html, expected);

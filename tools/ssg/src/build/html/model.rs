@@ -15,12 +15,12 @@ impl Element {
             write!(target, " {}=\"{}\"", name, value)?;
         }
 
-        if self.content.is_empty() {
+        if self.content.0.is_empty() {
             write!(target, " />")?;
         } else {
             write!(target, ">")?;
 
-            for child in &self.content {
+            for child in &self.content.0 {
                 child.write_to(target)?;
             }
 
@@ -31,7 +31,14 @@ impl Element {
     }
 }
 
-pub type Content = Vec<Node>;
+#[derive(Debug, Eq, PartialEq)]
+pub struct Content(pub Vec<Node>);
+
+impl Content {
+    pub fn new() -> Self {
+        Self(Vec::new())
+    }
+}
 
 #[derive(Debug, Eq, PartialEq)]
 pub enum Node {
@@ -64,25 +71,25 @@ impl From<&'static str> for Node {
 
 #[cfg(test)]
 mod tests {
-    use super::{Element, Node};
+    use super::{Content, Element, Node};
 
     #[test]
     fn element_should_write_html_code() {
         let element = Element {
             name: "p",
             attributes: vec![("class", "class")],
-            content: vec![
+            content: Content(vec![
                 Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: vec![Node::Text("This is a paragraph.")],
+                    content: Content(vec![Node::Text("This is a paragraph.")]),
                 }),
                 Node::Element(Element {
                     name: "br",
                     attributes: Vec::new(),
-                    content: vec![],
+                    content: Content(vec![]),
                 }),
-            ],
+            ]),
         };
 
         let mut output = Vec::new();
