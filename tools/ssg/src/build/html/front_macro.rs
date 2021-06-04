@@ -81,7 +81,7 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use crate::build::html::model::{Content, Element};
+    use crate::build::html::model::{Node, Element};
 
     #[test]
     fn macro_should_create_element_with_text() {
@@ -94,7 +94,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: vec![Content::Text("This is a paragraph.")],
+            content: vec![Node::Text("This is a paragraph.")],
         };
 
         assert_eq!(html, expected);
@@ -111,7 +111,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: vec![("id", "id"), ("class", "class")],
-            content: vec![Content::Text("This is a paragraph.")],
+            content: vec![Node::Text("This is a paragraph.")],
         };
 
         assert_eq!(html, expected);
@@ -128,10 +128,10 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: vec![Content::Element(Element {
+            content: vec![Node::Element(Element {
                 name: "strong",
                 attributes: Vec::new(),
-                content: vec![Content::Text("This is a paragraph.")],
+                content: vec![Node::Text("This is a paragraph.")],
             })],
         };
 
@@ -152,13 +152,13 @@ mod tests {
             name: "p",
             attributes: Vec::new(),
             content: vec![
-                Content::Text("This is a paragraph with"),
-                Content::Element(Element {
+                Node::Text("This is a paragraph with"),
+                Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: vec![Content::Text("mixed")],
+                    content: vec![Node::Text("mixed")],
                 }),
-                Content::Text("content."),
+                Node::Text("content."),
             ],
         };
 
@@ -182,10 +182,10 @@ mod tests {
         let expected = Element {
             name: "div",
             attributes: Vec::new(),
-            content: vec![Content::Element(Element {
+            content: vec![Node::Element(Element {
                 name: "p",
                 attributes: Vec::new(),
-                content: vec![Content::Text("This is a paragraph.")],
+                content: vec![Node::Text("This is a paragraph.")],
             })],
         };
 

@@ -4,7 +4,7 @@ use std::io::{self, Write};
 pub struct Element {
     pub name: &'static str,
     pub attributes: Vec<(&'static str, &'static str)>,
-    pub content: Vec<Content>,
+    pub content: Vec<Node>,
 }
 
 impl Element {
@@ -32,12 +32,12 @@ impl Element {
 }
 
 #[derive(Debug, Eq, PartialEq)]
-pub enum Content {
+pub enum Node {
     Element(Element),
     Text(&'static str),
 }
 
-impl Content {
+impl Node {
     pub fn write_to(&self, target: &mut impl Write) -> io::Result<()> {
         match self {
             Self::Element(element) => element.write_to(target)?,
@@ -48,13 +48,13 @@ impl Content {
     }
 }
 
-impl From<Element> for Content {
+impl From<Element> for Node {
     fn from(element: Element) -> Self {
         Self::Element(element)
     }
 }
 
-impl From<&'static str> for Content {
+impl From<&'static str> for Node {
     fn from(text: &'static str) -> Self {
         Self::Text(text)
     }
@@ -62,7 +62,7 @@ impl From<&'static str> for Content {
 
 #[cfg(test)]
 mod tests {
-    use super::{Content, Element};
+    use super::{Element, Node};
 
     #[test]
     fn element_should_write_html_code() {
@@ -70,12 +70,12 @@ mod tests {
             name: "p",
             attributes: vec![("class", "class")],
             content: vec![
-                Content::Element(Element {
+                Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: vec![Content::Text("This is a paragraph.")],
+                    content: vec![Node::Text("This is a paragraph.")],
                 }),
-                Content::Element(Element {
+                Node::Element(Element {
                     name: "br",
                     attributes: Vec::new(),
                     content: vec![],
