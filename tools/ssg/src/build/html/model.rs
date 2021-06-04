@@ -4,7 +4,7 @@ use std::io::{self, Write};
 pub struct Element {
     pub name: &'static str,
     pub attributes: Vec<(&'static str, &'static str)>,
-    pub content: Vec<Node>,
+    pub content: Content,
 }
 
 impl Element {
@@ -30,6 +30,8 @@ impl Element {
         Ok(())
     }
 }
+
+pub type Content = Vec<Node>;
 
 #[derive(Debug, Eq, PartialEq)]
 pub enum Node {
