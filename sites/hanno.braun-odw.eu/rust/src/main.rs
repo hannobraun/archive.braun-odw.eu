@@ -1,6 +1,12 @@
 use ssg::{
     args::Args,
-    build::{build_once, html::model::Element},
+    build::{
+        build_once,
+        html::{
+            front_builder::{a, Attributes as _, With as _},
+            model::Element,
+        },
+    },
     html,
 };
 
@@ -314,9 +320,6 @@ fn ext_link(link: &'static str, text: &'static str) -> Element {
 }
 
 fn email(text: &'static str) -> Element {
-    html! {
-        a("href"="mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E") {
-            { text }
-        }
-    }
+    a().href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
+        .with(text)
 }
