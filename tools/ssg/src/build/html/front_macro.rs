@@ -76,7 +76,7 @@ macro_rules! html {
     }};
 
     // Content parsing directive to terminate parsing once no content is left
-    (@content $vec:expr,) => {};
+    (@content $outer_content:expr,) => {};
 }
 
 #[cfg(test)]
