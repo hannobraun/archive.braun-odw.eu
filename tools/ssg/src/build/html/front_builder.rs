@@ -35,7 +35,7 @@ macro_rules! attributes {
     };
 }
 
-attributes!(href,);
+attributes!(href, target,);
 
 pub trait With: Sized {
     fn with(self, content: impl Into<Content>) -> Self;
