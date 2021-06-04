@@ -51,7 +51,7 @@ macro_rules! html {
         )?
 
 
-        html!(@content &mut element.content.0, $($content)*);
+        html!(@content &mut element.content, $($content)*);
 
         $outer_content.push(element.into());
         html!(@content $outer_content, $($rest)*);

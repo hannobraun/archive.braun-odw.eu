@@ -45,6 +45,10 @@ impl Content {
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
+
+    pub fn push(&mut self, node: Node) {
+        self.0.push(node)
+    }
 }
 
 impl<'a> IntoIterator for &'a Content {
