@@ -1,4 +1,3 @@
-#[macro_use]
 pub mod front_macro;
 pub mod model;
 
