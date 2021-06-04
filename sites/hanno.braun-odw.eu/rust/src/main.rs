@@ -2,10 +2,7 @@ use ssg::{
     args::Args,
     build::{
         build_once,
-        html::{
-            front_builder::{a, Attributes as _, With as _},
-            model::Element,
-        },
+        html::{front_builder::*, model::Element},
     },
     html,
 };
