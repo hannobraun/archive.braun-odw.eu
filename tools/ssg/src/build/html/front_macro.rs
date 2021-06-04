@@ -94,7 +94,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: Content(vec![Node::Text("This is a paragraph.")]),
+            content: Content::from(vec![Node::Text("This is a paragraph.")]),
         };
 
         assert_eq!(html, expected);
@@ -111,7 +111,7 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: vec![("id", "id"), ("class", "class")],
-            content: Content(vec![Node::Text("This is a paragraph.")]),
+            content: Content::from(vec![Node::Text("This is a paragraph.")]),
         };
 
         assert_eq!(html, expected);
@@ -128,10 +128,12 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: Content(vec![Node::Element(Element {
+            content: Content::from(vec![Node::Element(Element {
                 name: "strong",
                 attributes: Vec::new(),
-                content: Content(vec![Node::Text("This is a paragraph.")]),
+                content: Content::from(vec![Node::Text(
+                    "This is a paragraph.",
+                )]),
             })]),
         };
 
@@ -151,12 +153,12 @@ mod tests {
         let expected = Element {
             name: "p",
             attributes: Vec::new(),
-            content: Content(vec![
+            content: Content::from(vec![
                 Node::Text("This is a paragraph with"),
                 Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: Content(vec![Node::Text("mixed")]),
+                    content: Content::from(vec![Node::Text("mixed")]),
                 }),
                 Node::Text("content."),
             ]),
@@ -182,10 +184,12 @@ mod tests {
         let expected = Element {
             name: "div",
             attributes: Vec::new(),
-            content: Content(vec![Node::Element(Element {
+            content: Content::from(vec![Node::Element(Element {
                 name: "p",
                 attributes: Vec::new(),
-                content: Content(vec![Node::Text("This is a paragraph.")]),
+                content: Content::from(vec![Node::Text(
+                    "This is a paragraph.",
+                )]),
             })]),
         };
 

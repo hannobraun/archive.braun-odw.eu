@@ -51,6 +51,12 @@ impl Content {
     }
 }
 
+impl From<Vec<Node>> for Content {
+    fn from(nodes: Vec<Node>) -> Self {
+        Self(nodes)
+    }
+}
+
 impl<'a> IntoIterator for &'a Content {
     type Item = &'a Node;
     type IntoIter = slice::Iter<'a, Node>;
@@ -98,16 +104,18 @@ mod tests {
         let element = Element {
             name: "p",
             attributes: vec![("class", "class")],
-            content: Content(vec![
+            content: Content::from(vec![
                 Node::Element(Element {
                     name: "strong",
                     attributes: Vec::new(),
-                    content: Content(vec![Node::Text("This is a paragraph.")]),
+                    content: Content::from(vec![Node::Text(
+                        "This is a paragraph.",
+                    )]),
                 }),
                 Node::Element(Element {
                     name: "br",
                     attributes: Vec::new(),
-                    content: Content(vec![]),
+                    content: Content::from(vec![]),
                 }),
             ]),
         };
