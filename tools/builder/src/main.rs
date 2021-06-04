@@ -26,6 +26,7 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
+// TASK: Only rebuild those websites where changes have been detected.
 async fn build_continuously(args: Args) -> anyhow::Result<()> {
     // Build at least once, before waiting for events.
     info!("Building sites.");
