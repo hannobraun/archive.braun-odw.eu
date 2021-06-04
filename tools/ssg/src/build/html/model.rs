@@ -15,7 +15,7 @@ impl Element {
             write!(target, " {}=\"{}\"", name, value)?;
         }
 
-        if self.content.0.is_empty() {
+        if self.content.is_empty() {
             write!(target, " />")?;
         } else {
             write!(target, ">")?;
@@ -37,6 +37,10 @@ pub struct Content(pub Vec<Node>);
 impl Content {
     pub fn new() -> Self {
         Self(Vec::new())
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 }
 
