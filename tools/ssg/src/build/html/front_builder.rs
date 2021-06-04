@@ -20,12 +20,20 @@ pub trait Attributes: Sized {
     fn href(self, value: &'static str) -> Self;
 }
 
-impl Attributes for Element {
-    fn href(mut self, value: &'static str) -> Self {
-        self.attributes.push(("href", value));
-        self
-    }
+macro_rules! attributes {
+    ($($name:ident,)*) => {
+        impl Attributes for Element {
+            $(
+                fn $name(mut self, value: &'static str) -> Self {
+                    self.attributes.push((stringify!($name), value));
+                    self
+                }
+            )*
+        }
+    };
 }
+
+attributes!(href,);
 
 pub trait With: Sized {
     fn with(self, content: impl Into<Content>) -> Self;
