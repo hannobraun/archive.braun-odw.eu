@@ -35,7 +35,7 @@ impl Element {
 }
 
 #[derive(Debug, Eq, PartialEq)]
-pub struct Content(pub Vec<Node>);
+pub struct Content(Vec<Node>);
 
 impl Content {
     pub fn new() -> Self {
