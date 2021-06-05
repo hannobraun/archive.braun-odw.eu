@@ -9,6 +9,7 @@ use ssg::{
 
 mod ongoing_work;
 mod side_projects;
+mod site_footer;
 mod util;
 
 #[tokio::main]
@@ -114,7 +115,7 @@ pub fn html(dev: bool) -> Element {
 
                 hr {}
 
-                { site_footer() }
+                { site_footer::site_footer() }
             }
         }
     }
@@ -128,31 +129,4 @@ fn base_if_dev_mode(dev: bool) -> Element {
     } else {
         base().href("/")
     }
-}
-
-fn site_footer() -> Element {
-    html! {
-        footer {
-            { site_footer_address() }
-            { made_in_odenwald() }
-        }
-    }
-}
-
-fn site_footer_address() -> Element {
-    address().with((
-        p().with("Hanno Braun"),
-        p().with("Untere Pfarrgasse 19"),
-        p().with("64720 Michelstadt"),
-        p().with("Germany"),
-        hr(),
-        p().with(util::email("hanno@braun-odw.eu")),
-    ))
-}
-
-fn made_in_odenwald() -> Element {
-    div().class("made-in-odenwald").with(
-        a().href("made-in-odenwald/2.jpg")
-            .with("Made in Odenwald ♥"),
-    )
 }
