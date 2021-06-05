@@ -88,6 +88,10 @@ macro_rules! content_from_tuple {
 content_from_tuple!(
     A;
     A, B;
+    A, B, C;
+    A, B, C, D;
+    A, B, C, D, E;
+    A, B, C, D, E, F;
 );
 
 impl<'a> IntoIterator for &'a Content {
