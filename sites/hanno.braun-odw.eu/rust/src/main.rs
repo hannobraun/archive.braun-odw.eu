@@ -7,6 +7,8 @@ use ssg::{
     html,
 };
 
+mod util;
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
@@ -57,7 +59,7 @@ pub fn html(dev: bool) -> Element {
                             "Hanno Braun, self-employed software developer \
                             from the Odenwald region, Germany. The best way to \
                             reach me is via email ("
-                            { email("hanno@braun-odw.eu") }
+                            { util::email("hanno@braun-odw.eu") }
                             ") and Matrix ("
                             a("href"="https://matrix.to/#/@hanno:braun-odw.eu")
                             {
@@ -84,7 +86,7 @@ pub fn html(dev: bool) -> Element {
                                             write your next firmware project \
                                             in Rust and could use some help \
                                             with the low-level stuff, "
-                                            { email("let me know") }
+                                            { util::email("let me know") }
                                             "!"
                                         }
                                     }
@@ -145,7 +147,7 @@ fn side_projects() -> Element {
                     }
                     p {
                         {
-                            ext_link(
+                            util::ext_link(
                                 "https://github.com/hannobraun/fornjot",
                                 "Fornjot",
                             )
@@ -159,7 +161,7 @@ fn side_projects() -> Element {
                         "The goal for this first release was to \
                         build enough infrastructure to support "
                         {
-                            ext_link(
+                            util::ext_link(
                                 "https://github.com/hannobraun/fornjot/tree/main/models/spacer",
                                 "a simple spacer model",
                             )
@@ -180,7 +182,7 @@ fn side_projects() -> Element {
                         looking at right now) and put it on new \
                         technical footing, using my own "
                         {
-                            ext_link(
+                            util::ext_link(
                                 "https://github.com/hannobraun/braun-odw.eu",
                                 "homegrown static site generator",
                             )
@@ -200,7 +202,7 @@ fn side_projects() -> Element {
                     }
                     p {
                         {
-                            ext_link(
+                            util::ext_link(
                                 "https://github.com/hannobraun/my-boss",
                                 "My Boss",
                             )
@@ -236,14 +238,14 @@ fn side_projects() -> Element {
             p {
                 "There's a lot more on my GitHub accounts ("
                 {
-                    ext_link(
+                    util::ext_link(
                         "https://github.com/hannobraun",
                         "personal",
                     )
                 }
                 " and "
                 {
-                    ext_link(
+                    util::ext_link(
                         "https://github.com/braun-embedded",
                         "professional",
                     )
@@ -270,7 +272,7 @@ fn site_footer_address() -> Element {
         p().with("64720 Michelstadt"),
         p().with("Germany"),
         hr(),
-        p().with(email("hanno@braun-odw.eu")),
+        p().with(util::email("hanno@braun-odw.eu")),
     ))
 }
 
@@ -290,7 +292,7 @@ fn ongoing_work(
 }
 
 fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
-    header().with((h3().with(title), raw_link(link)))
+    header().with((h3().with(title), util::raw_link(link)))
 }
 
 fn side_project_header(title: &'static str, date: &'static str) -> Element {
@@ -298,17 +300,4 @@ fn side_project_header(title: &'static str, date: &'static str) -> Element {
         h3().with(title),
         p().class("date").with(("Finished ", span().with(date))),
     ))
-}
-
-fn raw_link(link: &'static str) -> Element {
-    ext_link(link, link)
-}
-
-fn ext_link(link: &'static str, text: &'static str) -> Element {
-    a().href(link).target("_blank").with(text)
-}
-
-fn email(text: &'static str) -> Element {
-    a().href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
-        .with(text)
 }
