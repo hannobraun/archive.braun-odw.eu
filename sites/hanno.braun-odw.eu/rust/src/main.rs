@@ -251,20 +251,25 @@ fn base_if_dev_mode(dev: bool) -> Element {
 fn site_footer() -> Element {
     html! {
         footer {
-            address {
-                p { "Hanno Braun" }
-                p { "Untere Pfarrgasse 19" }
-                p { "64720 Michelstadt" }
-                p { "Germany" }
-
-                hr {}
-
-                p {
-                    {{ email("hanno@braun-odw.eu") }}
-                }
-            }
-
+            { address() }
             { made_in_odenwald() }
+        }
+    }
+}
+
+fn address() -> Element {
+    html! {
+        address {
+            p { "Hanno Braun" }
+            p { "Untere Pfarrgasse 19" }
+            p { "64720 Michelstadt" }
+            p { "Germany" }
+
+            hr {}
+
+            p {
+                {{ email("hanno@braun-odw.eu") }}
+            }
         }
     }
 }
