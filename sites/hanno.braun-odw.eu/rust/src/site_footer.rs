@@ -1,17 +1,9 @@
-use ssg::{
-    build::html::{front_builder::*, model::Element},
-    html,
-};
+use ssg::build::html::{front_builder::*, model::Element};
 
 use crate::util;
 
 pub fn site_footer() -> Element {
-    html! {
-        footer {
-            { site_footer_address() }
-            { made_in_odenwald() }
-        }
-    }
+    footer().with((site_footer_address(), made_in_odenwald()))
 }
 
 fn site_footer_address() -> Element {
