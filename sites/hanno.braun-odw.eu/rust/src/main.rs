@@ -251,13 +251,13 @@ fn base_if_dev_mode(dev: bool) -> Element {
 fn site_footer() -> Element {
     html! {
         footer {
-            { address() }
+            { site_footer_address() }
             { made_in_odenwald() }
         }
     }
 }
 
-fn address() -> Element {
+fn site_footer_address() -> Element {
     html! {
         address {
             p { "Hanno Braun" }
