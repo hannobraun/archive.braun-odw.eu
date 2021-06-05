@@ -7,6 +7,7 @@ use ssg::{
     html,
 };
 
+mod ongoing_work;
 mod side_projects;
 mod util;
 
@@ -74,7 +75,7 @@ pub fn html(dev: bool) -> Element {
                         h2 { "Ongoing Work" }
                         ul {
                             {
-                                ongoing_work(
+                                ongoing_work::ongoing_work(
                                     "Braun Embedded",
                                     "https://braun-embedded.com/",
                                     html! {
@@ -94,7 +95,7 @@ pub fn html(dev: bool) -> Element {
                                 )
                             }
                             {
-                                ongoing_work(
+                                ongoing_work::ongoing_work(
                                     "Made by Hanno",
                                     "https://madeby.hannobraun.de/",
                                     html! {
@@ -154,16 +155,4 @@ fn made_in_odenwald() -> Element {
         a().href("made-in-odenwald/2.jpg")
             .with("Made in Odenwald ♥"),
     )
-}
-
-fn ongoing_work(
-    title: &'static str,
-    link: &'static str,
-    content: Element,
-) -> Element {
-    li().with((ongoing_work_header(title, link), content))
-}
-
-fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
-    header().with((h3().with(title), util::raw_link(link)))
 }
