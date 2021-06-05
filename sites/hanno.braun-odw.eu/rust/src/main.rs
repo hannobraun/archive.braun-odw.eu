@@ -264,10 +264,16 @@ fn site_footer() -> Element {
                 }
             }
 
-            div("class"="made-in-odenwald") {
-                a("href"="made-in-odenwald/2.jpg") {
-                    "Made in Odenwald ♥"
-                }
+            { made_in_odenwald() }
+        }
+    }
+}
+
+fn made_in_odenwald() -> Element {
+    html! {
+        div("class"="made-in-odenwald") {
+            a("href"="made-in-odenwald/2.jpg") {
+                "Made in Odenwald ♥"
             }
         }
     }
