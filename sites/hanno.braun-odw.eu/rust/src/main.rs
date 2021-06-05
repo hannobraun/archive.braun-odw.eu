@@ -270,13 +270,10 @@ fn site_footer() -> Element {
 }
 
 fn made_in_odenwald() -> Element {
-    html! {
-        div("class"="made-in-odenwald") {
-            a("href"="made-in-odenwald/2.jpg") {
-                "Made in Odenwald ♥"
-            }
-        }
-    }
+    div().class("made-in-odenwald").with(
+        a().href("made-in-odenwald/2.jpg")
+            .with("Made in Odenwald ♥"),
+    )
 }
 
 fn ongoing_work(
