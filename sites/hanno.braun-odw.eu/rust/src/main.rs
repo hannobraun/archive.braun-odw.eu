@@ -232,26 +232,7 @@ pub fn html(dev: bool) -> Element {
 
                 hr {}
 
-                footer {
-                    address {
-                        p { "Hanno Braun" }
-                        p { "Untere Pfarrgasse 19" }
-                        p { "64720 Michelstadt" }
-                        p { "Germany" }
-
-                        hr {}
-
-                        p {
-                            {{ email("hanno@braun-odw.eu") }}
-                        }
-                    }
-
-                    div("class"="made-in-odenwald") {
-                        a("href"="made-in-odenwald/2.jpg") {
-                            "Made in Odenwald ♥"
-                        }
-                    }
-                }
+                { site_footer() }
             }
         }
     }
@@ -264,6 +245,31 @@ fn base_if_dev_mode(dev: bool) -> Element {
         base().href("/hanno.braun-odw.eu/")
     } else {
         base().href("/")
+    }
+}
+
+fn site_footer() -> Element {
+    html! {
+        footer {
+            address {
+                p { "Hanno Braun" }
+                p { "Untere Pfarrgasse 19" }
+                p { "64720 Michelstadt" }
+                p { "Germany" }
+
+                hr {}
+
+                p {
+                    {{ email("hanno@braun-odw.eu") }}
+                }
+            }
+
+            div("class"="made-in-odenwald") {
+                a("href"="made-in-odenwald/2.jpg") {
+                    "Made in Odenwald ♥"
+                }
+            }
+        }
     }
 }
 
