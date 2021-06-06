@@ -26,8 +26,8 @@ pub fn side_projects() -> Element {
                         {
                             util::ext_link(
                                 "https://github.com/hannobraun/fornjot",
-                                "Fornjot",
                             )
+                            .text("Fornjot")
                         }
                         " is an experimental programmatic CAD \
                         system. I've been working on multiple \
@@ -40,8 +40,8 @@ pub fn side_projects() -> Element {
                         {
                             util::ext_link(
                                 "https://github.com/hannobraun/fornjot/tree/main/models/spacer",
-                                "a simple spacer model",
                             )
+                            .text("a simple spacer model")
                         }
                         ". I plan to extend it and create more \
                         complex models going forward."
@@ -61,8 +61,8 @@ pub fn side_projects() -> Element {
                         {
                             util::ext_link(
                                 "https://github.com/hannobraun/braun-odw.eu",
-                                "homegrown static site generator",
                             )
+                            .text("homegrown static site generator")
                         }
                         ". I also got a new domain and started \
                         consolidating most of my IT infrastructure \
@@ -81,8 +81,8 @@ pub fn side_projects() -> Element {
                         {
                             util::ext_link(
                                 "https://github.com/hannobraun/my-boss",
-                                "My Boss",
                             )
+                            .text("My Boss")
                         }
                         " is software that tells me what to do and \
                         when to do it. Kind of like an ERP system, \
@@ -115,17 +115,13 @@ pub fn side_projects() -> Element {
             p {
                 "There's a lot more on my GitHub accounts ("
                 {
-                    util::ext_link(
-                        "https://github.com/hannobraun",
-                        "personal",
-                    )
+                    util::ext_link("https://github.com/hannobraun")
+                        .text("personal")
                 }
                 " and "
                 {
-                    util::ext_link(
-                        "https://github.com/braun-embedded",
-                        "professional",
-                    )
+                    util::ext_link("https://github.com/braun-embedded")
+                        .text("professional")
                 }
                 "), if you want to see more."
             }

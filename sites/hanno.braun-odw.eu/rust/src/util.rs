@@ -7,18 +7,20 @@ use ssg::{
 };
 
 pub fn raw_link(link: &'static str) -> Element {
-    ext_link(link, link).into()
+    ext_link(link).text(link).into()
 }
 
 #[derive(Component)]
 pub struct ExtLink {
     link: &'static str,
-    text: &'static str,
+    text: Option<&'static str>,
 }
 
 impl From<ExtLink> for Element {
     fn from(ext_link: ExtLink) -> Self {
-        a().href(ext_link.link).target("_blank").with(ext_link.text)
+        a().href(ext_link.link)
+            .target("_blank")
+            .with(ext_link.text.unwrap_or(ext_link.link))
     }
 }
 
