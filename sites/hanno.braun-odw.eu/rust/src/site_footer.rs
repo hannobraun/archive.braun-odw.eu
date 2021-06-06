@@ -13,7 +13,7 @@ fn site_footer_address() -> Element {
         p().with("64720 Michelstadt"),
         p().with("Germany"),
         hr(),
-        p().with(util::email("hanno@braun-odw.eu")),
+        p().with(util::email()),
     ))
 }
 

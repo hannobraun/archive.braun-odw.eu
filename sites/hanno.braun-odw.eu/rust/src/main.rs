@@ -62,7 +62,7 @@ pub fn html(dev: bool) -> Element {
                             "Hanno Braun, self-employed software developer \
                             from the Odenwald region, Germany. The best way to \
                             reach me is via email ("
-                            { util::email("hanno@braun-odw.eu") }
+                            { util::email() }
                             ") and Matrix ("
                             a("href"="https://matrix.to/#/@hanno:braun-odw.eu")
                             {
@@ -89,7 +89,10 @@ pub fn html(dev: bool) -> Element {
                                             write your next firmware project \
                                             in Rust and could use some help \
                                             with the low-level stuff, "
-                                            { util::email("let me know") }
+                                            {
+                                                util::email()
+                                                    .text("let me know")
+                                            }
                                             "!"
                                         }
                                     }
