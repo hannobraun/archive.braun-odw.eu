@@ -18,16 +18,17 @@ impl From<DeriveInput> for Input {
             ),
         };
 
-        let optional_fields = fields
-            .named
-            .into_iter()
-            .filter(is_optional)
-            .map(|field| {
+        let mut optional_fields = Vec::new();
+
+        for field in fields.named {
+            if is_optional(&field) {
                 // Can't panic, as we already made sure this is a struct with
                 // named fields.
-                field.ident.unwrap()
-            })
-            .collect();
+                let ident = field.ident.unwrap();
+
+                optional_fields.push(ident);
+            }
+        }
 
         Self {
             name: input.ident,
