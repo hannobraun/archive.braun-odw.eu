@@ -2,7 +2,7 @@ use syn::{Data, DeriveInput, Fields, Ident};
 
 pub struct Input {
     pub name: Ident,
-    pub fields: Vec<Ident>,
+    pub optional_fields: Vec<Ident>,
 }
 
 impl From<DeriveInput> for Input {
@@ -30,7 +30,7 @@ impl From<DeriveInput> for Input {
 
         Self {
             name: input.ident,
-            fields,
+            optional_fields: fields,
         }
     }
 }
