@@ -18,7 +18,7 @@ impl From<DeriveInput> for Input {
             ),
         };
 
-        let fields = fields
+        let optional_fields = fields
             .named
             .into_iter()
             .map(|field| {
@@ -30,7 +30,7 @@ impl From<DeriveInput> for Input {
 
         Self {
             name: input.ident,
-            optional_fields: fields,
+            optional_fields,
         }
     }
 }
