@@ -7,6 +7,7 @@ use syn::Ident;
 use crate::input::Input;
 
 pub fn generate(input: Input) -> TokenStream {
+    let vis = input.vis;
     let name = input.name;
     let mandatory_fields = input.mandatory_fields;
     let optional_fields = input.optional_fields;
@@ -46,7 +47,7 @@ pub fn generate(input: Input) -> TokenStream {
             }
         }
 
-        pub fn #name_lower(
+        #vis fn #name_lower(
             #(
                 #mandatory_fields: &'static str,
             )*

@@ -1,6 +1,7 @@
-use syn::{Data, DeriveInput, Field, Fields, Ident, Type};
+use syn::{Data, DeriveInput, Field, Fields, Ident, Type, Visibility};
 
 pub struct Input {
+    pub vis: Visibility,
     pub name: Ident,
     pub mandatory_fields: Vec<Ident>,
     pub optional_fields: Vec<Ident>,
@@ -38,6 +39,7 @@ impl From<DeriveInput> for Input {
         }
 
         Self {
+            vis: input.vis,
             name: input.ident,
             mandatory_fields,
             optional_fields,
