@@ -4,11 +4,11 @@ use proc_macro2::Span;
 use quote::quote;
 use syn::Ident;
 
-pub fn generate(name: Ident, fields: Vec<Ident>) -> TokenStream {
+pub fn generate(name: Ident, optional_fields: Vec<Ident>) -> TokenStream {
     let name_lower = name.to_string().to_case(Case::Snake);
     let name_lower = Ident::new(&name_lower, Span::call_site());
 
-    let builder_methods = fields.iter().map(|name| {
+    let builder_methods = optional_fields.iter().map(|name| {
         quote! {
             pub fn #name(mut self, value: &'static str) -> Self {
                 self.#name = Some(value);
@@ -43,7 +43,7 @@ pub fn generate(name: Ident, fields: Vec<Ident>) -> TokenStream {
         pub fn #name_lower() -> #name {
             #name {
                 #(
-                    #fields: None,
+                    #optional_fields: None,
                 )*
             }
         }
