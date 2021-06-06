@@ -13,16 +13,17 @@ impl From<DeriveInput> for Input {
             _ => panic!("`Component` can only be derived for structs"),
         };
         let fields = match data.fields {
-            Fields::Named(fields) => fields,
-            _ => panic!(
-                "`Component` can only be derived for structs with named fields"
-            ),
+            Fields::Named(fields) => fields.named.into_iter().collect(),
+            Fields::Unit => vec![],
+            Fields::Unnamed(_) => {
+                panic!("`Component` can not be derived for tuple structs")
+            }
         };
 
         let mut mandatory_fields = Vec::new();
         let mut optional_fields = Vec::new();
 
-        for field in fields.named {
+        for field in fields {
             let fields = if is_optional(&field) {
                 &mut optional_fields
             } else {
