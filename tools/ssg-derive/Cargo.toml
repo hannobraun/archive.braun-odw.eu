@@ -9,5 +9,6 @@ proc-macro = true
 
 [dependencies]
 convert_case = "*"
+proc-macro2  = "*"
 quote        = "*"
 syn          = "*"
