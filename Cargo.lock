@@ -1314,11 +1314,16 @@ dependencies = [
  "futures",
  "notify",
  "rsass",
+ "ssg-derive",
  "thiserror",
  "tokio",
  "tracing",
  "warp",
 ]
+
+[[package]]
+name = "ssg-derive"
+version = "0.1.0"
 
 [[package]]
 name = "strsim"

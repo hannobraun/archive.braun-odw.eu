@@ -5,6 +5,7 @@ members = [
     "sites/well-known/rust",
     "tools/builder",
     "tools/ssg",
+    "tools/ssg-derive",
 ]
 default-members = [
     "tools/builder",
