@@ -9,15 +9,20 @@ pub fn site_footer() -> Element {
     footer().with((site_footer_address(), made_in_odenwald()))
 }
 
-fn site_footer_address() -> Element {
-    address().with((
-        p().with("Hanno Braun"),
-        p().with("Untere Pfarrgasse 19"),
-        p().with("64720 Michelstadt"),
-        p().with("Germany"),
-        hr(),
-        p().with(util::email()),
-    ))
+#[derive(Component)]
+pub struct SiteFooterAddress;
+
+impl From<SiteFooterAddress> for Element {
+    fn from(_: SiteFooterAddress) -> Self {
+        address().with((
+            p().with("Hanno Braun"),
+            p().with("Untere Pfarrgasse 19"),
+            p().with("64720 Michelstadt"),
+            p().with("Germany"),
+            hr(),
+            p().with(util::email()),
+        ))
+    }
 }
 
 #[derive(Component)]
