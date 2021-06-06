@@ -1,4 +1,7 @@
-use ssg::html::{front_builder::*, Element};
+use ssg::{
+    html::{front_builder::*, Element},
+    Component,
+};
 
 use crate::util;
 
@@ -17,9 +20,14 @@ fn site_footer_address() -> Element {
     ))
 }
 
-fn made_in_odenwald() -> Element {
-    div().class("made-in-odenwald").with(
-        a().href("made-in-odenwald/2.jpg")
-            .with("Made in Odenwald ♥"),
-    )
+#[derive(Component)]
+pub struct MadeInOdenwald;
+
+impl From<MadeInOdenwald> for Element {
+    fn from(_: MadeInOdenwald) -> Self {
+        div().class("made-in-odenwald").with(
+            a().href("made-in-odenwald/2.jpg")
+                .with("Made in Odenwald ♥"),
+        )
+    }
 }
