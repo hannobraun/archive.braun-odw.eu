@@ -8,5 +8,6 @@ edition = "2018"
 proc-macro = true
 
 [dependencies]
-quote = "*"
-syn   = "*"
+convert_case = "*"
+quote        = "*"
+syn          = "*"
