@@ -1,4 +1,4 @@
-use syn::{Data, DeriveInput, Fields, Ident};
+use syn::{Data, DeriveInput, Fields, Ident, Type};
 
 pub struct Input {
     pub name: Ident,
@@ -21,6 +21,21 @@ impl From<DeriveInput> for Input {
         let optional_fields = fields
             .named
             .into_iter()
+            .filter(|field| {
+                let path = match &field.ty {
+                    Type::Path(path) => path,
+                    _ => {
+                        // Type is not a path, so it can't be `Option<...>`.
+                        // Therefore this is not an optional field.
+                        return false;
+                    }
+                };
+
+                // The path is optional, if it's an `Option`. `Option` could be
+                // used in other ways (like a fully qualified path), but this
+                // should do for now.
+                path.path.segments[0].ident.to_string() == "Option"
+            })
             .map(|field| {
                 // Can't panic, as we already made sure this is a struct with
                 // named fields.
