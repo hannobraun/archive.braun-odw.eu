@@ -38,15 +38,15 @@ impl From<Email> for Element {
 }
 
 impl From<Email> for Content {
-    fn from(email: Email) -> Self {
-        let element: Element = email.into();
+    fn from(component: Email) -> Self {
+        let element: Element = component.into();
         element.into()
     }
 }
 
 impl From<Email> for Node {
-    fn from(email: Email) -> Self {
-        let element: Element = email.into();
+    fn from(component: Email) -> Self {
+        let element: Element = component.into();
         element.into()
     }
 }
