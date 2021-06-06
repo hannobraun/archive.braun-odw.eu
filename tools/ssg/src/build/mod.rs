@@ -1,4 +1,3 @@
-pub mod html;
 pub mod sass;
 pub mod static_files;
 pub mod walk;
@@ -11,7 +10,7 @@ use thiserror::Error;
 use tokio::{fs, io};
 use tracing::{error, info};
 
-use self::html::model::Element;
+use crate::html::{self, model::Element};
 
 pub async fn build_once(
     source_dir: impl AsRef<Path>,

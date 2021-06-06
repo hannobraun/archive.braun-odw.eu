@@ -1,4 +1,4 @@
-use ssg::build::html::{front_builder::*, model::Element};
+use ssg::html::{front_builder::*, model::Element};
 
 use crate::util;
 

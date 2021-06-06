@@ -14,7 +14,7 @@ macro_rules! html {
         }
         $($rest:tt)*
     ) => {{
-        let mut v: Vec<$crate::build::html::model::Element> = Vec::new();
+        let mut v: Vec<$crate::html::model::Element> = Vec::new();
 
         html!(@content &mut v,
             $name $((
@@ -38,10 +38,10 @@ macro_rules! html {
         $($rest:tt)*
     ) => {{
         #[allow(unused_mut)]
-        let mut element = $crate::build::html::model::Element {
+        let mut element = $crate::html::model::Element {
             name: stringify!($name),
             attributes: Vec::new(),
-            content: $crate::build::html::model::Content::new(),
+            content: $crate::html::model::Content::new(),
         };
 
         $(
@@ -81,7 +81,7 @@ macro_rules! html {
 
 #[cfg(test)]
 mod tests {
-    use crate::build::html::model::{Content, Element, Node};
+    use crate::html::model::{Content, Element, Node};
 
     #[test]
     fn macro_should_create_element_with_text() {

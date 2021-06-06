@@ -1,10 +1,8 @@
 use ssg::{
     args::Args,
-    build::{
-        build_once,
-        html::{front_builder::*, model::Element},
-    },
+    build::build_once,
     html,
+    html::{front_builder::*, model::Element},
 };
 
 mod ongoing_work;

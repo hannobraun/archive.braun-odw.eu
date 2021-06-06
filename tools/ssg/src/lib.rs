@@ -1,7 +1,8 @@
 pub mod args;
 pub mod build;
+pub mod html;
 pub mod serve;
 
 pub use ssg_derive::Component;
 
-pub trait Component: Into<build::html::model::Element> {}
+pub trait Component: Into<html::model::Element> {}
