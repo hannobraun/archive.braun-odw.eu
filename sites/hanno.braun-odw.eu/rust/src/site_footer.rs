@@ -5,8 +5,13 @@ use ssg::{
 
 use crate::util;
 
-pub fn site_footer() -> Element {
-    footer().with((site_footer_address(), made_in_odenwald()))
+#[derive(Component)]
+pub struct SiteFooter;
+
+impl From<SiteFooter> for Element {
+    fn from(_: SiteFooter) -> Self {
+        footer().with((site_footer_address(), made_in_odenwald()))
+    }
 }
 
 #[derive(Component)]
