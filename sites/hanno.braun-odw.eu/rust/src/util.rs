@@ -14,10 +14,6 @@ pub fn ext_link(link: &'static str, text: &'static str) -> Element {
     a().href(link).target("_blank").with(text)
 }
 
-pub fn email() -> Email {
-    Email { text: None }
-}
-
 #[derive(Component)]
 pub struct Email {
     text: Option<&'static str>,
