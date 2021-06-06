@@ -10,7 +10,7 @@ pub fn site_footer() -> Element {
 }
 
 #[derive(Component)]
-pub struct SiteFooterAddress;
+struct SiteFooterAddress;
 
 impl From<SiteFooterAddress> for Element {
     fn from(_: SiteFooterAddress) -> Self {
@@ -26,7 +26,7 @@ impl From<SiteFooterAddress> for Element {
 }
 
 #[derive(Component)]
-pub struct MadeInOdenwald;
+struct MadeInOdenwald;
 
 impl From<MadeInOdenwald> for Element {
     fn from(_: MadeInOdenwald) -> Self {
