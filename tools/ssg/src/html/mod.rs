@@ -2,6 +2,8 @@ pub mod front_builder;
 pub mod front_macro;
 pub mod model;
 
+pub use self::model::{Content, Element, Node};
+
 use std::{
     io::{self, Write},
     path::Path,
@@ -9,8 +11,6 @@ use std::{
 
 use tokio::{fs::File, io::AsyncWriteExt as _};
 use tracing::info;
-
-use self::model::Element;
 
 pub async fn build(
     output_dir: impl AsRef<Path>,
