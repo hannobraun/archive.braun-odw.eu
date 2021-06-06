@@ -6,10 +6,6 @@ use ssg::{
     Component,
 };
 
-pub fn raw_link(link: &'static str) -> Element {
-    ext_link(link).text(link).into()
-}
-
 #[derive(Component)]
 pub struct ExtLink {
     link: &'static str,

@@ -11,5 +11,5 @@ pub fn ongoing_work(
 }
 
 fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
-    header().with((h3().with(title), util::raw_link(link)))
+    header().with((h3().with(title), util::ext_link(link)))
 }
