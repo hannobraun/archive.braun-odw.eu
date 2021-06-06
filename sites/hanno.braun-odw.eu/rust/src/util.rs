@@ -36,17 +36,3 @@ impl From<Email> for Element {
             .with(email.text.unwrap_or("hanno@braun-odw.eu"))
     }
 }
-
-impl From<Email> for Content {
-    fn from(component: Email) -> Self {
-        let element: Element = component.into();
-        element.into()
-    }
-}
-
-impl From<Email> for Node {
-    fn from(component: Email) -> Self {
-        let element: Element = component.into();
-        element.into()
-    }
-}
