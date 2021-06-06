@@ -16,6 +16,9 @@ thiserror     = "*"
 tracing       = "*"
 warp          = "*"
 
+[dependencies.ssg-derive]
+path = "../ssg-derive"
+
 [dependencies.tokio]
 version  = "*"
 features = ["full"]
