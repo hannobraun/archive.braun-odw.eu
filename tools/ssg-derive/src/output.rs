@@ -8,6 +8,7 @@ use crate::input::Input;
 
 pub fn generate(input: Input) -> TokenStream {
     let name = input.name;
+    let mandatory_fields = input.mandatory_fields;
     let optional_fields = input.optional_fields;
 
     let name_lower = name.to_string().to_case(Case::Snake);
@@ -45,8 +46,17 @@ pub fn generate(input: Input) -> TokenStream {
             }
         }
 
-        pub fn #name_lower() -> #name {
+        pub fn #name_lower(
+            #(
+                #mandatory_fields: &'static str,
+            )*
+        )
+            -> #name
+        {
             #name {
+                #(
+                    #mandatory_fields,
+                )*
                 #(
                     #optional_fields: None,
                 )*

@@ -2,6 +2,7 @@ use syn::{Data, DeriveInput, Field, Fields, Ident, Type};
 
 pub struct Input {
     pub name: Ident,
+    pub mandatory_fields: Vec<Ident>,
     pub optional_fields: Vec<Ident>,
 }
 
@@ -18,20 +19,26 @@ impl From<DeriveInput> for Input {
             ),
         };
 
+        let mut mandatory_fields = Vec::new();
         let mut optional_fields = Vec::new();
 
         for field in fields.named {
-            if is_optional(&field) {
-                // Can't panic, as we already made sure this is a struct with
-                // named fields.
-                let ident = field.ident.unwrap();
+            let fields = if is_optional(&field) {
+                &mut optional_fields
+            } else {
+                &mut mandatory_fields
+            };
 
-                optional_fields.push(ident);
-            }
+            // Can't panic, as we already made sure this is a struct with named
+            // fields.
+            let ident = field.ident.unwrap();
+
+            fields.push(ident);
         }
 
         Self {
             name: input.ident,
+            mandatory_fields,
             optional_fields,
         }
     }
