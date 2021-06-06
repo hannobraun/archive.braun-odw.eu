@@ -3,7 +3,7 @@ use quote::quote;
 use syn::Ident;
 
 pub fn generate(name: Ident, fields: Vec<Ident>) -> TokenStream {
-    let builder_methods = fields.into_iter().map(|name| {
+    let builder_methods = fields.iter().map(|name| {
         quote! {
             pub fn #name(mut self, value: &'static str) -> Self {
                 self.#name = Some(value);
