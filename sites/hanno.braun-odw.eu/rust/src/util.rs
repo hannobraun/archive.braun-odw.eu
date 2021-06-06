@@ -1,6 +1,9 @@
-use ssg::build::html::{
-    front_builder::*,
-    model::{Content, Element, Node},
+use ssg::{
+    build::html::{
+        front_builder::*,
+        model::{Content, Element, Node},
+    },
+    Component,
 };
 
 pub fn raw_link(link: &'static str) -> Element {
@@ -15,6 +18,7 @@ pub fn email() -> Email {
     Email { text: None }
 }
 
+#[derive(Component)]
 pub struct Email {
     text: Option<&'static str>,
 }
