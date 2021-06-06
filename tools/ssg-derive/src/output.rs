@@ -32,14 +32,14 @@ pub fn generate(input: Input) -> TokenStream {
             )*
         }
 
-        impl From<#name> for Content {
+        impl From<#name> for ssg::html::Content {
             fn from(component: #name) -> Self {
                 let element: Element = component.into();
                 element.into()
             }
         }
 
-        impl From<#name> for Node {
+        impl From<#name> for ssg::html::Node {
             fn from(component: #name) -> Self {
                 let element: Element = component.into();
                 element.into()
