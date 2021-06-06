@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::Ident;
 
-pub fn output(name: Ident) -> TokenStream {
+pub fn generate(name: Ident) -> TokenStream {
     let output = quote! {
         impl ssg::Component for #name {}
 

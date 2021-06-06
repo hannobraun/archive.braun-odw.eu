@@ -8,5 +8,5 @@ pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let name = input.ident;
-    output::output(name)
+    output::generate(name)
 }
