@@ -11,6 +11,5 @@ pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let input = Input::from(input);
 
-    let name = input.name;
-    output::generate(name)
+    output::generate(input.name)
 }
