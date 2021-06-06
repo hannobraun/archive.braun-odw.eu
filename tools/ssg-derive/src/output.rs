@@ -4,7 +4,12 @@ use proc_macro2::Span;
 use quote::quote;
 use syn::Ident;
 
-pub fn generate(name: Ident, optional_fields: Vec<Ident>) -> TokenStream {
+use crate::input::Input;
+
+pub fn generate(input: Input) -> TokenStream {
+    let name = input.name;
+    let optional_fields = input.optional_fields;
+
     let name_lower = name.to_string().to_case(Case::Snake);
     let name_lower = Ident::new(&name_lower, Span::call_site());
 
