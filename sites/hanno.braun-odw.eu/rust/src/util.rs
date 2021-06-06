@@ -23,13 +23,6 @@ pub struct Email {
     text: Option<&'static str>,
 }
 
-impl Email {
-    pub fn text(mut self, value: &'static str) -> Self {
-        self.text = Some(value);
-        self
-    }
-}
-
 impl From<Email> for Element {
     fn from(email: Email) -> Self {
         a().href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
