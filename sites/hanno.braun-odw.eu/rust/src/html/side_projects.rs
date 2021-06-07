@@ -108,26 +108,12 @@ struct SideProject {
 
 impl From<SideProject> for Element {
     fn from(side_project: SideProject) -> Self {
+        let title = side_project.title.unwrap();
+        let date = side_project.date.unwrap();
+
         li((
-            side_project_header()
-                .title(side_project.title.unwrap())
-                .date(side_project.date.unwrap()),
+            header((h3(title), p(("Finished ", span(date))).class("date"))),
             side_project.description.unwrap(),
         ))
-    }
-}
-
-#[derive(Component)]
-struct SideProjectHeader {
-    title: Option<&'static str>,
-    date: Option<&'static str>,
-}
-
-impl From<SideProjectHeader> for Element {
-    fn from(side_project_header: SideProjectHeader) -> Self {
-        let title = side_project_header.title.unwrap();
-        let date = side_project_header.date.unwrap();
-
-        header((h3(title), p(("Finished ", span(date))).class("date")))
     }
 }
