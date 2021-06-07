@@ -14,7 +14,7 @@ macro_rules! elements {
     };
 }
 
-elements!(a, address, base, div, footer, h3, header, hr, li, p, span,);
+elements!(a, address, base, div, footer, h3, header, hr, li, ol, p, span,);
 
 macro_rules! attributes {
     ($($name:ident,)*) => {
