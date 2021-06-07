@@ -8,9 +8,6 @@ use ssg::{
     html::{front_builder::*, Element},
 };
 
-// TASK: Consider using a different, macro-less approach to generating HTML
-//       code, maybe using typed-builder:
-//       https://crates.io/crates/typed-builder
 pub fn html(dev: bool) -> Element {
     html! {
         html("lang"="en") {
