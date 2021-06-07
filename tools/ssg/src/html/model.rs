@@ -74,11 +74,17 @@ macro_rules! content_from_tuple {
         $(
             impl<$($ty,)*> From<($($ty,)*)> for Content
                 where
-                    $($ty: Into<Node>,)*
+                    $($ty: Into<Content>,)*
             {
                 #[allow(non_snake_case)]
                 fn from(($($ty,)*): ($($ty,)*)) -> Self {
-                    Self(vec![$($ty.into(),)*])
+                    let mut content = Vec::new();
+
+                    $(
+                        content.extend($ty.into().0);
+                    )*
+
+                    Self(content)
                 }
             }
         )*
