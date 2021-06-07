@@ -17,8 +17,8 @@ pub fn side_projects() -> Element {
                 to work on it every day. Here's a list of projects \
                 I've completed recently."
             }
-            ol {
-                {
+            {
+                ol().with((
                     side_project()
                         .title("Fornjot: Spacer")
                         .date("2021-05-19")
@@ -43,9 +43,7 @@ pub fn side_projects() -> Element {
                                 ". I plan to extend it and create more \
                                 complex models going forward.",
                             ))
-                        ))
-                }
-                {
+                        )),
                     side_project()
                         .title("braun-odw.eu")
                         .date("2021-04-06")
@@ -63,9 +61,7 @@ pub fn side_projects() -> Element {
                                 (including email and Matrix homeserver) \
                                 under it.",
                             ))
-                        )
-                }
-                {
+                        ),
                     side_project()
                         .title("My Boss: Contacts")
                         .date("2021-03-05")
@@ -89,8 +85,8 @@ pub fn side_projects() -> Element {
                                 future to encompass more areas of my business, \
                                 like basic bookkeeping and possibly more."
                             )
-                        ))
-                }
+                        )),
+                ))
             }
             {
                 p().with((
