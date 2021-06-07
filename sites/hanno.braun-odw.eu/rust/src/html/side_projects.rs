@@ -109,6 +109,8 @@ pub fn side_projects() -> Element {
     ))
 }
 
+// TASK: Accept full `data::SideProject` as parameter. This would make it
+//       desirable to support tuple structs, if all parameters are mandatory.
 #[derive(Component)]
 struct SideProject {
     title: Option<&'static str>,
