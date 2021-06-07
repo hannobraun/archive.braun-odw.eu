@@ -27,6 +27,8 @@ async fn main() -> anyhow::Result<()> {
 }
 
 // TASK: Only rebuild those websites where changes have been detected.
+// TASK: Deduplicate events. Currently, sometimes everything is re-built
+//       multiple times in a row.
 async fn build_continuously(args: Args) -> anyhow::Result<()> {
     // Build at least once, before waiting for events.
     info!("Building sites.");
