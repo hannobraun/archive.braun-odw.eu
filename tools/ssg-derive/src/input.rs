@@ -1,7 +1,7 @@
-use syn::{Data, DeriveInput, Field, Fields, Ident, Type, Visibility};
+use syn::{Data, DeriveInput, Field, Fields, Ident, Type};
 
 pub struct Input {
-    pub vis: Visibility,
+    pub vis: syn::Visibility,
     pub name: Ident,
     pub mandatory_fields: Vec<Ident>,
     pub optional_fields: Vec<Ident>,
