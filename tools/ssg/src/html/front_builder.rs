@@ -39,14 +39,3 @@ macro_rules! attributes {
 }
 
 attributes!(class, href, target,);
-
-pub trait With: Sized {
-    fn with(self, content: impl Into<Content>) -> Self;
-}
-
-impl With for Element {
-    fn with(mut self, content: impl Into<Content>) -> Self {
-        self.content = content.into();
-        self
-    }
-}
