@@ -92,18 +92,16 @@ pub fn side_projects() -> Element {
                         ))
                 }
             }
-            p {
-                "There's a lot more on my GitHub accounts ("
-                {
+            {
+                p().with((
+                    "There's a lot more on my GitHub accounts (",
                     util::ext_link("https://github.com/hannobraun")
-                        .text("personal")
-                }
-                " and "
-                {
+                        .text("personal"),
+                    " and ",
                     util::ext_link("https://github.com/braun-embedded")
-                        .text("professional")
-                }
-                "), if you want to see more."
+                        .text("professional"),
+                    "), if you want to see more.",
+                ))
             }
         }
     }
