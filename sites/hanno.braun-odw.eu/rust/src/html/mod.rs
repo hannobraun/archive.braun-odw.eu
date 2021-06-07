@@ -8,7 +8,7 @@ use ssg::{
     html::{front_builder::*, Element},
 };
 
-pub fn html(dev: bool) -> Element {
+pub fn build(dev: bool) -> Element {
     html! {
         html("lang"="en") {
             head {
