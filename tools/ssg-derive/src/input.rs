@@ -1,4 +1,4 @@
-use syn::{Data, DeriveInput, Field, Fields};
+use syn::{Data, DeriveInput, Field};
 
 pub struct Input {
     pub vis: syn::Visibility,
@@ -14,9 +14,9 @@ impl From<DeriveInput> for Input {
             _ => panic!("`Component` can only be derived for structs"),
         };
         let fields = match data.fields {
-            Fields::Named(fields) => fields.named.into_iter().collect(),
-            Fields::Unit => vec![],
-            Fields::Unnamed(_) => {
+            syn::Fields::Named(fields) => fields.named.into_iter().collect(),
+            syn::Fields::Unit => vec![],
+            syn::Fields::Unnamed(_) => {
                 panic!("`Component` can not be derived for tuple structs")
             }
         };
