@@ -11,9 +11,9 @@ pub struct ExtLink {
 
 impl From<ExtLink> for Element {
     fn from(ext_link: ExtLink) -> Self {
-        a(ext_link.text.unwrap_or(ext_link.link))
-            .href(ext_link.link)
-            .target("_blank")
+        let text = ext_link.text.unwrap_or(ext_link.link);
+
+        a(text).href(ext_link.link).target("_blank")
     }
 }
 
