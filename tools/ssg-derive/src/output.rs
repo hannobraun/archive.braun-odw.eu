@@ -33,6 +33,11 @@ pub fn generate(input: Input) -> TokenStream {
             #name,
         }
     });
+    let optional_inits = optional_fields.iter().map(|name| {
+        quote! {
+            #name: None,
+        }
+    });
 
     let output = quote! {
         impl ssg::Component for #name {}
@@ -69,7 +74,7 @@ pub fn generate(input: Input) -> TokenStream {
                     #mandatory_inits
                 )*
                 #(
-                    #optional_fields: None,
+                    #optional_inits
                 )*
             }
         }
