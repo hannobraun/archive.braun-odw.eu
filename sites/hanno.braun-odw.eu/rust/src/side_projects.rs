@@ -5,8 +5,8 @@ use ssg::{
 
 use crate::util;
 
-// TASK: Download side projects from external data files. TOML with a `content`
-//       key that contains Markdown would probably be best.
+// TASK: Load side projects from external data files. TOML with a `content` key
+//       that contains Markdown would probably be best.
 //
 //       pulldown-cmark looks like a good option for handling and rendering the
 //       Markdown.
