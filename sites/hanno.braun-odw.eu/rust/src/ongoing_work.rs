@@ -7,9 +7,9 @@ pub fn ongoing_work(
     link: &'static str,
     content: Element,
 ) -> Element {
-    li().with((ongoing_work_header(title, link), content))
+    li((ongoing_work_header(title, link), content))
 }
 
 fn ongoing_work_header(title: &'static str, link: &'static str) -> Element {
-    header().with((h3().with(title), util::ext_link(link)))
+    header((h3(title), util::ext_link(link)))
 }

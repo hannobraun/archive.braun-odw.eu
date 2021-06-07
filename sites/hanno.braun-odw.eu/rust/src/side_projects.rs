@@ -11,19 +11,19 @@ use crate::util;
 //       pulldown-cmark looks like a good option for handling and rendering the
 //       Markdown.
 pub fn side_projects() -> Element {
-    section().with((
-        h2().with("Side Projects"),
-        p().with(
+    section((
+        h2("Side Projects"),
+        p(
             "I always have an ongoing side project, and I try \
             to work on it every day. Here's a list of projects \
             I've completed recently.",
         ),
-        ol().with((
+        ol((
             side_project()
                 .title("Fornjot: Spacer")
                 .date("2021-05-19")
                 .description((
-                    p().with((
+                    p((
                         util::ext_link(
                             "https://github.com/hannobraun/fornjot",
                         )
@@ -33,7 +33,7 @@ pub fn side_projects() -> Element {
                         iterations of it over a few years, and \
                         this is the first public release.",
                     )),
-                    p().with((
+                    p((
                         "The goal for this first release was to \
                         build enough infrastructure to support ",
                         util::ext_link(
@@ -48,7 +48,7 @@ pub fn side_projects() -> Element {
                 .title("braun-odw.eu")
                 .date("2021-04-06")
                 .description(
-                    p().with((
+                    p((
                         "I revamped my website (the one you're \
                         looking at right now) and put it on new \
                         technical footing, using my own ",
@@ -66,7 +66,7 @@ pub fn side_projects() -> Element {
                 .title("My Boss: Contacts")
                 .date("2021-03-05")
                 .description((
-                    p().with((
+                    p((
                         util::ext_link(
                             "https://github.com/hannobraun/my-boss",
                         )
@@ -78,7 +78,7 @@ pub fn side_projects() -> Element {
                         included contact management functionality, \
                         kind of like a CRM.",
                     )),
-                    p().with(
+                    p(
                         "I use it every day to remember to keep in \
                         touch with my business contacts (and also some \
                         personal ones). I plan to extend it in the \
@@ -87,7 +87,7 @@ pub fn side_projects() -> Element {
                     )
                 )),
         )),
-        p().with((
+        p((
             "There's a lot more on my GitHub accounts (",
             util::ext_link("https://github.com/hannobraun")
                 .text("personal"),
@@ -108,7 +108,7 @@ struct SideProject {
 
 impl From<SideProject> for Element {
     fn from(side_project: SideProject) -> Self {
-        li().with((
+        li((
             side_project_header()
                 .title(side_project.title.unwrap())
                 .date(side_project.date.unwrap()),
@@ -128,9 +128,6 @@ impl From<SideProjectHeader> for Element {
         let title = side_project_header.title.unwrap();
         let date = side_project_header.date.unwrap();
 
-        header().with((
-            h3().with(title),
-            p().class("date").with(("Finished ", span().with(date))),
-        ))
+        header((h3(title), p(("Finished ", span(date))).class("date")))
     }
 }

@@ -3,11 +3,11 @@ use super::model::{Content, Element};
 macro_rules! elements {
     ($($name:ident,)*) => {
         $(
-            pub fn $name() -> Element {
+            pub fn $name(content: impl Into<Content>) -> Element {
                 Element {
                     name: stringify!($name),
                     attributes: Vec::new(),
-                    content: Content::new(),
+                    content: content.into(),
                 }
             }
         )*

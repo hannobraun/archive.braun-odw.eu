@@ -11,9 +11,9 @@ pub struct ExtLink {
 
 impl From<ExtLink> for Element {
     fn from(ext_link: ExtLink) -> Self {
-        a().href(ext_link.link)
+        a(ext_link.text.unwrap_or(ext_link.link))
+            .href(ext_link.link)
             .target("_blank")
-            .with(ext_link.text.unwrap_or(ext_link.link))
     }
 }
 
@@ -24,7 +24,7 @@ pub struct Email {
 
 impl From<Email> for Element {
     fn from(email: Email) -> Self {
-        a().href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
-            .with(email.text.unwrap_or("hanno@braun-odw.eu"))
+        a(email.text.unwrap_or("hanno@braun-odw.eu"))
+            .href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
     }
 }

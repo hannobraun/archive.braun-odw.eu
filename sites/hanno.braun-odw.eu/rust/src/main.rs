@@ -126,8 +126,8 @@ pub fn html(dev: bool) -> Element {
 //       active.
 fn base_if_dev_mode(dev: bool) -> Element {
     if dev {
-        base().href("/hanno.braun-odw.eu/")
+        base(()).href("/hanno.braun-odw.eu/")
     } else {
-        base().href("/")
+        base(()).href("/")
     }
 }
