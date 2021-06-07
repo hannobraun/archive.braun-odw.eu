@@ -79,25 +79,27 @@ pub fn side_projects() -> Element {
             .into(),
     };
 
+    let side_projects = (
+        side_project()
+            .title(fornjot.title)
+            .date(fornjot.date)
+            .description(fornjot.description),
+        side_project()
+            .title(braun_odw_eu.title)
+            .date(braun_odw_eu.date)
+            .description(braun_odw_eu.description),
+        side_project()
+            .title(my_boss.title)
+            .date(my_boss.date)
+            .description(my_boss.description),
+    );
+
     section((
         h2("Side Projects"),
         p("I always have an ongoing side project, and I try \
             to work on it every day. Here's a list of projects \
             I've completed recently."),
-        ol((
-            side_project()
-                .title(fornjot.title)
-                .date(fornjot.date)
-                .description(fornjot.description),
-            side_project()
-                .title(braun_odw_eu.title)
-                .date(braun_odw_eu.date)
-                .description(braun_odw_eu.description),
-            side_project()
-                .title(my_boss.title)
-                .date(my_boss.date)
-                .description(my_boss.description),
-        )),
+        ol(side_projects),
         p((
             "There's a lot more on my GitHub accounts (",
             util::ext_link("https://github.com/hannobraun").text("personal"),
