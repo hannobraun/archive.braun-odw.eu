@@ -33,7 +33,10 @@ impl From<syn::DeriveInput> for Input {
             // fields.
             let ident = field.ident.unwrap();
 
-            fields.push(Field { name: ident });
+            fields.push(Field {
+                name: ident,
+                ty: field.ty,
+            });
         }
 
         Self {
@@ -63,4 +66,5 @@ fn is_optional(field: &syn::Field) -> bool {
 
 pub struct Field {
     pub name: syn::Ident,
+    pub ty: syn::Type,
 }

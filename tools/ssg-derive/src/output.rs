@@ -27,9 +27,10 @@ pub fn generate(input: Input) -> TokenStream {
     });
     let mandatory_args = mandatory_fields.iter().map(|field| {
         let name = &field.name;
+        let ty = &field.ty;
 
         quote! {
-            #name: &'static str,
+            #name: #ty,
         }
     });
     let mandatory_inits = mandatory_fields.iter().map(|field| {
