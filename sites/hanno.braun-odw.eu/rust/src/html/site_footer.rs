@@ -10,22 +10,16 @@ pub struct SiteFooter;
 
 impl From<SiteFooter> for Element {
     fn from(_: SiteFooter) -> Self {
-        footer((site_footer_address(), made_in_odenwald()))
-    }
-}
-
-#[derive(Component)]
-struct SiteFooterAddress;
-
-impl From<SiteFooterAddress> for Element {
-    fn from(_: SiteFooterAddress) -> Self {
-        address((
-            p("Hanno Braun"),
-            p("Untere Pfarrgasse 19"),
-            p("64720 Michelstadt"),
-            p("Germany"),
-            hr(()),
-            p(util::email()),
+        footer((
+            address((
+                p("Hanno Braun"),
+                p("Untere Pfarrgasse 19"),
+                p("64720 Michelstadt"),
+                p("Germany"),
+                hr(()),
+                p(util::email()),
+            )),
+            made_in_odenwald(),
         ))
     }
 }
