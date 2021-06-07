@@ -6,6 +6,8 @@ use ssg::{
 
 use crate::util;
 
+// TASK: Download side projects from external data files. TOML with a `content`
+//       key that contains Markdown would probably be best.
 pub fn side_projects() -> Element {
     html! {
         section {
