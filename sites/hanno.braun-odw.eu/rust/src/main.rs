@@ -1,5 +1,6 @@
 use ssg::{args::Args, build::build_once};
 
+mod data;
 mod html;
 
 #[tokio::main]
