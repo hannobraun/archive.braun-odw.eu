@@ -3,7 +3,7 @@ use ssg::{
     Component,
 };
 
-use crate::html::util;
+use super::util;
 
 // TASK: Load side projects from external data files. TOML with a `content` key
 //       that contains Markdown would probably be best.

@@ -3,7 +3,7 @@ use ssg::{
     Component,
 };
 
-use crate::html::util;
+use super::util;
 
 #[derive(Component)]
 pub struct SiteFooter;

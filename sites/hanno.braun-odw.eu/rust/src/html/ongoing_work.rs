@@ -1,6 +1,6 @@
 use ssg::html::{front_builder::*, model::Element};
 
-use crate::html::util;
+use super::util;
 
 pub fn ongoing_work(
     title: &'static str,
