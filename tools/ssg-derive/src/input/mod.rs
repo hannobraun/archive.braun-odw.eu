@@ -27,9 +27,9 @@ impl From<syn::DeriveInput> for Input {
         let mut optional_fields = Vec::new();
 
         for field in fields {
-            let fields = match Type::from(field.clone()) {
-                Type::Mandatory => &mut mandatory_fields,
-                Type::Optional => &mut optional_fields,
+            let (ty, fields) = match Type::from(field.clone()) {
+                Type::Mandatory(ty) => (ty, &mut mandatory_fields),
+                Type::Optional(ty) => (ty, &mut optional_fields),
             };
 
             // Can't panic, as we already made sure this is a struct with named
@@ -38,7 +38,7 @@ impl From<syn::DeriveInput> for Input {
 
             fields.push(Field {
                 name: ident,
-                ty: field.ty,
+                ty: ty,
             });
         }
 
