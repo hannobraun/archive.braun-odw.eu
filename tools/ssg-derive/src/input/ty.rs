@@ -17,7 +17,8 @@ impl From<syn::Field> for Type {
         // The path is optional, if it's an `Option`. `Option` could be
         // used in other ways (like a fully qualified path), but this
         // should do for now.
-        if ty.path.segments[0].ident.to_string() == "Option" {
+        let segment = ty.path.segments[0].clone();
+        if segment.ident.to_string() == "Option" {
             Type::Optional
         } else {
             Type::Mandatory
