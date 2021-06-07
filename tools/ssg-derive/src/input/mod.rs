@@ -1,5 +1,7 @@
 mod ty;
 
+use self::ty::Type;
+
 pub struct Input {
     pub vis: syn::Visibility,
     pub name: syn::Ident,
@@ -25,10 +27,9 @@ impl From<syn::DeriveInput> for Input {
         let mut optional_fields = Vec::new();
 
         for field in fields {
-            let fields = if ty::is_optional(&field) {
-                &mut optional_fields
-            } else {
-                &mut mandatory_fields
+            let fields = match ty::ty(&field) {
+                Type::Mandatory => &mut mandatory_fields,
+                Type::Optional => &mut optional_fields,
             };
 
             // Can't panic, as we already made sure this is a struct with named
