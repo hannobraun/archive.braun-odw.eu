@@ -5,7 +5,7 @@ pub enum Type {
 
 impl From<syn::Field> for Type {
     fn from(field: syn::Field) -> Self {
-        let path = match &field.ty {
+        let path = match field.ty {
             syn::Type::Path(path) => path,
             _ => {
                 // Type is not a path, so it can't be `Option<...>`.
