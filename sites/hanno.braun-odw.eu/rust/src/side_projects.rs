@@ -1,6 +1,7 @@
 use ssg::{
     html,
     html::{front_builder::*, model::Element},
+    Component,
 };
 
 use crate::util;
@@ -129,9 +130,18 @@ pub fn side_projects() -> Element {
     }
 }
 
-fn side_project_header(title: &'static str, date: &'static str) -> Element {
-    header().with((
-        h3().with(title),
-        p().class("date").with(("Finished ", span().with(date))),
-    ))
+#[derive(Component)]
+struct SideProjectHeader {
+    title: &'static str,
+    date: &'static str,
+}
+
+impl From<SideProjectHeader> for Element {
+    fn from(side_project_header: SideProjectHeader) -> Self {
+        header().with((
+            h3().with(side_project_header.title),
+            p().class("date")
+                .with(("Finished ", span().with(side_project_header.date))),
+        ))
+    }
 }
