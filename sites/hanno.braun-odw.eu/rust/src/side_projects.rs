@@ -7,6 +7,9 @@ use crate::util;
 
 // TASK: Download side projects from external data files. TOML with a `content`
 //       key that contains Markdown would probably be best.
+//
+//       pulldown-cmark looks like a good option for handling and rendering the
+//       Markdown.
 pub fn side_projects() -> Element {
     section().with((
         h2().with("Side Projects"),
