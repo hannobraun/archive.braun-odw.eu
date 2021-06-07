@@ -27,7 +27,7 @@ impl From<syn::DeriveInput> for Input {
         let mut optional_fields = Vec::new();
 
         for field in fields {
-            let fields = match ty::ty(&field) {
+            let fields = match Type::from(&field) {
                 Type::Mandatory => &mut mandatory_fields,
                 Type::Optional => &mut optional_fields,
             };
