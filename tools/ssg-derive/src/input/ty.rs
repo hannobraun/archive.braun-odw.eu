@@ -3,8 +3,8 @@ pub enum Type {
     Optional,
 }
 
-impl<'a> From<&'a syn::Field> for Type {
-    fn from(field: &syn::Field) -> Self {
+impl From<syn::Field> for Type {
+    fn from(field: syn::Field) -> Self {
         let path = match &field.ty {
             syn::Type::Path(path) => path,
             _ => {
