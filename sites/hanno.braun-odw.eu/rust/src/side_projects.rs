@@ -73,31 +73,19 @@ pub fn side_projects() -> Element {
                                     "https://github.com/hannobraun/my-boss",
                                 )
                                 .text("My Boss"),
-                                " is software that tells me what to do and \
-                                when to do it. Kind of like an ERP system, \
-                                except that I'm the opposite of an \
-                                enterprise. This was the initial release \
-                                that included contact management \
-                                functionality, kind of like a CRM. I use \
-                                it every day to remember to keep in touch \
-                                with my business contacts (and actually \
-                                also some personal ones). I plan to extend \
-                                it in the future to encompass more areas \
-                                of my business, like basic bookkeeping and \
-                                possibly more.",
+                                " is a command-line application that tells me \
+                                what to do and when to do it. Kind of like an \
+                                ERP system, except that I'm the opposite of an \
+                                enterprise. This was the initial release that \
+                                included contact management functionality, \
+                                kind of like a CRM.",
                             )),
                             p().with(
-                                "I still don't know how I feel about \
-                                re-inventing the wheel like this, but as \
-                                long as the alternatives are really \
-                                complicated, hard to maintain, proprietary \
-                                web software that I could lose access to \
-                                any moment, or otherwise don't suit my \
-                                needs, I guess I'll keep doing it. My Boss \
-                                is a command-line application and stores \
-                                its data in TOML files that I keep in a \
-                                Git repository, and it doesn't get much \
-                                easier (for me) than that.",
+                                "I use it every day to remember to keep in \
+                                touch with my business contacts (and also some \
+                                personal ones). I plan to extend it in the \
+                                future to encompass more areas of my business, \
+                                like basic bookkeeping and possibly more."
                             )
                         ))
                 }
