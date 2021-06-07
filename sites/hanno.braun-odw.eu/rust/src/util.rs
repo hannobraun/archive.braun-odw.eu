@@ -24,7 +24,8 @@ pub struct Email {
 
 impl From<Email> for Element {
     fn from(email: Email) -> Self {
-        a(email.text.unwrap_or("hanno@braun-odw.eu"))
-            .href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
+        let text = email.text.unwrap_or("hanno@braun-odw.eu");
+
+        a(text).href("mailto:Hanno%20Braun%20%3Channo@braun-odw.eu%3E")
     }
 }
