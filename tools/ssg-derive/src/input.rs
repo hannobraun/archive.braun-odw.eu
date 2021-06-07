@@ -1,4 +1,4 @@
-use syn::{Data, DeriveInput, Field, Fields, Ident, Type};
+use syn::{Data, DeriveInput, Field, Fields, Ident};
 
 pub struct Input {
     pub vis: syn::Visibility,
@@ -49,7 +49,7 @@ impl From<DeriveInput> for Input {
 
 fn is_optional(field: &Field) -> bool {
     let path = match &field.ty {
-        Type::Path(path) => path,
+        syn::Type::Path(path) => path,
         _ => {
             // Type is not a path, so it can't be `Option<...>`.
             // Therefore this is not an optional field.
