@@ -81,11 +81,9 @@ pub fn side_projects() -> Element {
 
     section((
         h2("Side Projects"),
-        p(
-            "I always have an ongoing side project, and I try \
+        p("I always have an ongoing side project, and I try \
             to work on it every day. Here's a list of projects \
-            I've completed recently.",
-        ),
+            I've completed recently."),
         ol((
             side_project()
                 .title(fornjot.title)
@@ -102,8 +100,7 @@ pub fn side_projects() -> Element {
         )),
         p((
             "There's a lot more on my GitHub accounts (",
-            util::ext_link("https://github.com/hannobraun")
-                .text("personal"),
+            util::ext_link("https://github.com/hannobraun").text("personal"),
             " and ",
             util::ext_link("https://github.com/braun-embedded")
                 .text("professional"),
