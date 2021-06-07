@@ -135,12 +135,12 @@ struct SideProjectHeader {
 
 impl From<SideProjectHeader> for Element {
     fn from(side_project_header: SideProjectHeader) -> Self {
+        let title = side_project_header.title.unwrap();
+        let date = side_project_header.date.unwrap();
+
         header().with((
-            h3().with(side_project_header.title.unwrap()),
-            p().class("date").with((
-                "Finished ",
-                span().with(side_project_header.date.unwrap()),
-            )),
+            h3().with(title),
+            p().class("date").with(("Finished ", span().with(date))),
         ))
     }
 }
