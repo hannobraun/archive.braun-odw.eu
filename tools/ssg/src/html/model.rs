@@ -51,6 +51,12 @@ impl Content {
     }
 }
 
+impl From<()> for Content {
+    fn from((): ()) -> Self {
+        Self::new()
+    }
+}
+
 impl From<Vec<Node>> for Content {
     fn from(nodes: Vec<Node>) -> Self {
         Self(nodes)
