@@ -12,10 +12,12 @@ pub fn side_projects() -> Element {
     html! {
         section {
             h2 { "Side Projects" }
-            p {
-                "I always have an ongoing side project, and I try \
-                to work on it every day. Here's a list of projects \
-                I've completed recently."
+            {
+                p().with(
+                    "I always have an ongoing side project, and I try \
+                    to work on it every day. Here's a list of projects \
+                    I've completed recently.",
+                )
             }
             {
                 ol().with((
