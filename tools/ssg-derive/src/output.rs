@@ -23,6 +23,11 @@ pub fn generate(input: Input) -> TokenStream {
             }
         }
     });
+    let mandatory_args = mandatory_fields.iter().map(|name| {
+        quote! {
+            #name: &'static str,
+        }
+    });
 
     let output = quote! {
         impl ssg::Component for #name {}
@@ -49,7 +54,7 @@ pub fn generate(input: Input) -> TokenStream {
 
         #vis fn #name_lower(
             #(
-                #mandatory_fields: &'static str,
+                #mandatory_args
             )*
         )
             -> #name
