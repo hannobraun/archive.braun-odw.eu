@@ -17,9 +17,10 @@ pub fn generate(input: Input) -> TokenStream {
 
     let builder_methods = optional_fields.iter().map(|field| {
         let name = &field.name;
+        let ty = &field.ty;
 
         quote! {
-            pub fn #name(mut self, value: &'static str) -> Self {
+            pub fn #name(mut self, value: #ty) -> Self {
                 self.#name = Some(value);
                 self
             }
