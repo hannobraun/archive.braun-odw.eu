@@ -18,10 +18,9 @@ pub fn side_projects() -> Element {
             ol {
                 li {
                     {
-                        side_project_header(
-                            "Fornjot: Spacer",
-                            "2021-05-19",
-                        )
+                        side_project_header()
+                            .title("Fornjot: Spacer")
+                            .date("2021-05-19")
                     }
                     p {
                         {
@@ -50,10 +49,9 @@ pub fn side_projects() -> Element {
                 }
                 li {
                     {
-                        side_project_header(
-                            "braun-odw.eu",
-                            "2021-04-06",
-                        )
+                        side_project_header()
+                            .title("braun-odw.eu")
+                            .date("2021-04-06")
                     }
                     p {
                         "I revamped my website (the one you're \
@@ -73,10 +71,9 @@ pub fn side_projects() -> Element {
                 }
                 li {
                     {
-                        side_project_header(
-                            "My Boss: Contacts",
-                            "2021-03-05",
-                        )
+                        side_project_header()
+                            .title("My Boss: Contacts")
+                            .date("2021-03-05")
                     }
                     p {
                         {
@@ -132,16 +129,18 @@ pub fn side_projects() -> Element {
 
 #[derive(Component)]
 struct SideProjectHeader {
-    title: &'static str,
-    date: &'static str,
+    title: Option<&'static str>,
+    date: Option<&'static str>,
 }
 
 impl From<SideProjectHeader> for Element {
     fn from(side_project_header: SideProjectHeader) -> Self {
         header().with((
-            h3().with(side_project_header.title),
-            p().class("date")
-                .with(("Finished ", span().with(side_project_header.date))),
+            h3().with(side_project_header.title.unwrap()),
+            p().class("date").with((
+                "Finished ",
+                span().with(side_project_header.date.unwrap()),
+            )),
         ))
     }
 }
