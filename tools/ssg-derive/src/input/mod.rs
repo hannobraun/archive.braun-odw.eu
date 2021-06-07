@@ -1,3 +1,5 @@
+mod ty;
+
 pub struct Input {
     pub vis: syn::Visibility,
     pub name: syn::Ident,
@@ -23,7 +25,7 @@ impl From<syn::DeriveInput> for Input {
         let mut optional_fields = Vec::new();
 
         for field in fields {
-            let fields = if is_optional(&field) {
+            let fields = if ty::is_optional(&field) {
                 &mut optional_fields
             } else {
                 &mut mandatory_fields
@@ -46,22 +48,6 @@ impl From<syn::DeriveInput> for Input {
             optional_fields,
         }
     }
-}
-
-fn is_optional(field: &syn::Field) -> bool {
-    let path = match &field.ty {
-        syn::Type::Path(path) => path,
-        _ => {
-            // Type is not a path, so it can't be `Option<...>`.
-            // Therefore this is not an optional field.
-            return false;
-        }
-    };
-
-    // The path is optional, if it's an `Option`. `Option` could be
-    // used in other ways (like a fully qualified path), but this
-    // should do for now.
-    path.path.segments[0].ident.to_string() == "Option"
 }
 
 pub struct Field {
