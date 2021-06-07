@@ -28,6 +28,11 @@ pub fn generate(input: Input) -> TokenStream {
             #name: &'static str,
         }
     });
+    let mandatory_inits = mandatory_fields.iter().map(|name| {
+        quote! {
+            #name,
+        }
+    });
 
     let output = quote! {
         impl ssg::Component for #name {}
@@ -61,7 +66,7 @@ pub fn generate(input: Input) -> TokenStream {
         {
             #name {
                 #(
-                    #mandatory_fields,
+                    #mandatory_inits
                 )*
                 #(
                     #optional_fields: None,
