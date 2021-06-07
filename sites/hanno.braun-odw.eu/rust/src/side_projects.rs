@@ -11,7 +11,7 @@ use crate::util;
 pub fn side_projects() -> Element {
     html! {
         section {
-            h2 { "Side Projects" }
+            { h2().with("Side Projects") }
             {
                 p().with(
                     "I always have an ongoing side project, and I try \
