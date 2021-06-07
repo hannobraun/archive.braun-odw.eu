@@ -1,4 +1,4 @@
-use syn::{Data, DeriveInput};
+use syn::Data;
 
 pub struct Input {
     pub vis: syn::Visibility,
@@ -7,8 +7,8 @@ pub struct Input {
     pub optional_fields: Vec<syn::Ident>,
 }
 
-impl From<DeriveInput> for Input {
-    fn from(input: DeriveInput) -> Self {
+impl From<syn::DeriveInput> for Input {
+    fn from(input: syn::DeriveInput) -> Self {
         let data = match input.data {
             Data::Struct(data) => data,
             _ => panic!("`Component` can only be derived for structs"),
