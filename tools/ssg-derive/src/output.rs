@@ -20,8 +20,8 @@ pub fn generate(input: Input) -> TokenStream {
         let ty = &field.ty;
 
         quote! {
-            pub fn #name(mut self, value: #ty) -> Self {
-                self.#name = Some(value);
+            pub fn #name(mut self, value: impl Into<#ty>) -> Self {
+                self.#name = Some(value.into());
                 self
             }
         }
