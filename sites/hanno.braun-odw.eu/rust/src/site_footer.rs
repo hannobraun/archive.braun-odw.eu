@@ -35,7 +35,7 @@ struct MadeInOdenwald;
 
 impl From<MadeInOdenwald> for Element {
     fn from(_: MadeInOdenwald) -> Self {
-        div(a("Made in Odenwald ♥").href("made-in-odenwald/2.jpg"))
-            .class("made-in-odenwald")
+        let link = a("Made in Odenwald ♥").href("made-in-odenwald/2.jpg");
+        div(link).class("made-in-odenwald")
     }
 }
