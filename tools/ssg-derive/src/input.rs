@@ -1,8 +1,8 @@
 pub struct Input {
     pub vis: syn::Visibility,
     pub name: syn::Ident,
-    pub mandatory_fields: Vec<syn::Ident>,
-    pub optional_fields: Vec<syn::Ident>,
+    pub mandatory_fields: Vec<Field>,
+    pub optional_fields: Vec<Field>,
 }
 
 impl From<syn::DeriveInput> for Input {
@@ -33,7 +33,7 @@ impl From<syn::DeriveInput> for Input {
             // fields.
             let ident = field.ident.unwrap();
 
-            fields.push(ident);
+            fields.push(Field { name: ident });
         }
 
         Self {
@@ -59,4 +59,8 @@ fn is_optional(field: &syn::Field) -> bool {
     // used in other ways (like a fully qualified path), but this
     // should do for now.
     path.path.segments[0].ident.to_string() == "Option"
+}
+
+pub struct Field {
+    pub name: syn::Ident,
 }

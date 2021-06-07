@@ -15,7 +15,9 @@ pub fn generate(input: Input) -> TokenStream {
     let name_lower = name.to_string().to_case(Case::Snake);
     let name_lower = Ident::new(&name_lower, Span::call_site());
 
-    let builder_methods = optional_fields.iter().map(|name| {
+    let builder_methods = optional_fields.iter().map(|field| {
+        let name = &field.name;
+
         quote! {
             pub fn #name(mut self, value: &'static str) -> Self {
                 self.#name = Some(value);
@@ -23,17 +25,23 @@ pub fn generate(input: Input) -> TokenStream {
             }
         }
     });
-    let mandatory_args = mandatory_fields.iter().map(|name| {
+    let mandatory_args = mandatory_fields.iter().map(|field| {
+        let name = &field.name;
+
         quote! {
             #name: &'static str,
         }
     });
-    let mandatory_inits = mandatory_fields.iter().map(|name| {
+    let mandatory_inits = mandatory_fields.iter().map(|field| {
+        let name = &field.name;
+
         quote! {
             #name,
         }
     });
-    let optional_inits = optional_fields.iter().map(|name| {
+    let optional_inits = optional_fields.iter().map(|field| {
+        let name = &field.name;
+
         quote! {
             #name: None,
         }
