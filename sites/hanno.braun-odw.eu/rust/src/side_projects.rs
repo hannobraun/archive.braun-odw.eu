@@ -20,7 +20,7 @@ pub fn side_projects() -> Element {
                     side_project()
                         .title("Fornjot: Spacer")
                         .date("2021-05-19")
-                        .content((
+                        .description((
                             p().with((
                                 util::ext_link(
                                     "https://github.com/hannobraun/fornjot",
@@ -47,7 +47,7 @@ pub fn side_projects() -> Element {
                     side_project()
                         .title("braun-odw.eu")
                         .date("2021-04-06")
-                        .content(
+                        .description(
                             p().with((
                                 "I revamped my website (the one you're \
                                 looking at right now) and put it on new \
@@ -67,7 +67,7 @@ pub fn side_projects() -> Element {
                     side_project()
                         .title("My Boss: Contacts")
                         .date("2021-03-05")
-                        .content((
+                        .description((
                             p().with((
                                 util::ext_link(
                                     "https://github.com/hannobraun/my-boss",
@@ -111,7 +111,7 @@ pub fn side_projects() -> Element {
 struct SideProject {
     title: Option<&'static str>,
     date: Option<&'static str>,
-    content: Option<Content>,
+    description: Option<Content>,
 }
 
 impl From<SideProject> for Element {
@@ -120,7 +120,7 @@ impl From<SideProject> for Element {
             side_project_header()
                 .title(side_project.title.unwrap())
                 .date(side_project.date.unwrap()),
-            side_project.content.unwrap(),
+            side_project.description.unwrap(),
         ))
     }
 }
