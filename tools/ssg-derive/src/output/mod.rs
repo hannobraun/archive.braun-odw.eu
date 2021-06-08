@@ -1,3 +1,5 @@
+mod field;
+
 use convert_case::{Case, Casing as _};
 use proc_macro::TokenStream;
 use proc_macro2::Span;
@@ -6,10 +8,12 @@ use syn::Ident;
 
 use crate::input::Input;
 
+use self::field::Field;
+
 pub fn generate(input: Input) -> TokenStream {
     let vis = input.vis;
     let name = input.name;
-    let mandatory_fields = input.mandatory_fields;
+    let mandatory_fields = Field::convert(input.mandatory_fields);
     let optional_fields = input.optional_fields;
 
     let name_lower = name.to_string().to_case(Case::Snake);
