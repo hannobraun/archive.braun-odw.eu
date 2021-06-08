@@ -17,10 +17,10 @@ impl From<syn::DeriveInput> for Input {
         };
         let fields = match data.fields {
             syn::Fields::Named(fields) => fields.named.into_iter().collect(),
-            syn::Fields::Unit => vec![],
             syn::Fields::Unnamed(fields) => {
                 fields.unnamed.into_iter().collect()
             }
+            syn::Fields::Unit => vec![],
         };
 
         let mut mandatory_fields = Vec::new();
