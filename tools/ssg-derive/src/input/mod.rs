@@ -34,9 +34,9 @@ impl From<syn::DeriveInput> for Input {
 
             // Can't panic, as we already made sure this is a struct with named
             // fields.
-            let ident = field.ident.unwrap();
+            let name = field.ident.unwrap();
 
-            fields.push(Field { name: ident, ty });
+            fields.push(Field { name, ty });
         }
 
         Self {
