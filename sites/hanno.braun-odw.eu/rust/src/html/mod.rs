@@ -10,6 +10,7 @@ use ssg::{
 
 use crate::data;
 
+// TASK: Pass side projects in as an argument.
 pub fn build(dev: bool) -> Element {
     // TASK: Load side projects from external data files. TOML with a `content`
     //       key that contains Markdown would probably be best.
