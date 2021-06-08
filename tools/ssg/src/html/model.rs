@@ -51,12 +51,6 @@ impl Content {
     }
 }
 
-impl From<()> for Content {
-    fn from((): ()) -> Self {
-        Self::new()
-    }
-}
-
 impl From<Vec<Node>> for Content {
     fn from(nodes: Vec<Node>) -> Self {
         Self(nodes)
@@ -90,6 +84,7 @@ macro_rules! content_from_tuple {
             {
                 #[allow(non_snake_case)]
                 fn from(($($ty,)*): ($($ty,)*)) -> Self {
+                    #[allow(unused_mut)]
                     let mut content = Vec::new();
 
                     $(
@@ -104,6 +99,7 @@ macro_rules! content_from_tuple {
 }
 
 content_from_tuple!(
+    ;
     A;
     A, B;
     A, B, C;
