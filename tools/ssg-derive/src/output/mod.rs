@@ -31,11 +31,11 @@ pub fn generate(input: Input) -> TokenStream {
         }
     });
     let mandatory_args = mandatory_fields.iter().map(|field| {
-        let name = &field.name;
+        let arg_name = &field.name;
         let ty = &field.ty;
 
         quote! {
-            #name: #ty,
+            #arg_name: #ty,
         }
     });
     let mandatory_inits = mandatory_fields.iter().map(|field| {
