@@ -166,7 +166,7 @@ mod tests {
                 Node::Element(Element {
                     name: "br",
                     attributes: Vec::new(),
-                    content: Content::from(vec![]),
+                    content: Content::new(),
                 }),
             ]),
         };
