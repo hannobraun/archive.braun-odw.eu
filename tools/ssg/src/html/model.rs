@@ -51,12 +51,6 @@ impl Content {
     }
 }
 
-impl From<Vec<Node>> for Content {
-    fn from(nodes: Vec<Node>) -> Self {
-        Self(nodes)
-    }
-}
-
 impl From<Element> for Content {
     fn from(element: Element) -> Self {
         Self(vec![Node::Element(element)])
@@ -72,6 +66,12 @@ impl From<&'static str> for Content {
 impl From<Node> for Content {
     fn from(node: Node) -> Self {
         Self(vec![node])
+    }
+}
+
+impl From<Vec<Node>> for Content {
+    fn from(nodes: Vec<Node>) -> Self {
+        Self(nodes)
     }
 }
 
