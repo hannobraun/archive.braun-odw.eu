@@ -32,10 +32,7 @@ impl From<syn::DeriveInput> for Input {
                 Type::Optional(ty) => (ty, &mut optional_fields),
             };
 
-            // Can't panic, as we already made sure this is a struct with named
-            // fields.
-            let name = field.ident.unwrap();
-
+            let name = field.ident;
             fields.push(Field { name, ty });
         }
 
@@ -49,6 +46,6 @@ impl From<syn::DeriveInput> for Input {
 }
 
 pub struct Field {
-    pub name: syn::Ident,
+    pub name: Option<syn::Ident>,
     pub ty: syn::Type,
 }
