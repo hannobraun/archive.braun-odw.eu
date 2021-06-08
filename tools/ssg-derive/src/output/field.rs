@@ -1,3 +1,5 @@
+use proc_macro2::Span;
+
 use crate::input;
 
 pub struct Field {
@@ -12,8 +14,9 @@ impl Field {
     ) -> Vec<Self> {
         let mut converted = Vec::new();
 
-        for field in fields {
-            let arg_name = field.name.clone();
+        for (i, field) in fields.into_iter().enumerate() {
+            let arg_name =
+                syn::Ident::new(&format!("_{}", i), Span::call_site());
             let field_name = field.name;
 
             converted.push(Self {
