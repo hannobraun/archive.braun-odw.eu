@@ -42,6 +42,16 @@ impl Content {
         Self(Vec::new())
     }
 
+    pub fn from_iter<Iter, Item>(iter: Iter) -> Self
+    where
+        Iter: IntoIterator<Item = Item>,
+        Item: Into<Node>,
+    {
+        let mut content = Vec::new();
+        content.extend(iter.into_iter().map(|value| value.into()));
+        Self(content)
+    }
+
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
@@ -74,9 +84,7 @@ where
     T: Into<Node>,
 {
     fn from(nodes: Vec<T>) -> Self {
-        let mut content = Vec::new();
-        content.extend(nodes.into_iter().map(|value| value.into()));
-        Self(content)
+        Self::from_iter(nodes.into_iter())
     }
 }
 
