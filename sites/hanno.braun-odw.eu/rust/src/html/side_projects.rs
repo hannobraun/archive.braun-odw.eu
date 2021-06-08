@@ -1,5 +1,5 @@
 use ssg::{
-    html::{front_builder::*, model::Element},
+    html::{front_builder::*, model::Element, Content},
     Component,
 };
 
@@ -90,7 +90,7 @@ pub fn side_projects() -> Element {
         p("I always have an ongoing side project, and I try \
             to work on it every day. Here's a list of projects \
             I've completed recently."),
-        ol(side_projects),
+        ol(Content::from_iter(side_projects)),
         p((
             "There's a lot more on my GitHub accounts (",
             util::ext_link("https://github.com/hannobraun").text("personal"),
