@@ -69,9 +69,14 @@ impl From<Node> for Content {
     }
 }
 
-impl From<Vec<Node>> for Content {
-    fn from(nodes: Vec<Node>) -> Self {
-        Self(nodes)
+impl<T> From<Vec<T>> for Content
+where
+    T: Into<Node>,
+{
+    fn from(nodes: Vec<T>) -> Self {
+        let mut content = Vec::new();
+        content.extend(nodes.into_iter().map(|value| value.into()));
+        Self(content)
     }
 }
 
