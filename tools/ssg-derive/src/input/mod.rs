@@ -36,10 +36,7 @@ impl From<syn::DeriveInput> for Input {
             // fields.
             let ident = field.ident.unwrap();
 
-            fields.push(Field {
-                name: ident,
-                ty: ty,
-            });
+            fields.push(Field { name: ident, ty });
         }
 
         Self {
