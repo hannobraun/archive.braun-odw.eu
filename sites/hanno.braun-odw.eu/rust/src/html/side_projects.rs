@@ -1,5 +1,5 @@
 use ssg::{
-    html::{front_builder::*, model::Element, Content},
+    html::{front_builder::*, model::Element},
     Component,
 };
 
@@ -80,18 +80,9 @@ pub fn side_projects() -> Element {
     };
 
     let side_projects = vec![
-        side_project()
-            .title(fornjot.title)
-            .date(fornjot.date)
-            .description(fornjot.description),
-        side_project()
-            .title(braun_odw_eu.title)
-            .date(braun_odw_eu.date)
-            .description(braun_odw_eu.description),
-        side_project()
-            .title(my_boss.title)
-            .date(my_boss.date)
-            .description(my_boss.description),
+        side_project(fornjot),
+        side_project(braun_odw_eu),
+        side_project(my_boss),
     ];
 
     section((
@@ -111,23 +102,17 @@ pub fn side_projects() -> Element {
     ))
 }
 
-// TASK: Accept full `data::SideProject` as parameter. This would make it
-//       desirable to support tuple structs, if all parameters are mandatory.
 #[derive(Component)]
-struct SideProject {
-    title: Option<&'static str>,
-    date: Option<&'static str>,
-    description: Option<Content>,
-}
+struct SideProject(data::SideProject);
 
 impl From<SideProject> for Element {
     fn from(side_project: SideProject) -> Self {
-        let title = side_project.title.unwrap();
-        let date = side_project.date.unwrap();
+        let title = side_project.0.title;
+        let date = side_project.0.date;
 
         li((
             header((h3(title), p(("Finished ", span(date))).class("date"))),
-            side_project.description.unwrap(),
+            side_project.0.description,
         ))
     }
 }
