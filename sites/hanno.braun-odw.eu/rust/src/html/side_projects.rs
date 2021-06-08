@@ -36,11 +36,11 @@ struct SideProject(data::SideProject);
 
 impl From<SideProject> for Element {
     fn from(side_project: SideProject) -> Self {
-        let title = side_project.0.title;
-        let date = side_project.0.date;
-
         li((
-            header((h3(title), p(("Finished ", span(date))).class("date"))),
+            header((
+                h3(side_project.0.title),
+                p(("Finished ", span(side_project.0.date))).class("date"),
+            )),
             side_project.0.description,
         ))
     }
