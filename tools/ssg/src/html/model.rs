@@ -75,6 +75,12 @@ impl From<&'static str> for Content {
     }
 }
 
+impl From<Node> for Content {
+    fn from(node: Node) -> Self {
+        Self(vec![node])
+    }
+}
+
 macro_rules! content_from_tuple {
     ($($($ty:ident),*;)*) => {
         $(
