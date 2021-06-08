@@ -1,7 +1,8 @@
 use crate::input;
 
 pub struct Field {
-    pub name: syn::Ident,
+    pub arg_name: syn::Ident,
+    pub field_name: syn::Ident,
     pub ty: syn::Type,
 }
 
@@ -13,7 +14,8 @@ impl Field {
 
         for field in fields {
             converted.push(Self {
-                name: field.name,
+                arg_name: field.name.clone(),
+                field_name: field.name,
                 ty: field.ty,
             });
         }
