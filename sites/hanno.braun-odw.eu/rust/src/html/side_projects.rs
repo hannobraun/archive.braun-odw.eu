@@ -79,7 +79,7 @@ pub fn side_projects() -> Element {
             .into(),
     };
 
-    let side_projects = (
+    let side_projects = vec![
         side_project()
             .title(fornjot.title)
             .date(fornjot.date)
@@ -92,7 +92,7 @@ pub fn side_projects() -> Element {
             .title(my_boss.title)
             .date(my_boss.date)
             .description(my_boss.description),
-    );
+    ];
 
     section((
         h2("Side Projects"),
