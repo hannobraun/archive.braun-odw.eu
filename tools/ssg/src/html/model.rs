@@ -130,6 +130,11 @@ impl<'a> IntoIterator for &'a Content {
     }
 }
 
+/// An HTML node
+///
+/// A node can either be an element or text. Please note that HTML in text nodes
+/// is not escaped at this point, so this can be used to inject HTML into the
+/// document.
 #[derive(Debug, Eq, PartialEq)]
 pub enum Node {
     Element(Element),
