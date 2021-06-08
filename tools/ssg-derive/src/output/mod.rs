@@ -40,10 +40,10 @@ pub fn generate(input: Input) -> TokenStream {
     });
     let mandatory_inits = mandatory_fields.iter().map(|field| {
         let arg_name = &field.arg_name;
-        let field_name = &field.arg_name;
+        let field_name = &field.field_name;
 
         quote! {
-            #arg_name: #field_name,
+            #field_name: #arg_name,
         }
     });
     let optional_inits = optional_fields.iter().map(|field| {
