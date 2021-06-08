@@ -13,9 +13,12 @@ impl Field {
         let mut converted = Vec::new();
 
         for field in fields {
+            let arg_name = field.name.clone();
+            let field_name = field.name;
+
             converted.push(Self {
-                arg_name: field.name.clone(),
-                field_name: field.name,
+                arg_name,
+                field_name,
                 ty: field.ty,
             });
         }
