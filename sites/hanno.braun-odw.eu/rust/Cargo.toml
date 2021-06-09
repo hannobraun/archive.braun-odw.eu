@@ -8,7 +8,6 @@ publish = false
 
 [dependencies]
 anyhow             = "*"
-pulldown-cmark     = "*"
 tracing-subscriber = "*"
 
 [dependencies.ssg]
