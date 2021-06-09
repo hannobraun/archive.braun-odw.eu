@@ -145,6 +145,7 @@ impl Node {
     pub fn write_to(&self, target: &mut impl Write) -> io::Result<()> {
         match self {
             Self::Element(element) => element.write_to(target)?,
+            // TASK: Escape text before injecting HTML into document.
             Self::Text(text) => write!(target, "{}", text)?,
         }
 
