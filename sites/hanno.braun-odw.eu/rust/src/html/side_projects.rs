@@ -41,7 +41,7 @@ impl From<SideProject> for Element {
                 h3(side_project.0.title),
                 p(("Finished ", span(side_project.0.date))).class("date"),
             )),
-            side_project.0.description,
+            side_project.0.description.render(),
         ))
     }
 }

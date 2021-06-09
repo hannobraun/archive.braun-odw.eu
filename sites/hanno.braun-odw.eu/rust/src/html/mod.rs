@@ -6,82 +6,61 @@ mod util;
 use ssg::{
     html,
     html::{front_builder::*, Element},
+    markdown::Markdown,
 };
 
 use crate::data;
 
 // TASK: Pass side projects in as an argument.
 pub fn build(dev: bool) -> Element {
-    // TASK: Load side projects from external data files. TOML with a `content`
-    //       key that contains Markdown would probably be best.
-    //
-    //       pulldown-cmark looks like a good option for handling and rendering
-    //       the Markdown.
+    // TASK: Load side projects from external data files.
     let side_projects = vec![
         data::SideProject {
             title: "Fornjot: Spacer",
             date: "2021-05-19",
-            description: (
-                p((
-                    util::ext_link(
-                        "https://github.com/hannobraun/fornjot",
-                    )
-                    .text("Fornjot"),
-                    " is an experimental programmatic CAD \
-                    system. I've been working on multiple \
-                    iterations of it over a few years, and \
-                    this is the first public release.",
-                )),
-                p((
-                    "The goal for this first release was to \
-                    build enough infrastructure to support ",
-                    util::ext_link(
-                        "https://github.com/hannobraun/fornjot/tree/main/models/spacer",
-                    )
-                    .text("a simple spacer model"),
-                    ". I plan to extend it and create more \
-                    complex models going forward.",
-                )),
-            )
-            .into()
+            description: Markdown("\
+                [Fornjot] is an experimental programmatic CAD system. I've \
+                been working on multiple iterations of it over a few years, \
+                and this is the first public release.\n\n\
+
+                The goal for this first release was to build enough \
+                infrastructure to support [a simple spacer model]. I plan to \
+                extend it and create more complex models going forward.\n\n\
+
+                [Fornjot]: https://github.com/hannobraun/fornjot\n\
+                [a simple spacer model]: https://github.com/hannobraun/fornjot/tree/main/models/spacer
+            "),
         },
         data::SideProject {
             title: "braun-odw.eu",
             date: "2021-04-06",
-            description: p((
-                "I revamped my website (the one you're \
-                    looking at right now) and put it on new \
-                    technical footing, using my own ",
-                util::ext_link("https://github.com/hannobraun/braun-odw.eu")
-                    .text("homegrown static site generator"),
-                ". I also got a new domain and started \
-                    consolidating most of my IT infrastructure \
-                    (including email and Matrix homeserver) \
-                    under it.",
-            ))
-            .into(),
+            description: Markdown("\
+                I revamped my website (the one you're looking at right now) \
+                and put it on new technical footing, using my own
+                [homegrown static site generator]. I also got a new domain and \
+                started consolidating most of my IT infrastructure (including \
+                email and Matrix homeserver) under it.\n\n\
+
+                [homegrown static site generator]: https://github.com/hannobraun/braun-odw.eu
+            "),
         },
         data::SideProject {
             title: "My Boss: Contacts",
             date: "2021-03-05",
-            description: (
-                p((
-                    util::ext_link("https://github.com/hannobraun/my-boss")
-                        .text("My Boss"),
-                    " is a command-line application that tells me \
-                    what to do and when to do it. Kind of like an \
-                    ERP system, except that I'm the opposite of an \
-                    enterprise. This was the initial release that \
-                    included contact management functionality, \
-                    kind of like a CRM.",
-                )),
-                p("I use it every day to remember to keep in \
-                    touch with my business contacts (and also some \
-                    personal ones). I plan to extend it in the \
-                    future to encompass more areas of my business, \
-                    like basic bookkeeping and possibly more."),
-            )
-                .into(),
+            description: Markdown("\
+                [My Boss] is a command-line application that tells me what to \
+                do and when to do it. Kind of like an ERP system, except that \
+                I'm the opposite of an enterprise. This was the initial \
+                release that included contact management functionality, kind \
+                of like a CRM.\n\n\
+
+                I use it every day to remember to keep in touch with my \
+                business contacts (and also some personal ones). I plan to \
+                extend it in the future to encompass more areas of my \
+                business, like basic bookkeeping and possibly more.\n\n\
+
+                [My Boss]: https://github.com/hannobraun/my-boss
+            "),
         },
     ];
 
