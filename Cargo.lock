@@ -1341,6 +1341,7 @@ dependencies = [
  "clap",
  "futures",
  "notify",
+ "pulldown-cmark",
  "rsass",
  "ssg-derive",
  "thiserror",
