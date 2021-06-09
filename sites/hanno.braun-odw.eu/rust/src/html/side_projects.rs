@@ -7,9 +7,7 @@ use crate::data;
 
 use super::util;
 
-pub fn side_projects(
-    side_projects: impl IntoIterator<Item = data::SideProject>,
-) -> Element {
+pub fn side_projects(side_projects: data::SideProjects) -> Element {
     section((
         h2("Side Projects"),
         p("I always have an ongoing side project, and I try \
