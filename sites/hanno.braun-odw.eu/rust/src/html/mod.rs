@@ -63,6 +63,7 @@ pub fn build(dev: bool) -> Element {
             "),
         },
     ];
+    let side_projects = data::SideProjects(side_projects);
 
     html! {
         html("lang"="en") {
