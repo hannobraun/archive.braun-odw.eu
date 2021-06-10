@@ -64,9 +64,14 @@ impl From<OngoingWork> for Element {
     }
 }
 
-pub fn ongoing_work_item(item: data::OngoingWorkItem) -> Element {
-    li((
-        header((h3(item.title), util::ext_link(item.link))),
-        item.description,
-    ))
+#[derive(Component)]
+struct OngoingWorkItem(data::OngoingWorkItem);
+
+impl From<OngoingWorkItem> for Element {
+    fn from(item: OngoingWorkItem) -> Self {
+        li((
+            header((h3(item.0.title), util::ext_link(item.0.link))),
+            item.0.description,
+        ))
+    }
 }
