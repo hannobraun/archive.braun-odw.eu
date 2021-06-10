@@ -63,7 +63,7 @@ pub fn build(dev: bool) -> Element {
                         h2 { "Ongoing Work" }
                         ul {
                             {
-                                ongoing_work::ongoing_work(
+                                ongoing_work::ongoing_work_item(
                                     "Braun Embedded",
                                     "https://braun-embedded.com/",
                                     html! {
@@ -86,7 +86,7 @@ pub fn build(dev: bool) -> Element {
                                 )
                             }
                             {
-                                ongoing_work::ongoing_work(
+                                ongoing_work::ongoing_work_item(
                                     "Made by Hanno",
                                     "https://madeby.hannobraun.de/",
                                     html! {
