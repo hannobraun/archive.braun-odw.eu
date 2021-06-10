@@ -49,12 +49,7 @@ impl From<OngoingWork> for Element {
             }),
         ];
 
-        html! {
-            section {
-                h2 { "Ongoing Work" }
-                ul { { Content::from_iter(items) } }
-            }
-        }
+        section((h2("Ongoing Work"), ul(Content::from_iter(items))))
     }
 }
 
