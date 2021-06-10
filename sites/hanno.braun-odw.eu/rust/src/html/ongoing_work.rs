@@ -13,7 +13,7 @@ pub struct OngoingWork;
 
 impl From<OngoingWork> for Element {
     fn from(_: OngoingWork) -> Self {
-        let items = vec![
+        let items = data::OngoingWork(vec![
             data::OngoingWorkItem {
                 title: "Braun Embedded",
                 link: "https://braun-embedded.com/",
@@ -47,7 +47,7 @@ impl From<OngoingWork> for Element {
                     }
                 },
             },
-        ];
+        ]);
 
         section((
             h2("Ongoing Work"),

@@ -2,6 +2,18 @@ use std::vec;
 
 use ssg::{html::Element, markdown::Markdown};
 
+pub struct OngoingWork(pub Vec<OngoingWorkItem>);
+
+impl IntoIterator for OngoingWork {
+    type Item = OngoingWorkItem;
+
+    type IntoIter = vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
 pub struct OngoingWorkItem {
     pub title: &'static str,
     pub link: &'static str,
