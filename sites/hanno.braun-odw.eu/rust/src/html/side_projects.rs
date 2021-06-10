@@ -14,9 +14,8 @@ impl From<SideProjects> for Element {
     fn from(side_projects: SideProjects) -> Self {
         section((
             h2("Side Projects"),
-            p("I always have an ongoing side project, and I try \
-                to work on it every day. Here's a list of projects \
-                I've completed recently."),
+            p("I always have an ongoing side project, and I try to work on it \
+                every day. Here's a list of projects I've completed recently."),
             ol(Content::from_iter(
                 side_projects
                     .0
