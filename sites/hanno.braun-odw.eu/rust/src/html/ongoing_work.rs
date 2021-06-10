@@ -1,5 +1,4 @@
 use ssg::{
-    html,
     html::{front_builder::*, model::Element, Content},
     Component,
 };
@@ -17,35 +16,23 @@ impl From<OngoingWork> for Element {
             data::OngoingWorkItem {
                 title: "Braun Embedded",
                 link: "https://braun-embedded.com/",
-                description: html! {
-                    p {
-                        "I provide software \
-                        development and consulting \
-                        services, specifically \
-                        relating to Rust firmware on \
-                        ARM Cortex-M microcontrollers. \
-                        If you want to write your next \
-                        firmware project in Rust and \
-                        could use some help with the \
-                        low-level stuff, "
-                        {
-                            util::email()
-                                .text("let me know")
-                        }
-                        "!"
-                    }
-                },
+                description: p((
+                    "I provide software development and consulting services, \
+                    specifically relating to Rust firmware on ARM Cortex-M \
+                    microcontrollers. If you want to write your next firmware \
+                    project in Rust and could use some help with the low-level \
+                    stuff, ",
+                    util::email().text("let me know"),
+                    "!",
+                )),
             },
             data::OngoingWorkItem {
                 title: "Made by Hanno",
                 link: "https://madeby.hannobraun.de/",
-                description: html! {
-                    p {
-                        "I have a small workshop where \
-                        I make semi-interesting stuff, \
-                        mainly 3D-printed."
-                    }
-                },
+                description: p(
+                    "I have a small workshop where I make semi-interesting \
+                    stuff, mainly 3D-printed.",
+                ),
             },
         ]);
 
