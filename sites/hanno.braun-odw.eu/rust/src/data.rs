@@ -1,6 +1,12 @@
 use std::vec;
 
-use ssg::markdown::Markdown;
+use ssg::{html::Element, markdown::Markdown};
+
+pub struct OngoingWorkItem {
+    pub title: &'static str,
+    pub link: &'static str,
+    pub description: Element,
+}
 
 pub struct SideProjects(pub Vec<SideProject>);
 
