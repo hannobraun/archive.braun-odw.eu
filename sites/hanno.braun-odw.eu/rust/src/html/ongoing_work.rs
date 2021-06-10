@@ -14,7 +14,7 @@ pub struct OngoingWork;
 impl From<OngoingWork> for Element {
     fn from(_: OngoingWork) -> Self {
         let items = vec![
-            ongoing_work_item(data::OngoingWorkItem {
+            data::OngoingWorkItem {
                 title: "Braun Embedded",
                 link: "https://braun-embedded.com/",
                 description: html! {
@@ -35,8 +35,8 @@ impl From<OngoingWork> for Element {
                         "!"
                     }
                 },
-            }),
-            ongoing_work_item(data::OngoingWorkItem {
+            },
+            data::OngoingWorkItem {
                 title: "Made by Hanno",
                 link: "https://madeby.hannobraun.de/",
                 description: html! {
@@ -46,10 +46,15 @@ impl From<OngoingWork> for Element {
                         mainly 3D-printed."
                     }
                 },
-            }),
+            },
         ];
 
-        section((h2("Ongoing Work"), ul(Content::from_iter(items))))
+        section((
+            h2("Ongoing Work"),
+            ul(Content::from_iter(
+                items.into_iter().map(|item| OngoingWorkItem(item)),
+            )),
+        ))
     }
 }
 
