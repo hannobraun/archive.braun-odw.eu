@@ -8,16 +8,14 @@ use crate::data;
 use super::util;
 
 #[derive(Component)]
-pub struct OngoingWork;
+pub struct OngoingWork(data::OngoingWork);
 
 impl From<OngoingWork> for Element {
-    fn from(_: OngoingWork) -> Self {
-        let ongoing_work = data::OngoingWork::load();
-
+    fn from(ongoing_work: OngoingWork) -> Self {
         section((
             h2("Ongoing Work"),
             ul(Content::from_iter(
-                ongoing_work.into_iter().map(|item| OngoingWorkItem(item)),
+                ongoing_work.0.into_iter().map(|item| OngoingWorkItem(item)),
             )),
         ))
     }

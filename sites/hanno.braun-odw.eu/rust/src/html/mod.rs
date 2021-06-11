@@ -12,6 +12,7 @@ use crate::data;
 
 // TASK: Pass side projects in as an argument.
 pub fn build(dev: bool) -> Element {
+    let ongoing_work = data::OngoingWork::load();
     let side_projects = data::SideProjects::load();
 
     html! {
@@ -59,7 +60,7 @@ pub fn build(dev: bool) -> Element {
                         }
                         // TASK: Add picture.
                     }
-                    { ongoing_work::ongoing_work() }
+                    { ongoing_work::ongoing_work(ongoing_work) }
                     { side_projects::side_projects(side_projects) }
                 }
 
