@@ -13,11 +13,7 @@ impl OngoingWork {
                 title: "Braun Embedded",
                 link: "https://braun-embedded.com/",
                 description: p((
-                    "I provide software development and consulting services, \
-                    specifically relating to Rust firmware on ARM Cortex-M \
-                    microcontrollers. If you want to write your next firmware \
-                    project in Rust and could use some help with the low-level \
-                    stuff, ",
+                    "I provide software development and consulting services, specifically relating to Rust firmware on ARM Cortex-M microcontrollers. If you want to write your next firmware project in Rust and could use some help with the low-level stuff, ",
                     util::email().text("let me know"),
                     "!",
                 )),
@@ -26,8 +22,7 @@ impl OngoingWork {
                 title: "Made by Hanno",
                 link: "https://madeby.hannobraun.de/",
                 description: p(
-                    "I have a small workshop where I make semi-interesting \
-                    stuff, mainly 3D-printed.",
+                    "I have a small workshop where I make semi-interesting stuff, mainly 3D-printed.",
                 ),
             },
         ])
