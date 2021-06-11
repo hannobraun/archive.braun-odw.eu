@@ -10,7 +10,6 @@ use ssg::{
 
 use crate::data;
 
-// TASK: Pass side projects in as an argument.
 pub fn build(
     dev: bool,
     ongoing_work: data::OngoingWork,
