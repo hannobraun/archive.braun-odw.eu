@@ -11,10 +11,11 @@ use ssg::{
 use crate::data;
 
 // TASK: Pass side projects in as an argument.
-pub fn build(dev: bool) -> Element {
-    let ongoing_work = data::OngoingWork::load();
-    let side_projects = data::SideProjects::load();
-
+pub fn build(
+    dev: bool,
+    ongoing_work: data::OngoingWork,
+    side_projects: data::SideProjects,
+) -> Element {
     html! {
         html("lang"="en") {
             head {
