@@ -12,12 +12,12 @@ pub struct OngoingWork;
 
 impl From<OngoingWork> for Element {
     fn from(_: OngoingWork) -> Self {
-        let items = data::OngoingWork::load();
+        let ongoing_work = data::OngoingWork::load();
 
         section((
             h2("Ongoing Work"),
             ul(Content::from_iter(
-                items.into_iter().map(|item| OngoingWorkItem(item)),
+                ongoing_work.into_iter().map(|item| OngoingWorkItem(item)),
             )),
         ))
     }
