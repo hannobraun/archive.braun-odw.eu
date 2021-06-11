@@ -1,7 +1,7 @@
-mod ongoing_work;
-mod side_projects;
-mod site_footer;
-mod util;
+pub mod ongoing_work;
+pub mod side_projects;
+pub mod site_footer;
+pub mod util;
 
 use ssg::{
     html,
