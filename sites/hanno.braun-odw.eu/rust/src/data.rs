@@ -48,7 +48,6 @@ pub struct OngoingWorkItem {
 pub struct SideProjects(pub Vec<SideProject>);
 
 impl SideProjects {
-    // TASK: Load side projects from external data files.
     pub fn load() -> Self {
         Self(vec![
             SideProject {
