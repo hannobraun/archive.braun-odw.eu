@@ -15,8 +15,8 @@ macro_rules! elements {
 }
 
 elements!(
-    a, address, base, body, div, footer, h1, h2, h3, header, hr, li, main, ol,
-    p, section, span, ul,
+    a, address, base, body, div, footer, h1, h2, h3, head, header, hr, li,
+    link, main, meta, ol, p, section, span, title, ul,
 );
 
 macro_rules! attributes {
