@@ -20,17 +20,17 @@ elements!(
 );
 
 macro_rules! attributes {
-    ($($name:ident,)*) => {
+    ($($id:ident, $name:expr;)*) => {
         pub trait Attributes: Sized {
             $(
-                fn $name(self, value: &'static str) -> Self;
+                fn $id(self, value: &'static str) -> Self;
             )*
         }
 
         impl Attributes for Element {
             $(
-                fn $name(mut self, value: &'static str) -> Self {
-                    self.attributes.push((stringify!($name), value));
+                fn $id(mut self, value: &'static str) -> Self {
+                    self.attributes.push(($name, value));
                     self
                 }
             )*
@@ -38,4 +38,13 @@ macro_rules! attributes {
     };
 }
 
-attributes!(class, content, href, media, name, rel, target, r#type,);
+attributes!(
+    class, "class";
+    content, "content";
+    href, "href";
+    media, "media";
+    name, "name";
+    rel, "rel";
+    target, "target";
+    r#type, "type";
+);
