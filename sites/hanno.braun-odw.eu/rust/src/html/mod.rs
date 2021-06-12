@@ -5,7 +5,6 @@ pub mod util;
 pub mod who;
 
 use ssg::{
-    html,
     html::{front_builder::*, Element},
     Component,
 };
@@ -17,12 +16,7 @@ pub fn build(
     ongoing_work: data::OngoingWork,
     side_projects: data::SideProjects,
 ) -> Element {
-    html! {
-        html("lang"="en") {
-            { site_head(dev) }
-            { site_body(ongoing_work, side_projects) }
-        }
-    }
+    html((site_head(dev), site_body(ongoing_work, side_projects))).lang("en")
 }
 
 #[derive(Component)]
