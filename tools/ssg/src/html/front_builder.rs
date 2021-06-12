@@ -46,5 +46,5 @@ attributes!(
     name, "name";
     rel, "rel";
     target, "target";
-    r#type, "type";
+    type_, "type";
 );
