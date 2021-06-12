@@ -43,6 +43,7 @@ attributes!(
     content, "content";
     href, "href";
     http_equiv, "http-equiv";
+    lang, "lang";
     media, "media";
     name, "name";
     rel, "rel";
