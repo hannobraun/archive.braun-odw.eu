@@ -38,4 +38,4 @@ macro_rules! attributes {
     };
 }
 
-attributes!(class, href, target,);
+attributes!(class, content, href, media, name, rel, target, r#type,);
