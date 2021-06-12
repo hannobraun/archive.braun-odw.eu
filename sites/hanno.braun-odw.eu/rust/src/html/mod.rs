@@ -7,6 +7,7 @@ pub mod who;
 use ssg::{
     html,
     html::{front_builder::*, Element},
+    Component,
 };
 
 use crate::data;
@@ -41,19 +42,7 @@ pub fn build(
                     "media"="all"
                 ) {}
             }
-            body {
-                main {
-                    h1 { "Hanno Braun" }
-
-                    { who::who() }
-                    { ongoing_work::ongoing_work(ongoing_work) }
-                    { side_projects::side_projects(side_projects) }
-                }
-
-                hr {}
-
-                { site_footer::site_footer() }
-            }
+            { site_body(ongoing_work, side_projects) }
         }
     }
 }
@@ -65,5 +54,26 @@ fn base_if_dev_mode(dev: bool) -> Element {
         base(()).href("/hanno.braun-odw.eu/")
     } else {
         base(()).href("/")
+    }
+}
+
+#[derive(Component)]
+struct SiteBody {
+    ongoing_work: data::OngoingWork,
+    side_projects: data::SideProjects,
+}
+
+impl From<SiteBody> for Element {
+    fn from(site_body: SiteBody) -> Self {
+        body((
+            main((
+                h1("Hanno Braun"),
+                who::who(),
+                ongoing_work::ongoing_work(site_body.ongoing_work),
+                side_projects::side_projects(site_body.side_projects),
+            )),
+            hr(()),
+            site_footer::site_footer(),
+        ))
     }
 }
