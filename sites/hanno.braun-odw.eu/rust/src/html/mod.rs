@@ -47,11 +47,18 @@ pub fn build(
     }
 }
 
-fn base_if_dev_mode(dev: bool) -> Element {
-    if dev {
-        base(()).href("/hanno.braun-odw.eu/")
-    } else {
-        base(()).href("/")
+#[derive(Component)]
+struct BaseIfDevMode {
+    dev: bool,
+}
+
+impl From<BaseIfDevMode> for Element {
+    fn from(base_if_dev_mode: BaseIfDevMode) -> Self {
+        if base_if_dev_mode.dev {
+            base(()).href("/hanno.braun-odw.eu/")
+        } else {
+            base(()).href("/")
+        }
     }
 }
 
