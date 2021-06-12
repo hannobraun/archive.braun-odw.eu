@@ -47,8 +47,6 @@ pub fn build(
     }
 }
 
-// TASK: Return `Option<Element>` instead, only return `Some` if dev mode is
-//       active.
 fn base_if_dev_mode(dev: bool) -> Element {
     if dev {
         base(()).href("/hanno.braun-odw.eu/")
