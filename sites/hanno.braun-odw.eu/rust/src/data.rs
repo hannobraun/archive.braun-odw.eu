@@ -51,6 +51,16 @@ impl SideProjects {
     pub fn load() -> Self {
         Self(vec![
             SideProject {
+                title: "hanno.braun-odw.eu",
+                date: "2021-06-12",
+                description: p((
+                    "I extended the ",
+                    util::ext_link("https://github.com/hannobraun/braun-odw.eu")
+                        .text("static site generator"),
+                    " that powers my personal website (the one you're reading right now), making it much more powerful and capable (including programmatic HTML generation, SASS support, and lots of clean-ups). While I was at it, I made a bunch of tweaks to the site itself.",
+                )).into(),
+            },
+            SideProject {
                 title: "Fornjot: Spacer",
                 date: "2021-05-19",
                 description: (
