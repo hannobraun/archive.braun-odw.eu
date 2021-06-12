@@ -1,3 +1,5 @@
+$indentation: 1.5em;
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 
@@ -18,18 +20,18 @@ a {
 }
 
 section {
-    margin-left: 1.5em;
+    margin-left: $indentation;
 
     > h2 {
         margin-top: 2em;
     }
 
     > p {
-        margin-left: 1.5em;
+        margin-left: $indentation;
     }
 
     ol, ul, li > p {
-        margin-left: 1.5em;
+        margin-left: $indentation;
     }
 
     ol, ul {
