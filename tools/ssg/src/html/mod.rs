@@ -1,5 +1,5 @@
-pub mod front_builder;
 pub mod model;
+pub mod syntax;
 
 pub use self::model::{Content, Element, Node};
 

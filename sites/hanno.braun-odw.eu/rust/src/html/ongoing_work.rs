@@ -1,5 +1,5 @@
 use ssg::{
-    html::{front_builder::*, model::Element, Content},
+    html::{syntax::*, model::Element, Content},
     Component,
 };
 

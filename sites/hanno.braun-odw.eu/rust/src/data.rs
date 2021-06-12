@@ -1,6 +1,6 @@
 use std::vec;
 
-use ssg::html::{front_builder::*, Content, Element};
+use ssg::html::{syntax::*, Content, Element};
 
 use crate::html::util;
 
