@@ -14,9 +14,7 @@ impl From<Who> for Element {
         section((
             h2("Who?"),
             p((
-                "Hanno Braun, self-employed software developer \
-                from the Odenwald region, Germany. The best way to \
-                reach me is via email (",
+                "Hanno Braun, self-employed software developer from the Odenwald region, Germany. The best way to reach me is via email (",
                 util::email(),
                 ") and Matrix (",
                 a("@hanno:braun-odw.eu")
