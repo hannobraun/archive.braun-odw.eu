@@ -2,6 +2,7 @@ pub mod ongoing_work;
 pub mod side_projects;
 pub mod site_footer;
 pub mod util;
+pub mod who;
 
 use ssg::{
     html,
@@ -44,22 +45,7 @@ pub fn build(
                 main {
                     h1 { "Hanno Braun" }
 
-                    section {
-                        h2 { "Who?" }
-                        p {
-                            "Hanno Braun, self-employed software developer \
-                            from the Odenwald region, Germany. The best way to \
-                            reach me is via email ("
-                            { util::email() }
-                            ") and Matrix ("
-                            a("href"="https://matrix.to/#/@hanno:braun-odw.eu")
-                            {
-                                "@hanno:braun-odw.eu"
-                            }
-                            ")."
-                        }
-                        // TASK: Add picture.
-                    }
+                    { who::who() }
                     { ongoing_work::ongoing_work(ongoing_work) }
                     { side_projects::side_projects(side_projects) }
                 }
