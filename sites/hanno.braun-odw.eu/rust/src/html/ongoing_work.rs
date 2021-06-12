@@ -1,5 +1,5 @@
 use ssg::{
-    html::{syntax::*, model::Element, Content},
+    html::{syntax::*, Content, Element},
     Component,
 };
 
