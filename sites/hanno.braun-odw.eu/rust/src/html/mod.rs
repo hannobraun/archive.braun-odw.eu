@@ -19,31 +19,34 @@ pub fn build(
 ) -> Element {
     html! {
         html("lang"="en") {
-            head {
-                meta(
-                    "http-equiv"="Content-Type"
-                    "content"="text/html; charset=UTF-8"
-                ) {}
-                meta(
-                    "name"="viewport"
-                    "content"="width=device-width, initial-scale=1"
-                ) {}
-
-                title {
-                    "Hanno Braun"
-                }
-
-                { base_if_dev_mode(dev) }
-
-                link(
-                    "href"="style.css"
-                    "rel"="stylesheet"
-                    "type"="text/css"
-                    "media"="all"
-                ) {}
-            }
+            { site_head(dev) }
             { site_body(ongoing_work, side_projects) }
         }
+    }
+}
+
+#[derive(Component)]
+struct SiteHead {
+    dev: bool,
+}
+
+impl From<SiteHead> for Element {
+    fn from(site_head: SiteHead) -> Self {
+        head((
+            meta(())
+                .http_equiv("Content-Type")
+                .content("text/html; charset=UTF-8"),
+            meta(())
+                .name("viewport")
+                .content("width=device-width, initial-scale=1"),
+            title("Hanno Braun"),
+            base_if_dev_mode(site_head.dev),
+            link(())
+                .href("style.css")
+                .rel("stylesheet")
+                .type_("text/css")
+                .media("all"),
+        ))
     }
 }
 
