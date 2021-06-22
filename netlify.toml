@@ -84,3 +84,9 @@ from   = "https://www.hannobraun.de/*"
 to     = "https://hannobraun.de/:splat"
 status = 301
 force  = true
+
+[[redirects]]
+from   = "https://flott-motion.org/*"
+to     = "https://archive.braun-odw.eu/flott/:splat"
+status = 301
+force  = true
