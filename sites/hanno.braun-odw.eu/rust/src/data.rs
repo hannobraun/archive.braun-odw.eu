@@ -51,6 +51,17 @@ impl SideProjects {
     pub fn load() -> Self {
         Self(vec![
             SideProject {
+                title: "Fornjot: 3MF Export",
+                date: "2021-07-07",
+                description: p((
+                    p((
+                        util::ext_link("https://github.com/hannobraun/fornjot")
+                            .text("Fornjot"),
+                        ", the experimental programmatic CAD system can now export models to the 3MF format, making it possible to 3D-print Fornjot-modeled geometry. I also greatly improved the accuracy of the triangle mesh that is generated from the geometry for exporting and rendering.",
+                    )),
+                )).into(),
+            },
+            SideProject {
                 title: "hanno.braun-odw.eu",
                 date: "2021-06-12",
                 description: p((
