@@ -67,10 +67,7 @@ impl SideProjects {
                     p((
                         util::ext_link("https://github.com/hannobraun/fornjot")
                             .text("Fornjot"),
-                        " is an experimental programmatic CAD system. I've been working on multiple iterations of it over a few years, and this is the first public release.",
-                    )),
-                    p((
-                        "The goal for this first release was to build enough infrastructure to support ",
+                        " is an experimental programmatic CAD system. I've been working on multiple iterations of it over a few years, and this is the first public release. The goal for this first release was to build enough infrastructure to support ",
                         util::ext_link(
                             "https://github.com/hannobraun/fornjot/tree/main/models/spacer"
                         )
