@@ -39,7 +39,9 @@ pub async fn build_once(
             )
         })?;
     if let Some(html) = html {
-        html::build(output_dir, html).await?;
+        html::build(output_dir, html).await.with_context(|| {
+            format!("Failed to build HTML to `{}`", output_dir.display())
+        })?;
     }
     match sass::compile(&source_dir, &output_dir).await {
         Err(sass::Error::Parse(err)) => return Err(err)?,
