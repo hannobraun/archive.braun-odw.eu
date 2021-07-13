@@ -17,9 +17,11 @@ pub async fn copy(source_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         output_dir.display()
     );
 
-    let mut entries = walk_dir(source_dir, output_dir);
+    let mut entries = walk_dir(source_dir.clone(), output_dir);
     while let Some(entry) = entries.next().await {
-        let (source, output) = entry?;
+        let (source, output) = entry.with_context(|| {
+            format!("Error walking directory {}", source_dir.display())
+        })?;
 
         debug!("Copying `{}` to `{}`", source.display(), output.display());
 
