@@ -73,7 +73,7 @@ async fn build_all(args: Args) -> Result<(), Error> {
             )
         })?;
 
-        let current_dir = env::current_dir()?;
+        let old_current_dir = env::current_dir()?;
         let new_current_dir = path.join("rust");
         env::set_current_dir(new_current_dir)?;
 
@@ -94,7 +94,7 @@ async fn build_all(args: Args) -> Result<(), Error> {
             .await
             .context("Failed to run site builder")?;
 
-        env::set_current_dir(current_dir)?;
+        env::set_current_dir(old_current_dir)?;
 
         if !status.success() {
             error!("Failed to execute site builder. Status code: {}", status);
