@@ -74,7 +74,8 @@ async fn build_all(args: Args) -> Result<(), Error> {
         })?;
 
         let current_dir = env::current_dir()?;
-        env::set_current_dir(path.join("rust"))?;
+        let new_current_dir = path.join("rust");
+        env::set_current_dir(new_current_dir)?;
 
         let mut command = Command::new("cargo");
 
