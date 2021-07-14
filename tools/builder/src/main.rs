@@ -49,9 +49,18 @@ async fn build_continuously(args: Args) -> anyhow::Result<()> {
 }
 
 async fn build_all(args: Args) -> Result<(), Error> {
-    let mut entries = fs::read_dir(&args.source).await?;
+    let mut entries =
+        fs::read_dir(&args.source).await.map_err(|err| Error::Io {
+            source: err,
+            path: Some(args.source.clone()),
+        })?;
 
-    while let Some(entry) = entries.next_entry().await? {
+    while let Some(entry) =
+        entries.next_entry().await.map_err(|err| Error::Io {
+            source: err,
+            path: Some(args.source.clone()),
+        })?
+    {
         let path = entry.path();
 
         debug!("Building `{}`", path.display());
@@ -61,7 +70,12 @@ async fn build_all(args: Args) -> Result<(), Error> {
         }
 
         let output_dir = args.target.join(path.file_name().unwrap());
-        fs::create_dir_all(&output_dir).await?;
+        fs::create_dir_all(&output_dir)
+            .await
+            .map_err(|err| Error::Io {
+                source: err,
+                path: Some(output_dir.clone()),
+            })?;
 
         let source = path.canonicalize().with_context(|| {
             format!("Failed to canonicalize source path (`{}`)", path.display())
@@ -73,9 +87,13 @@ async fn build_all(args: Args) -> Result<(), Error> {
             )
         })?;
 
-        let old_current_dir = env::current_dir()?;
+        let old_current_dir =
+            env::current_dir().map_err(|err| Error::Io { source: err, path: None })?;
         let new_current_dir = path.join("rust");
-        env::set_current_dir(new_current_dir)?;
+        env::set_current_dir(&new_current_dir).map_err(|err| Error::Io {
+            source: err,
+            path: Some(new_current_dir),
+        })?;
 
         let mut command = Command::new("cargo");
 
@@ -94,7 +112,10 @@ async fn build_all(args: Args) -> Result<(), Error> {
             .await
             .context("Failed to run site builder")?;
 
-        env::set_current_dir(old_current_dir)?;
+        env::set_current_dir(&old_current_dir).map_err(|err| Error::Io {
+            source: err,
+            path: Some(old_current_dir),
+        })?;
 
         if !status.success() {
             error!("Failed to execute site builder. Status code: {}", status);

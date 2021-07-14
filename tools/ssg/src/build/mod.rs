@@ -68,7 +68,10 @@ async fn prepare_output_dir(path: &Path) -> anyhow::Result<()> {
 #[derive(Debug, Error)]
 pub enum Error {
     #[error("I/O error")]
-    Io(#[from] io::Error),
+    Io {
+        source: io::Error,
+        path: Option<PathBuf>,
+    },
 
     #[error("Found file in `sites/` directory")]
     InvalidSite(PathBuf),
