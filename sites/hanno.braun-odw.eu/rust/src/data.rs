@@ -20,7 +20,7 @@ impl OngoingWork {
             },
             OngoingWorkItem {
                 title: "Made by Hanno",
-                link: "https://madeby.hannobraun.de/",
+                link: "https://made-by.braun-odw.eu/",
                 description: p(
                     "I have a small workshop where I make semi-interesting stuff, mainly 3D-printed.",
                 ),
