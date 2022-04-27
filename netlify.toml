@@ -7,9 +7,9 @@ RUST_LOG = "info"
 
 
 [dev]
-command    = "cargo run --bin builder -- --dev"
+command = "cargo run --bin builder -- --dev"
 targetPort = 34480
-framework  = "#custom"
+framework = "#custom"
 
 
 # .well-known directory
@@ -18,10 +18,10 @@ framework  = "#custom"
 # process, as far as I can tell. This makes the .well-known directory work.
 
 [[redirects]]
-from   = "https://braun-odw.eu/.well-known/*"
-to     = "/well-known/:splat"
+from = "https://braun-odw.eu/.well-known/*"
+to = "/well-known/:splat"
 status = 200
-force  = true
+force = true
 
 [[headers]]
 for = "/.well-known/matrix/client"
@@ -32,61 +32,61 @@ Access-Control-Allow-Origin = "*"
 # Primary domains
 
 [[redirects]]
-from   = "https://hanno.braun-odw.eu/*"
-to     = "/hanno.braun-odw.eu/:splat"
+from = "https://hanno.braun-odw.eu/*"
+to = "/hanno.braun-odw.eu/:splat"
 status = 200
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://archive.braun-odw.eu/*"
-to     = "/archive.braun-odw.eu/:splat"
+from = "https://archive.braun-odw.eu/*"
+to = "/archive.braun-odw.eu/:splat"
 status = 200
-force  = true
+force = true
 
 
 # Secondary domains
 
 [[redirects]]
-from   = "https://braun-odw.eu/*"
-to     = "https://hanno.braun-odw.eu/:splat"
+from = "https://braun-odw.eu/*"
+to = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://www.braun-odw.eu/*"
-to     = "https://hanno.braun-odw.eu/:splat"
+from = "https://www.braun-odw.eu/*"
+to = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://braun-odw.netlify.app/*"
-to     = "https://hanno.braun-odw.eu/:splat"
+from = "https://braun-odw.netlify.app/*"
+to = "https://hanno.braun-odw.eu/:splat"
 status = 301
-force  = true
+force = true
 
 
 # Legacy domains
 
 [[redirects]]
-from   = "https://hannobraun.de/"
-to     = "https://hanno.braun-odw.eu/"
+from = "https://hannobraun.de/"
+to = "https://hanno.braun-odw.eu/"
 status = 301
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://hannobraun.de/*"
-to     = "https://archive.braun-odw.eu/:splat"
+from = "https://hannobraun.de/*"
+to = "https://archive.braun-odw.eu/:splat"
 status = 301
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://www.hannobraun.de/*"
-to     = "https://hannobraun.de/:splat"
+from = "https://www.hannobraun.de/*"
+to = "https://hannobraun.de/:splat"
 status = 301
-force  = true
+force = true
 
 [[redirects]]
-from   = "https://flott-motion.org/*"
-to     = "https://archive.braun-odw.eu/flott/:splat"
+from = "https://flott-motion.org/*"
+to = "https://archive.braun-odw.eu/flott/:splat"
 status = 301
-force  = true
+force = true
