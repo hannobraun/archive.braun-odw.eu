@@ -29,13 +29,7 @@ for = "/.well-known/matrix/client"
 Access-Control-Allow-Origin = "*"
 
 
-# Primary domains
-
-[[redirects]]
-from = "https://hanno.braun-odw.eu/*"
-to = "/hanno.braun-odw.eu/:splat"
-status = 200
-force = true
+# Domains
 
 [[redirects]]
 from = "https://archive.braun-odw.eu/*"
@@ -43,50 +37,8 @@ to = "/archive.braun-odw.eu/:splat"
 status = 200
 force = true
 
-
-# Secondary domains
-
-[[redirects]]
-from = "https://braun-odw.eu/*"
-to = "https://hanno.braun-odw.eu/:splat"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://www.braun-odw.eu/*"
-to = "https://hanno.braun-odw.eu/:splat"
-status = 301
-force = true
-
 [[redirects]]
 from = "https://braun-odw.netlify.app/*"
-to = "https://hanno.braun-odw.eu/:splat"
-status = 301
-force = true
-
-
-# Legacy domains
-
-[[redirects]]
-from = "https://hannobraun.de/"
-to = "https://hanno.braun-odw.eu/"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://hannobraun.de/*"
 to = "https://archive.braun-odw.eu/:splat"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://www.hannobraun.de/*"
-to = "https://hannobraun.de/:splat"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://flott-motion.org/*"
-to = "https://archive.braun-odw.eu/flott/:splat"
 status = 301
 force = true
