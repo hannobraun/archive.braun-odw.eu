@@ -1,15 +1,6 @@
 [build]
 publish = "public"
 
-
-# Domains
-
-[[redirects]]
-from = "https://archive.braun-odw.eu/*"
-to = "/archive.braun-odw.eu/:splat"
-status = 200
-force = true
-
 [[redirects]]
 from = "https://braun-odw.netlify.app/*"
 to = "https://archive.braun-odw.eu/:splat"
