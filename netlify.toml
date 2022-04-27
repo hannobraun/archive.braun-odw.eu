@@ -1,5 +1,5 @@
 [build]
-publish = "sites/archive.braun-odw.eu/static"
+publish = "public"
 
 
 # Domains
