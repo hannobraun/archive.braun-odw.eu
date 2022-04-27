@@ -12,23 +12,6 @@ targetPort = 34480
 framework = "#custom"
 
 
-# .well-known directory
-#
-# Netlify seems to filter any paths beginning with a "." during the deploy
-# process, as far as I can tell. This makes the .well-known directory work.
-
-[[redirects]]
-from = "https://braun-odw.eu/.well-known/*"
-to = "/well-known/:splat"
-status = 200
-force = true
-
-[[headers]]
-for = "/.well-known/matrix/client"
-[headers.values]
-Access-Control-Allow-Origin = "*"
-
-
 # Domains
 
 [[redirects]]
