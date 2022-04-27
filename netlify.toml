@@ -2,7 +2,7 @@
 publish = "public"
 
 [[redirects]]
-from = "https://braun-odw.netlify.app/*"
+from = "https://archive-braun-odw-eu.netlify.app/*"
 to = "https://archive.braun-odw.eu/:splat"
 status = 301
 force = true
