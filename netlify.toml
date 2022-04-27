@@ -1,15 +1,5 @@
 [build]
-publish = "output/"
-command = "cargo run --bin builder"
-
-[build.environment]
-RUST_LOG = "info"
-
-
-[dev]
-command = "cargo run --bin builder -- --dev"
-targetPort = 34480
-framework = "#custom"
+publish = "sites/archive.braun-odw.eu/static"
 
 
 # Domains
